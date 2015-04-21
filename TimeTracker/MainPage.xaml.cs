@@ -33,13 +33,32 @@ namespace TimeTracker
             if(!isTimerRunning){
                 startingTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970,1,1))).TotalSeconds;
                 isTimerRunning = true;
-                textBoxTime.Text = "START";
+                buttonStartRecording.Content = "Stop recording";
+                
             }else{
                 isTimerRunning = false;
                 endingTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                long dif = endingTime - startingTime;
-                textBoxTime.Text = "" + dif;
+                Int32 dif = endingTime - startingTime;
+                textBoxTime.Text = "" + getMinutes(dif) + ":" + getSeconds(dif);
             }
+        }
+
+        private String getMinutes(Int32 seconds){
+            Int32 result = seconds/60;
+            if (result < 10)
+            {
+                return "0" + result;
+            }
+            return "" + result;
+        }
+
+        private String getSeconds(Int32 seconds)
+        {
+            Int32 result = seconds % 60;
+            if(result < 10){
+                return "0" + result;
+            }
+            return "" + result;
         }
     }
 }
