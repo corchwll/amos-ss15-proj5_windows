@@ -15,15 +15,31 @@ namespace TimeTracker
 {
     public partial class MainPage : PhoneApplicationPage
     {
+
+        Boolean isTimerRunning = false;
+        Int32 startingTime;
+        Int32 endingTime;
+
         // Konstruktor
         public MainPage()
         {
+
             InitializeComponent();
         }
 
         private void startRecording_Click(object sender, RoutedEventArgs e)
         {
-            textBoxTime.Text = "CLICK";
+            
+            if(!isTimerRunning){
+                startingTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970,1,1))).TotalSeconds;
+                isTimerRunning = true;
+                textBoxTime.Text = "START";
+            }else{
+                isTimerRunning = false;
+                endingTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                long dif = endingTime - startingTime;
+                textBoxTime.Text = "" + dif;
+            }
         }
     }
 }
