@@ -20,8 +20,6 @@ namespace TimeTracker
         private DispatcherTimer dispatcherTimer;
         private Int32 totalSeconds;
         Boolean isTimerRunning = false;
-        Int32 startingTime;
-        Int32 endingTime;
 
         // Konstruktor
         public MainPage()
@@ -30,6 +28,7 @@ namespace TimeTracker
             InitTimer();
         }
 
+        //initialize the timer, set 1000ms as a tick interval and link the eventHandler
         private void InitTimer()
         {
             dispatcherTimer = new DispatcherTimer();
@@ -37,6 +36,7 @@ namespace TimeTracker
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
         }
 
+        //EventHandler for each timer tick. Updates the textBox with the current time passed
         void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             totalSeconds++;
@@ -44,24 +44,21 @@ namespace TimeTracker
 
         }
 
-        //called when start/stop recording is clicked to calculate the time the user is working on a project
+        //called when start/stop recording is clicked to start/stop the dispatcherTimer instance
         private void startRecording_Click(object sender, RoutedEventArgs e)
         {
-            //if the timer was not started yet, the starting time is saved and the button content is changed
+            //if the timer was not started yet it will get started and the button content will get changed
             if(!isTimerRunning){
                 totalSeconds = 0;
                 textBoxTime.Text = "00:00";
                 isTimerRunning = true;
                 dispatcherTimer.Start();
-                //startingTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970,1,1))).TotalSeconds;
                 buttonStartRecording.Content = "Stop recording";
             }
-            //if the timer is already running, the ending time is saved, the working time is calculated and
+            //if the timer is already running, it will get stopoped, the button content will get changed and
             //the output is showen in the UI
             else{
                 isTimerRunning = false;
-                //endingTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                //Int32 dif = endingTime - startingTime;
                 dispatcherTimer.Stop();
                 textBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
                 buttonStartRecording.Content = "Start recording";
@@ -89,11 +86,5 @@ namespace TimeTracker
             }
             return "" + result;
         }
-
-
-
-
-
-
     }
 }
