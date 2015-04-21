@@ -30,6 +30,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Button Content="Start Recording" Height="72" HorizontalAlignment="Left" Margin="0,521,0,0" Name="buttonStartRecording" VerticalAlignment="Top" Width="456" Click="startRecording_Click" />
             <TextBox Height="72" HorizontalAlignment="Left" Margin="170,99,0,0" Name="textBoxTime" Text="00:00" VerticalAlignment="Top" Width="111" />
+            
         </Grid>
     </Grid>
  
