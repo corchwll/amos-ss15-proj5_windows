@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+TimeTracker
+</name>
+</assembly>
+<members>
+<member name="M:TimeTracker.App.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="P:TimeTracker.App.RootFrame">
+	<summary>
+ Bietet einen einfachen Zugriff auf den Stammframe der Phone-Anwendung.
+ </summary>
+	<returns>Der Stammframe der Phone-Anwendung.</returns>
+</member><member name="M:TimeTracker.App.#ctor">
+	<summary>
+ Konstruktor für das Application-Objekt.
+ </summary>
+</member><member name="M:TimeTracker.MainPage.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member>
+</members>
+</doc>

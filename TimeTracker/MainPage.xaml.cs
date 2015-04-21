@@ -20,5 +20,10 @@ namespace TimeTracker
         {
             InitializeComponent();
         }
+
+        private void startRecording_Click(object sender, RoutedEventArgs e)
+        {
+            textBoxTime.Text = "CLICK";
+        }
     }
 }

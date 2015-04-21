@@ -17,6 +17,8 @@ namespace TimeTracker
 {
     public partial class App : Application
     {
+
+
         /// <summary>
         /// Bietet einen einfachen Zugriff auf den Stammframe der Phone-Anwendung.
         /// </summary>
