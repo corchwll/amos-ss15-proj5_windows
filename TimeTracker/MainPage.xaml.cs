@@ -131,6 +131,12 @@ namespace TimeTracker
         }
 
         #endregion
+
+        public void createNewSessionItem(string projectId, int timestampStart, int timestampStop)
+        {
+            SessionItem newSession = new SessionItem { ProjectId = projectId, TimestampStart = timestampStart, TimestampStop = timestampStop};
+            sessionDB.sessionItems.InsertOnSubmit(newSession);
+        }
     }
 
     public class SessionDataContext : DataContext
