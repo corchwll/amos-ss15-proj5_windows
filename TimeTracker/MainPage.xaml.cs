@@ -12,20 +12,51 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 
+
+using System.Linq;
+using System.Data.Linq.Mapping;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Data.Linq;
+
 namespace TimeTracker
 {
 
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : PhoneApplicationPage, INotifyPropertyChanged
     {
         private DispatcherTimer dispatcherTimer;
         private Int32 totalSeconds;
         Boolean isTimerRunning = false;
+
+
+        private SessionDataContext sessionDB;
+
+        private ObservableCollection<SessionItem> _sessionItems;
+        public ObservableCollection<SessionItem> SessionItem
+        {
+            get
+            {
+                return _sessionItems;
+            }
+            set
+            {
+                if (_sessionItems != value)
+                {
+                    _sessionItems = value;
+                    NotifyPropertyChanged("SessionItems");
+                }
+            }
+        }
 
         // Konstruktor
         public MainPage()
         {
             InitializeComponent();
             InitTimer();
+
+            sessionDB = new SessionDataContext(SessionDataContext.DBConnectionString);
+
+            this.DataContext = this;
         }
 
         //initialize the timer, set 1000ms as a tick interval and link the eventHandler
@@ -86,5 +117,30 @@ namespace TimeTracker
             }
             return "" + result;
         }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+    }
+
+    public class SessionDataContext : DataContext
+    {
+        public static string DBConnectionString = "Data Source=isostore:Session.sdf";
+
+
+        public SessionDataContext(string connectionString) : base(connectionString)
+        { }
+
+        public Table<SessionItem> sessionItems;
     }
 }
