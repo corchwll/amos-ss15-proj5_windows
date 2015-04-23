@@ -13,9 +13,8 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-using System.Data.Linq.Mapping;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
+
 
 namespace TimeTracker
 {
@@ -67,7 +66,10 @@ namespace TimeTracker
             {
                 if (db.DatabaseExists() == false)
                 {
+                    Debug.WriteLine("Database created");
                     db.CreateDatabase();
+
+                    
                 }
             }
 

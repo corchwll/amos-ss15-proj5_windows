@@ -59,8 +59,17 @@ namespace TimeTracker
             InitTimer();
 
             sessionDB = new SessionDataContext(SessionDataContext.DBConnectionString);
+            
 
             this.DataContext = this;
+
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            var sessionItemsInDB = from SessionItem todo in sessionDB.SessionItems select todo;
+            SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
+            base.OnNavigatedTo(e);
         }
 
         //initialize the timer, set 1000ms as a tick interval and link the eventHandler
@@ -159,7 +168,6 @@ namespace TimeTracker
         {
             SessionItem newSession = new SessionItem { ProjectId = projectId, TimestampStart = timestampStart, TimestampStop = timestampStop};
             SessionItems.Add(newSession);
-            //sessionDB.GetTable<SessionItem>().Attach(newSession, true);
             sessionDB.SessionItems.InsertOnSubmit(newSession);
         }
 
@@ -170,21 +178,18 @@ namespace TimeTracker
 
         private void testQueryDatabase()
         {
-            //var sessionItemsInDB = from SessionItem todo in sessionDB.SessionItems select todo;
-            //SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
-            //foreach (var item in SessionItems)
-            //{
-            //    Debug.WriteLine(item.TimestampStart);
-            //}
-
-            Debug.WriteLine(sessionDB.GetTable<SessionItem>().Count());
-
+            var sessionItemsInDB = from SessionItem todo in sessionDB.SessionItems select todo;
+            SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
+            foreach (var item in SessionItems)
+            {
+                Debug.WriteLine(item.TimestampStart);
+            }
         }
     }
 
     public class SessionDataContext : DataContext
     {
-        public static string DBConnectionString = "Data Source=isostore:Session.sdf";
+        public static string DBConnectionString = "Data Source=isostore:/Session.sdf";
 
 
         public SessionDataContext(string connectionString) : base(connectionString)
@@ -198,7 +203,7 @@ namespace TimeTracker
     {
         private int _sessionItemId;
 
-        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identify", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public int SessionItemId
         {
             get
@@ -219,6 +224,7 @@ namespace TimeTracker
 
 
         private int _timestampStart;
+
         [Column]
         public int TimestampStart
         {
@@ -257,6 +263,7 @@ namespace TimeTracker
         }
 
         private string _projectId;
+        
         [Column]
         public string ProjectId
         {

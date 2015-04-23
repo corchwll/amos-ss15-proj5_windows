@@ -1,0 +1,12 @@
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\Bin\Release\ApplicationIcon.png
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\Bin\Release\Background.png
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\Bin\Release\TimeTracker.dll
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\Bin\Release\TimeTracker.pdb
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\Bin\Release\AppManifest.xaml
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\Bin\Release\TimeTracker.xap
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\obj\Release\App.g.i.cs
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\obj\Release\MainPage.g.i.cs
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\obj\Release\TimeTracker.g.resources
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\obj\Release\TimeTracker.dll
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\obj\Release\TimeTracker.pdb
+C:\Users\Joachim\Documents\Visual Studio 2010\Projects\TimeTracker\TimeTracker\obj\Release\XapCacheFile.xml
