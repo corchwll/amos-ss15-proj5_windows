@@ -27,7 +27,7 @@ namespace TimeTracker
     {
         private DispatcherTimer dispatcherTimer;
         private Int32 totalSeconds;
-        Boolean isTimerRunning = false;
+        private Boolean isTimerRunning = false;
 
         private int currentTimestampStart;
         private int currentTimestampStop;
@@ -35,7 +35,7 @@ namespace TimeTracker
         private string currentProjectId;
 
 
-        private SessionDataContext sessionDB;
+        private LocalDataContext localDB;
 
         private ObservableCollection<ProjectItem> _projectItems;
         public ObservableCollection<ProjectItem> ProjectItems
@@ -71,28 +71,33 @@ namespace TimeTracker
             }
         }
 
+        #region Page Lifecycle Methods
+
         // Konstruktor
         public MainPage()
         {
             InitializeComponent();
             InitTimer();
 
-            sessionDB = new SessionDataContext(SessionDataContext.DBConnectionString);
-            
-
+            //local
+            localDB = new LocalDataContext(LocalDataContext.DBConnectionString);
             this.DataContext = this;
 
         }
 
+        //OnNavigateTo is called when the page is showen as the app launches
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            var sessionItemsInDB = from SessionItem todo in sessionDB.SessionItems select todo;
-            var projectItemsInDB = from ProjectItem todo in sessionDB.ProjectItems select todo;
+            var sessionItemsInDB = from SessionItem todo in localDB.SessionItems select todo;
+            var projectItemsInDB = from ProjectItem todo in localDB.ProjectItems select todo;
 
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
             ProjectItems = new ObservableCollection<ProjectItem>(projectItemsInDB);
             base.OnNavigatedTo(e);
         }
+
+        #endregion
+
 
         //initialize the timer, set 1000ms as a tick interval and link the eventHandler
         private void InitTimer()
@@ -108,7 +113,11 @@ namespace TimeTracker
             totalSeconds++;
             textBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
 
-        } 
+        }
+
+        //following methods build the callback functionalities of the buttons
+        //implemented in the UI
+        #region Clicklisteners
 
         private void startRecordingProject_Click(object sender, RoutedEventArgs e)
         {
@@ -141,19 +150,7 @@ namespace TimeTracker
                     createNewSessionItem(currentProjectId, currentTimestampStart, currentTimestampStop);
                     saveChangesToDatabase();
                 }
-
-                
             }
-        }
-
-        private void saveData_Click(object sender, RoutedEventArgs e)
-        {
-            saveChangesToDatabase();
-        }
-
-        private void queryData_Click(object sender, RoutedEventArgs e)
-        {
-            testQueryDatabase();
         }
 
         private void newProject_Click(object sender, RoutedEventArgs e)
@@ -161,7 +158,15 @@ namespace TimeTracker
             createNewProjectItem(newProjectIdTextBox.Text, newProjectNameTextBox.Text);
         }
 
+        private void queryData_Click(object sender, RoutedEventArgs e)
+        {
+            testQueryDatabase();
+        }
 
+        #endregion
+
+        //following methods provide functionalities to make small calculations
+        #region Utils
         //returns the amount of minutes of a total amount of seconds as a 2 digits String
         //example 65 -> "01",  620 -> "10"
         private String getMinutes(Int32 seconds){
@@ -189,6 +194,10 @@ namespace TimeTracker
             return (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
         }
 
+        #endregion
+
+        //following methods provide functionalities to bind the UI elements to the data 
+        //stored in the database
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -203,21 +212,33 @@ namespace TimeTracker
 
         #endregion
 
+
+        //following methods provide functionalities to manipulate the local database
+        //as creating new session or project items and save them to the database
+        #region Database interactions
+
         public void createNewSessionItem(string projectId, int timestampStart, int timestampStop)
         {
             SessionItem newSession = new SessionItem { ProjectId = projectId, TimestampStart = timestampStart, TimestampStop = timestampStop};
             SessionItems.Add(newSession);
-            sessionDB.SessionItems.InsertOnSubmit(newSession);
+            localDB.SessionItems.InsertOnSubmit(newSession);
         }
 
-        public void saveChangesToDatabase()
+        private void createNewProjectItem(string projectId, string projectName)
         {
-            sessionDB.SubmitChanges();
+            ProjectItem newProject = new ProjectItem { ProjectId = projectId, ProjectName = projectName };
+            ProjectItems.Add(newProject);
+            localDB.ProjectItems.InsertOnSubmit(newProject);
+        }
+
+        private void saveChangesToDatabase()
+        {
+            localDB.SubmitChanges();
         }
 
         private void testQueryDatabase()
         {
-            var sessionItemsInDB = from SessionItem todo in sessionDB.SessionItems select todo;
+            var sessionItemsInDB = from SessionItem todo in localDB.SessionItems select todo;
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
             foreach (var item in SessionItems)
             {
@@ -225,20 +246,18 @@ namespace TimeTracker
             }
         }
 
-        public void createNewProjectItem(string projectId, string projectName)
-        {
-            ProjectItem newProject = new ProjectItem { ProjectId = projectId, ProjectName = projectName };
-            ProjectItems.Add(newProject);
-            sessionDB.ProjectItems.InsertOnSubmit(newProject);
-        }
+        #endregion
     }
 
-    public class SessionDataContext : DataContext
+
+    //The instance of this class creates a connection to the local database
+    //and provides the relevant table properties to manioukate the database
+    public class LocalDataContext : DataContext
     {
         public static string DBConnectionString = "Data Source=isostore:/Session.sdf";
 
 
-        public SessionDataContext(string connectionString) : base(connectionString)
+        public LocalDataContext(string connectionString) : base(connectionString)
         { }
 
         public Table<SessionItem> SessionItems;
@@ -248,117 +267,5 @@ namespace TimeTracker
 
 
 
-    [Table]
-    public class SessionItem : INotifyPropertyChanged, INotifyPropertyChanging
-    {
-        private int _sessionItemId;
-
-        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public int SessionItemId
-        {
-            get
-            {
-                return _sessionItemId;
-            }
-            set
-            {
-                if (_sessionItemId != value)
-                {
-                    NotifyPropertyChanging("SessionItemId");
-                    _sessionItemId = value;
-                    NotifyPropertyChanged("SessionItemId");
-                }
-            }
-        }
-
-
-
-        private int _timestampStart;
-
-        [Column]
-        public int TimestampStart
-        {
-            get
-            {
-                return _timestampStart;
-            }
-            set
-            {
-                if (_timestampStart != value)
-                {
-                    NotifyPropertyChanging("TimestampStart");
-                    _timestampStart = value;
-                    NotifyPropertyChanged("TimestampStart");
-                }
-            }
-        }
-
-        private int _timestampStop;
-        [Column]
-        public int TimestampStop
-        {
-            get
-            {
-                return _timestampStop;
-            }
-            set
-            {
-                if (_timestampStop != value)
-                {
-                    NotifyPropertyChanging("TimestampStop");
-                    _timestampStop = value;
-                    NotifyPropertyChanged("TimestampStop");
-                }
-            }
-        }
-
-        private string _projectId;
-        
-        [Column]
-        public string ProjectId
-        {
-            get
-            {
-                return _projectId;
-            }
-            set
-            {
-                if (_projectId != value)
-                {
-                    NotifyPropertyChanging("ProjectId");
-                    _projectId = value;
-                    NotifyPropertyChanged("ProjectId");
-
-                }
-            }
-        }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanging Members
-
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        private void NotifyPropertyChanging(string propertyName)
-        {
-            if (PropertyChanging != null)
-            {
-                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
-            }
-        }
-
-        #endregion
-    }
+    
 }

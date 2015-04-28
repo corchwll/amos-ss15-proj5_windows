@@ -62,7 +62,7 @@ namespace TimeTracker
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            using (SessionDataContext db = new SessionDataContext(SessionDataContext.DBConnectionString))
+            using (LocalDataContext db = new LocalDataContext(LocalDataContext.DBConnectionString))
             {
                 if (db.DatabaseExists() == false)
                 {
