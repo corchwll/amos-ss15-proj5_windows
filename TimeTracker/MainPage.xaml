@@ -41,7 +41,7 @@
                             </Grid.ColumnDefinitions>
           
                             <TextBlock
-                                Text="{Binding projectName}"
+                                Text="{Binding ProjectName}"
                                 FontSize="{StaticResource PhoneFontSizeLarge}"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"/>

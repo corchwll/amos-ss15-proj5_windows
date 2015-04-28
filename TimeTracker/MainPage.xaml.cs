@@ -85,9 +85,10 @@ namespace TimeTracker
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             var sessionItemsInDB = from SessionItem todo in sessionDB.SessionItems select todo;
+            var projectItemsInDB = from ProjectItem todo in sessionDB.ProjectItems select todo;
 
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
-            //ProjectItems = new ObservableCollection<ProjectItem>(sessionItemsInDB);
+            ProjectItems = new ObservableCollection<ProjectItem>(projectItemsInDB);
             base.OnNavigatedTo(e);
         }
 
