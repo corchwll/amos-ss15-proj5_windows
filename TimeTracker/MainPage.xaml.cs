@@ -35,6 +35,23 @@ namespace TimeTracker
 
         private SessionDataContext sessionDB;
 
+        private ObservableCollection<ProjectItem> _projectItems;
+        public ObservableCollection<ProjectItem> ProjectItems
+        {
+            get
+            {
+                return _projectItems;
+            }
+            set
+            {
+                if (_projectItems != value)
+                {
+                    _projectItems = value;
+                    NotifyPropertyChanged("ProjectItems");
+                }
+            }
+        }
+
         private ObservableCollection<SessionItem> _sessionItems;
         public ObservableCollection<SessionItem> SessionItems
         {
@@ -185,6 +202,13 @@ namespace TimeTracker
                 Debug.WriteLine(item.TimestampStart);
             }
         }
+
+        public void createNewProjectItem(string projectName)
+        {
+            ProjectItem newProject = new ProjectItem { ProjectName = projectName };
+            ProjectItems.Add(newProject);
+            sessionDB.ProjectItems.InsertOnSubmit(newProject);
+        }
     }
 
     public class SessionDataContext : DataContext
@@ -196,6 +220,81 @@ namespace TimeTracker
         { }
 
         public Table<SessionItem> SessionItems;
+
+        public Table<ProjectItem> ProjectItems;
+    }
+
+
+    [Table]
+    public class ProjectItem : INotifyPropertyChanged, INotifyPropertyChanging
+    {
+        private int _projectItemId;
+
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int ProjectItemId
+        {
+            get
+            {
+                return _projectItemId;
+            }
+            set
+            {
+                if (_projectItemId != value)
+                {
+                    NotifyPropertyChanging("ProjectItemId");
+                    _projectItemId = value;
+                    NotifyPropertyChanged("ProjectItemId");
+                }
+            }
+        }
+
+        private string _projectName;
+
+        [Column]
+        public string ProjectName
+        {
+            get
+            {
+                return _projectName;
+            }
+            set
+            {
+                if (_projectName != value)
+                {
+                    NotifyPropertyChanging("ProjectName");
+                    _projectName = value;
+                    NotifyPropertyChanged("ProjectName");
+                }
+            }
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanging Members
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        private void NotifyPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        #endregion
     }
 
     [Table]
