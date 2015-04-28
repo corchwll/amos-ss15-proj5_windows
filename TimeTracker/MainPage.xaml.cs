@@ -31,6 +31,8 @@ namespace TimeTracker
 
         private int currentTimestampStart;
         private int currentTimestampStop;
+        private string currentProjectName;
+        private string currentProjectId;
 
 
         private SessionDataContext sessionDB;
@@ -106,29 +108,41 @@ namespace TimeTracker
             totalSeconds++;
             textBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
 
-        }
+        } 
 
-        //called when start/stop recording is clicked to start/stop the dispatcherTimer instance
-        private void startRecording_Click(object sender, RoutedEventArgs e)
+        private void startRecordingProject_Click(object sender, RoutedEventArgs e)
         {
-            //if the timer was not started yet it will get started and the button content will get changed
-            if(!isTimerRunning){
-                currentTimestampStart = getUnixTimestamp();
-                totalSeconds = 0;
-                textBoxTime.Text = "00:00";
-                isTimerRunning = true;
-                dispatcherTimer.Start();
-                buttonStartRecording.Content = "Stop recording";
-            }
-            //if the timer is already running, it will get stopoped, the button content will get changed and
-            //the output is showen in the UI
-            else{
-                currentTimestampStop = getUnixTimestamp();
-                isTimerRunning = false;
-                dispatcherTimer.Stop();
-                textBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
-                buttonStartRecording.Content = "Start recording";
-                createNewSessionItem("projectX", currentTimestampStart, currentTimestampStop);
+            var button = sender as Button;
+            if (button != null)
+            {
+                if (!isTimerRunning)
+                {
+                    currentTimestampStart = getUnixTimestamp();
+                    totalSeconds = 0;
+                    textBoxTime.Text = "00:00";
+                    isTimerRunning = true;
+                    dispatcherTimer.Start();
+                    button.Content = "stop";
+                    ProjectItem projectItem = button.DataContext as ProjectItem;
+                    currentProjectId = projectItem.ProjectId;
+                    
+                    currentProjectName = projectItem.ProjectName;
+                }
+                //if the timer is already running, it will get stopoped, the button content will get changed and
+                //the output is showen in the UI
+                else
+                {
+                    currentTimestampStop = getUnixTimestamp();
+                    isTimerRunning = false;
+                    dispatcherTimer.Stop();
+                    totalSeconds = currentTimestampStop - currentTimestampStart;
+                    textBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
+                    button.Content = "start";
+                    createNewSessionItem(currentProjectId, currentTimestampStart, currentTimestampStop);
+                    saveChangesToDatabase();
+                }
+
+                
             }
         }
 
@@ -144,7 +158,7 @@ namespace TimeTracker
 
         private void newProject_Click(object sender, RoutedEventArgs e)
         {
-            createNewProjectItem(newProjectTextBox.Text);
+            createNewProjectItem(newProjectIdTextBox.Text, newProjectNameTextBox.Text);
         }
 
 
@@ -207,13 +221,13 @@ namespace TimeTracker
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
             foreach (var item in SessionItems)
             {
-                Debug.WriteLine(item.TimestampStart);
+                Debug.WriteLine("Session No. " + item.SessionItemId + " on project " + item.ProjectId + " with total amount of " + getMinutes(item.TimestampStop - item.TimestampStart) + ":" + getSeconds(item.TimestampStop - item.TimestampStart));
             }
         }
 
-        public void createNewProjectItem(string projectName)
+        public void createNewProjectItem(string projectId, string projectName)
         {
-            ProjectItem newProject = new ProjectItem { ProjectName = projectName };
+            ProjectItem newProject = new ProjectItem { ProjectId = projectId, ProjectName = projectName };
             ProjectItems.Add(newProject);
             sessionDB.ProjectItems.InsertOnSubmit(newProject);
         }
@@ -255,6 +269,26 @@ namespace TimeTracker
                 }
             }
         }
+
+        private string _projectId;
+
+        public string ProjectId
+        {
+            get
+            {
+                return _projectId;
+            }
+            set
+            {
+                if (_projectId != value)
+                {
+                    NotifyPropertyChanging("ProjectId");
+                    _projectId = value;
+                    NotifyPropertyChanged("ProjectId");
+                }
+            }
+        }
+
 
         private string _projectName;
 
