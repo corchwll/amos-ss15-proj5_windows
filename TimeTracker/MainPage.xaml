@@ -50,6 +50,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
+            
             <Button Content="Start Recording" Height="72" HorizontalAlignment="Left" Margin="0,454,0,0" Name="buttonStartRecording" VerticalAlignment="Top" Width="456" Click="startRecording_Click" />
             <TextBox Height="72" HorizontalAlignment="Left" Margin="12,376,0,0" Name="textBoxTime" Text="00:00" VerticalAlignment="Top" Width="438" />
             <Button Content="SaveData" Height="72" HorizontalAlignment="Left" Margin="6,573,0,0" Name="buttonSaveData" VerticalAlignment="Top" Width="220" Click="saveData_Click"/>
