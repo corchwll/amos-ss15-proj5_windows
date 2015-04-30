@@ -11,3 +11,8 @@ C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\o
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\obj\Debug\TimeTracker.pdb
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\obj\Debug\XapCacheFile.xml
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\obj\Debug\EditProjectPage.g.i.cs
+C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.dll
+C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.dll
+C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.pdb
+C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.xml
+C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.xml
