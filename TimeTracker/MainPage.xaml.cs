@@ -94,6 +94,23 @@ namespace TimeTracker
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
             ProjectItems = new ObservableCollection<ProjectItem>(projectItemsInDB);
             base.OnNavigatedTo(e);
+
+
+            string start = "";
+            string end = "";
+            string id = "";
+
+            if (NavigationContext.QueryString.TryGetValue("start", out start))
+            {
+                NavigationContext.QueryString.TryGetValue("end", out end);
+
+                int startConverted = Int32.Parse(start);
+                int endConverted = Int32.Parse(end);
+                NavigationContext.QueryString.TryGetValue("id", out id);
+                createNewSessionItem(id, startConverted, endConverted);
+
+            }
+           
         }
 
         #endregion
@@ -231,6 +248,7 @@ namespace TimeTracker
             SessionItem newSession = new SessionItem { ProjectId = projectId, TimestampStart = timestampStart, TimestampStop = timestampStop};
             SessionItems.Add(newSession);
             localDB.SessionItems.InsertOnSubmit(newSession);
+            saveChangesToDatabase();
         }
 
         private void createNewProjectItem(string projectId, string projectName)
@@ -238,6 +256,7 @@ namespace TimeTracker
             ProjectItem newProject = new ProjectItem { ProjectId = projectId, ProjectName = projectName };
             ProjectItems.Add(newProject);
             localDB.ProjectItems.InsertOnSubmit(newProject);
+            saveChangesToDatabase();
         }
 
         private void saveChangesToDatabase()

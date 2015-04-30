@@ -17,6 +17,7 @@ namespace TimeTracker
 {
     public partial class EditProjectPage : PhoneApplicationPage
     {
+        string _projectId;
         public EditProjectPage()
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace TimeTracker
             if (NavigationContext.QueryString.TryGetValue("id", out id))
             {
                 ProjectName.Text = id;
+                _projectId = id;
             }
         }
 
@@ -46,10 +48,11 @@ namespace TimeTracker
             TimeSpan startingTime = Startingtime.Value.Value.TimeOfDay;
             TimeSpan endingTime = EndingTime.Value.Value.TimeOfDay;
             int timestampStart = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + startingTime.TotalSeconds);
-            int timestampEnd = (int)(((date.Ticks - epochTicks/TimeSpan.TicksPerSecond)) + endingTime.TotalSeconds);
-            Debug.WriteLine("timestamp start: " + timestampStart);
-        }
-    }
+            int timestampEnd = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + endingTime.TotalSeconds);
 
-    
+            NavigationService.Navigate(new Uri("/MainPage.xaml?start=" + timestampStart + "&" + "end=" + timestampEnd + "&" + "id=" + _projectId, UriKind.Relative));
+
+            
+        }
+    }   
 }
