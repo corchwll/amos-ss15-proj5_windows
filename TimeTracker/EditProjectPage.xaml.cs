@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
+using System.Diagnostics;
+
 namespace TimeTracker
 {
     public partial class EditProjectPage : PhoneApplicationPage
@@ -34,10 +36,18 @@ namespace TimeTracker
 
         private void onCancel_Click(object sender, RoutedEventArgs e)
         {
+            NavigationService.GoBack();
         }
 
         private void onSave_Click(object sender, RoutedEventArgs e)
         {
+            long epochTicks = new DateTime(1970, 1, 1).Ticks;
+            DateTime date = WorkingDate.Value.Value.Date;
+            TimeSpan startingTime = Startingtime.Value.Value.TimeOfDay;
+            TimeSpan endingTime = EndingTime.Value.Value.TimeOfDay;
+            int timestampStart = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + startingTime.TotalSeconds);
+            int timestampEnd = (int)(((date.Ticks - epochTicks/TimeSpan.TicksPerSecond)) + endingTime.TotalSeconds);
+            Debug.WriteLine("timestamp start: " + timestampStart);
         }
     }
 
