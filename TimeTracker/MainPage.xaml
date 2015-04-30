@@ -38,6 +38,7 @@
                                 <ColumnDefinition Width="50" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
           
                             <TextBlock
@@ -49,10 +50,12 @@
                                 Click="editProject_Click"
                                 Grid.Column="2"
                                 Content="Edit"
+                                
                                 />
                             <Button
                                 Click="startRecordingProject_Click"
                                 Grid.Column="3"
+                                Name="buttonStartStopRecording"
                                 Content="Start"
                                 />
                             

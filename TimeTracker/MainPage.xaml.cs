@@ -165,6 +165,11 @@ namespace TimeTracker
 
         private void editProject_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            ProjectItem projectItem = button.DataContext as ProjectItem;
+            string projectId = projectItem.ProjectId;
+            string projectName = projectItem.ProjectName;
+            NavigationService.Navigate(new Uri("/EditProjectPage.xaml?id="+projectId, UriKind.Relative));
         }
 
         #endregion
