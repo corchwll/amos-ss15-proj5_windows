@@ -41,7 +41,6 @@ namespace TimeTracker
         }
 
 
-
         private int _timestampStart;
 
         [Column]

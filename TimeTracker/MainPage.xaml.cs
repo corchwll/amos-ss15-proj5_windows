@@ -163,6 +163,10 @@ namespace TimeTracker
             testQueryDatabase();
         }
 
+        private void editProject_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
         #endregion
 
         //following methods provide functionalities to make small calculations

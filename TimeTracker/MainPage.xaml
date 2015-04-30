@@ -46,8 +46,13 @@
                                 Grid.Column="1"
                                 VerticalAlignment="Center"/>
                             <Button
-                                Click="startRecordingProject_Click"
+                                Click="editProject_Click"
                                 Grid.Column="2"
+                                Content="Edit"
+                                />
+                            <Button
+                                Click="startRecordingProject_Click"
+                                Grid.Column="3"
                                 Content="Start"
                                 />
                             

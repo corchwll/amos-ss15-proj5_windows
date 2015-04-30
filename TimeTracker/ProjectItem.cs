@@ -9,8 +9,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-
-
 using System.Data.Linq.Mapping;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
