@@ -130,6 +130,7 @@ namespace TimeTracker
 
             if (!userExists())
             {
+                NavigationService.Navigate(new Uri("/RegistrationPage.xaml", UriKind.Relative));
             }
            
         }

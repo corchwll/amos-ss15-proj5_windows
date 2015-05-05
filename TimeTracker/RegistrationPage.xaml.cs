@@ -35,6 +35,16 @@ namespace TimeTracker
             String vacationDays = textBoxVacation.Text;
             String currentVacation = textBoxCurrentVacation.Text;
 
+            NavigationService.Navigate(new Uri("/MainPage.xaml?"
+                + "name=" + name
+                + "&" + "surname=" + surname
+                + "&" + "personalId=" + personalId
+                + "&" + "workingTime=" + workingTime
+                + "&" + "overtime=" + overtime
+                + "&" + "vacationDays=" + vacationDays
+                + "&" + "currentVacation=" + currentVacation
+                , UriKind.Relative));
+
         }
         
     }

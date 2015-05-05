@@ -29,7 +29,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBox Height="72" HorizontalAlignment="Left" Margin="140,0,0,0" Name="textBoxName" Text="" VerticalAlignment="Top" Width="328" TextChanged="textBoxName_TextChanged" />
             <TextBox Height="72" HorizontalAlignment="Left" Margin="141,57,0,0" Name="textBoxSurname" Text="" VerticalAlignment="Top" Width="328" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="6,57,0,0" Name="textBlock1" Text="Surname" VerticalAlignment="Top" Width="193" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,57,0,0" Name="textBlock1" Text="Surname" VerticalAlignment="Top" Width="193" />
             <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,6,0,0" Name="textBlock2" Text="Name" VerticalAlignment="Top" Width="193" />
             <TextBox Height="72" HorizontalAlignment="Left" Margin="141,114,0,0" Name="textBoxPersonalID" Text="" VerticalAlignment="Top" Width="328" />
             <TextBox Height="72" HorizontalAlignment="Left" Margin="141,171,0,0" Name="textBoxHoursWeek" Text="" VerticalAlignment="Top" Width="328" />
@@ -42,7 +42,7 @@
             <TextBox Height="72" HorizontalAlignment="Left" Margin="141,344,0,0" Name="textBoxCurrentVacation" Text="" VerticalAlignment="Top" Width="328" />
             <TextBlock Height="72" HorizontalAlignment="Left" Margin="6,344,0,0" Name="textBlock7" Text="Current" VerticalAlignment="Top" Width="193" />
             <TextBlock Height="72" HorizontalAlignment="Left" Margin="22,375,0,0" Name="textBlock8" Text="vacation days" VerticalAlignment="Top" Width="193" />
-            <Button Content="Register" Height="72" HorizontalAlignment="Left" Margin="171,520,0,0" Name="buttonRegister" VerticalAlignment="Top" Width="160" />
+            <Button Content="Register" Height="72" HorizontalAlignment="Left" Margin="171,520,0,0" Name="buttonRegister" VerticalAlignment="Top" Width="160" Click="registrated_Click"/>
         </Grid>
     </Grid>
  

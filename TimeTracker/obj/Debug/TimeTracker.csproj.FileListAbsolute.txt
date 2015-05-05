@@ -16,3 +16,4 @@ C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\B
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.pdb
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.xml
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.xml
+C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\obj\Debug\RegistrationPage.g.i.cs
