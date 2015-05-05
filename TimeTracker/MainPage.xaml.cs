@@ -106,9 +106,11 @@ namespace TimeTracker
         {
             var sessionItemsInDB = from SessionItem todo in localDB.SessionItems select todo;
             var projectItemsInDB = from ProjectItem todo in localDB.ProjectItems select todo;
+            var userItemsInDB = from UserItem todo in localDB.UserItems select todo;
 
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
             ProjectItems = new ObservableCollection<ProjectItem>(projectItemsInDB);
+            UserItems = new ObservableCollection<UserItem>(userItemsInDB);
             base.OnNavigatedTo(e);
 
 
@@ -153,6 +155,7 @@ namespace TimeTracker
                 string currentVacationString = "";
                 NavigationContext.QueryString.TryGetValue("workingTime", out currentVacationString);
                 int currentVacation = Int32.Parse(currentVacationString);
+                createNewUserItem(name, surname, personalId, workingTime, overtime, vacationDays, currentVacation);
 
             }
             else if (!userExists())
