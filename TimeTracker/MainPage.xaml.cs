@@ -127,8 +127,35 @@ namespace TimeTracker
 
             }
 
+            string name = "";
+            if (NavigationContext.QueryString.TryGetValue("name", out name))
+            {
 
-            if (!userExists())
+                string surname = "";
+                NavigationContext.QueryString.TryGetValue("surname", out surname);
+
+                string personalId = "";
+                NavigationContext.QueryString.TryGetValue("personalId", out personalId);
+
+                string workingTimeString = "";
+                NavigationContext.QueryString.TryGetValue("workingTime", out workingTimeString);
+                int workingTime = Int32.Parse(workingTimeString);
+
+
+                string overtimeString = "";
+                NavigationContext.QueryString.TryGetValue("workingTime", out overtimeString);
+                int overtime = Int32.Parse(overtimeString);
+
+                string vacationDaysString = "";
+                NavigationContext.QueryString.TryGetValue("workingTime", out vacationDaysString);
+                int vacationDays = Int32.Parse(vacationDaysString);
+
+                string currentVacationString = "";
+                NavigationContext.QueryString.TryGetValue("workingTime", out currentVacationString);
+                int currentVacation = Int32.Parse(currentVacationString);
+
+            }
+            else if (!userExists())
             {
                 NavigationService.Navigate(new Uri("/RegistrationPage.xaml", UriKind.Relative));
             }
@@ -281,6 +308,25 @@ namespace TimeTracker
             saveChangesToDatabase();
         }
 
+        private void createNewUserItem(string name, string surname, string personalId, int workingtime, int overtime, int vacationDays, int currentVacation)
+        {
+            UserItem newUser = new UserItem {
+                Name = name,
+                Surname = surname,
+                PersonalId = personalId,
+                WorkingTime = workingtime,
+                OverTime = overtime,
+                VacationDays = vacationDays,
+                CurrentVacationDays = currentVacation
+            
+            };
+
+            UserItems.Add(newUser);
+            localDB.UserItems.InsertOnSubmit(newUser);
+            saveChangesToDatabase();
+        }
+
+
         private void saveChangesToDatabase()
         {
             localDB.SubmitChanges();
@@ -303,6 +349,8 @@ namespace TimeTracker
             int i = 0;
             foreach (var item in UserItems)
             {
+                Debug.WriteLine("User name" + item.Name);
+            
                 i++;
             }
 
