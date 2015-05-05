@@ -19,5 +19,23 @@ namespace TimeTracker
         {
             InitializeComponent();
         }
+
+        private void textBoxName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void registrated_Click(object sender, RoutedEventArgs e)
+        {
+            String name = textBoxName.Text;
+            String surname = textBoxSurname.Text;
+            String personalId = textBoxPersonalID.Text;
+            String workingTime = textBoxHoursWeek.Text;
+            String overtime = textBoxOvertime.Text;
+            String vacationDays = textBoxVacation.Text;
+            String currentVacation = textBoxCurrentVacation.Text;
+
+        }
+        
     }
 }
