@@ -71,6 +71,22 @@ namespace TimeTracker
             }
         }
 
+        private ObservableCollection<UserItem> _userItems;
+        public ObservableCollection<UserItem> UserItems
+        {
+            get
+            {
+                return _userItems;
+            }
+            set
+            {
+                if (_userItems != value)
+                {
+                    _userItems = value;
+                }
+            }
+        }
+
         #region Page Lifecycle Methods
 
         // Konstruktor
@@ -109,6 +125,11 @@ namespace TimeTracker
                 NavigationContext.QueryString.TryGetValue("id", out id);
                 createNewSessionItem(id, startConverted, endConverted);
 
+            }
+
+
+            if (!userExists())
+            {
             }
            
         }
@@ -274,6 +295,24 @@ namespace TimeTracker
             }
         }
 
+        private bool userExists()
+        {
+            var userItemInDB = from UserItem todo in localDB.UserItems select todo;
+            UserItems = new ObservableCollection<UserItem>(userItemInDB);
+            int i = 0;
+            foreach (var item in UserItems)
+            {
+                i++;
+            }
+
+            if(i == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
     }
 
@@ -291,6 +330,8 @@ namespace TimeTracker
         public Table<SessionItem> SessionItems;
 
         public Table<ProjectItem> ProjectItems;
+
+        public Table<UserItem> UserItems;
     }
 
 
