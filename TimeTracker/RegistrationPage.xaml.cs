@@ -27,13 +27,13 @@ namespace TimeTracker
 
         private void registrated_Click(object sender, RoutedEventArgs e)
         {
-            String name = textBoxName.Text;
-            String surname = textBoxSurname.Text;
-            String personalId = textBoxPersonalID.Text;
-            String workingTime = textBoxHoursWeek.Text;
-            String overtime = textBoxOvertime.Text;
-            String vacationDays = textBoxVacation.Text;
-            String currentVacation = textBoxCurrentVacation.Text;
+            String name = TextBoxName.Text;
+            String surname = TextBoxSurname.Text;
+            String personalId = TextBoxPersonalId.Text;
+            String workingTime = TextBoxHoursWeek.Text;
+            String overtime = TextBoxOvertime.Text;
+            String vacationDays = TextBoxVacation.Text;
+            String currentVacation = TextBoxCurrentVacation.Text;
 
             NavigationService.Navigate(new Uri("/MainPage.xaml?"
                 + "name=" + name

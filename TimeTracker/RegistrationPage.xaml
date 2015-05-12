@@ -27,22 +27,22 @@
 
         <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="140,0,0,0" Name="textBoxName" Text="" VerticalAlignment="Top" Width="328" TextChanged="textBoxName_TextChanged" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,57,0,0" Name="textBoxSurname" Text="" VerticalAlignment="Top" Width="328" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,57,0,0" Name="textBlock1" Text="Surname" VerticalAlignment="Top" Width="193" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,6,0,0" Name="textBlock2" Text="Name" VerticalAlignment="Top" Width="193" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,114,0,0" Name="textBoxPersonalID" Text="" VerticalAlignment="Top" Width="328" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,171,0,0" Name="textBoxHoursWeek" Text="" VerticalAlignment="Top" Width="328" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,228,0,0" Name="textBoxOvertime" Text="" VerticalAlignment="Top" Width="328" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,114,0,0" Name="textBlock3" Text="Personal ID" VerticalAlignment="Top" Width="193" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,171,0,0" Name="textBlock4" Text="Hours/Week" VerticalAlignment="Top" Width="193" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,227,0,0" Name="textBlock5" Text="Overtime" VerticalAlignment="Top" Width="193" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,283,0,0" Name="textBoxVacation" Text="" VerticalAlignment="Top" Width="328" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,283,0,0" Name="textBlock6" Text="Vacation Days" VerticalAlignment="Top" Width="193" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,344,0,0" Name="textBoxCurrentVacation" Text="" VerticalAlignment="Top" Width="328" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="6,344,0,0" Name="textBlock7" Text="Current" VerticalAlignment="Top" Width="193" />
-            <TextBlock Height="72" HorizontalAlignment="Left" Margin="22,375,0,0" Name="textBlock8" Text="vacation days" VerticalAlignment="Top" Width="193" />
-            <Button Content="Register" Height="72" HorizontalAlignment="Left" Margin="171,520,0,0" Name="buttonRegister" VerticalAlignment="Top" Width="160" Click="registrated_Click"/>
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="140,0,0,0" Name="TextBoxName" Text="" VerticalAlignment="Top" Width="328" TextChanged="textBoxName_TextChanged" />
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,57,0,0" Name="TextBoxSurname" Text="" VerticalAlignment="Top" Width="328" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,57,0,0" Name="TextBlock1" Text="Surname" VerticalAlignment="Top" Width="193" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,6,0,0" Name="TextBlock2" Text="Name" VerticalAlignment="Top" Width="193" />
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,114,0,0" Name="TextBoxPersonalId" Text="" VerticalAlignment="Top" Width="328" />
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,171,0,0" Name="TextBoxHoursWeek" Text="" VerticalAlignment="Top" Width="328" />
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,228,0,0" Name="TextBoxOvertime" Text="" VerticalAlignment="Top" Width="328" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,114,0,0" Name="TextBlock3" Text="Personal ID" VerticalAlignment="Top" Width="193" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,171,0,0" Name="TextBlock4" Text="Hours/Week" VerticalAlignment="Top" Width="193" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,227,0,0" Name="TextBlock5" Text="Overtime" VerticalAlignment="Top" Width="193" />
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,283,0,0" Name="TextBoxVacation" Text="" VerticalAlignment="Top" Width="328" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,283,0,0" Name="TextBlock6" Text="Vacation Days" VerticalAlignment="Top" Width="193" />
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="141,344,0,0" Name="TextBoxCurrentVacation" Text="" VerticalAlignment="Top" Width="328" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="6,344,0,0" Name="TextBlock7" Text="Current" VerticalAlignment="Top" Width="193" />
+            <TextBlock Height="72" HorizontalAlignment="Left" Margin="22,375,0,0" Name="TextBlock8" Text="vacation days" VerticalAlignment="Top" Width="193" />
+            <Button Content="Register" Height="72" HorizontalAlignment="Left" Margin="171,520,0,0" Name="ButtonRegister" VerticalAlignment="Top" Width="160" Click="registrated_Click"/>
         </Grid>
     </Grid>
  

@@ -62,16 +62,7 @@ namespace TimeTracker
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            using (LocalDataContext db = new LocalDataContext(LocalDataContext.DBConnectionString))
-            {
-                if (db.DatabaseExists() == false)
-                {
-                    Debug.WriteLine("Database created");
-                    db.CreateDatabase();
-
-                    
-                }
-            }
+            
 
         }
 
@@ -122,12 +113,12 @@ namespace TimeTracker
         #region Initialisierung der Phone-Anwendung
 
         // Doppelte Initialisierung vermeiden
-        private bool phoneApplicationInitialized = false;
+        private bool _phoneApplicationInitialized = false;
 
         // Fügen Sie keinen zusätzlichen Code zu dieser Methode hinzu
         private void InitializePhoneApplication()
         {
-            if (phoneApplicationInitialized)
+            if (_phoneApplicationInitialized)
                 return;
 
             // Frame erstellen, aber noch nicht als RootVisual festlegen. Dadurch kann der Begrüßungsbildschirm
@@ -139,7 +130,7 @@ namespace TimeTracker
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
             // Sicherstellen, dass keine erneute Initialisierung erfolgt
-            phoneApplicationInitialized = true;
+            _phoneApplicationInitialized = true;
         }
 
         // Fügen Sie keinen zusätzlichen Code zu dieser Methode hinzu

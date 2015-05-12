@@ -49,7 +49,13 @@ namespace TimeTracker
             TimeSpan endingTime = EndingTime.Value.Value.TimeOfDay;
             int timestampStart = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + startingTime.TotalSeconds);
             int timestampEnd = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + endingTime.TotalSeconds);
+            if (timestampEnd - timestampStart <= 0)
+            {
+                MessageBoxResult result = MessageBox.Show("The starting time is ahead of the ending time",
+                    "Range not possible!", MessageBoxButton.OKCancel);
 
+                return;
+            }
             NavigationService.Navigate(new Uri("/MainPage.xaml?start=" + timestampStart + "&" + "end=" + timestampEnd + "&" + "id=" + _projectId, UriKind.Relative));
 
             

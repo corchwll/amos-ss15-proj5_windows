@@ -19,6 +19,7 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Data.Linq;
 using System.Diagnostics;
+using Microsoft.Phone.Shell;
 
 namespace TimeTracker
 {
@@ -33,6 +34,15 @@ namespace TimeTracker
         private int currentTimestampStop;
         private string currentProjectName;
         private string currentProjectId;
+
+        private string ProjectHolidayName = "Holiday";
+        private string ProjectHolidayId = "id_holiday";
+
+        private string ProjectTrainingName = "Training";
+        private string ProjectTrainingId = "id_training";
+
+        private string ProjectIllnessName = "Illness";
+        private string ProjectIllnessId = "id_illness";
 
 
         private LocalDataContext localDB;
@@ -104,19 +114,37 @@ namespace TimeTracker
         //OnNavigateTo is called when the page is showen as the app launches
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            bool defaultProjectsExist = false;
+            using (LocalDataContext db = new LocalDataContext(LocalDataContext.DBConnectionString))
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    Debug.WriteLine("Database created");
+                    db.CreateDatabase();
+                }
+                else
+                {
+                    defaultProjectsExist = true;
+                }
+            }
             var sessionItemsInDB = from SessionItem todo in localDB.SessionItems select todo;
             var projectItemsInDB = from ProjectItem todo in localDB.ProjectItems select todo;
             var userItemsInDB = from UserItem todo in localDB.UserItems select todo;
-
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
             ProjectItems = new ObservableCollection<ProjectItem>(projectItemsInDB);
             UserItems = new ObservableCollection<UserItem>(userItemsInDB);
+
+            if (!defaultProjectsExist)
+            {
+                CreateDefaultProjects();
+            }
             base.OnNavigatedTo(e);
 
 
             string start = "";
             string end = "";
             string id = "";
+
 
             if (NavigationContext.QueryString.TryGetValue("start", out start))
             {
@@ -126,6 +154,10 @@ namespace TimeTracker
                 int endConverted = Int32.Parse(end);
                 NavigationContext.QueryString.TryGetValue("id", out id);
                 createNewSessionItem(id, startConverted, endConverted);
+                ShellToast toast = new ShellToast();
+                toast.Title = "Saved";
+                toast.Content = "Session was added";
+                toast.Show();
 
             }
 
@@ -167,6 +199,13 @@ namespace TimeTracker
 
         #endregion
 
+        private void CreateDefaultProjects()
+        {
+            createNewProjectItem(ProjectHolidayId, ProjectHolidayName);
+            createNewProjectItem(ProjectTrainingId, ProjectTrainingId);
+            createNewProjectItem(ProjectIllnessId, ProjectIllnessName);
+            localDB.SubmitChanges();
+        }
 
         //initialize the timer, set 1000ms as a tick interval and link the eventHandler
         private void InitTimer()
@@ -180,7 +219,7 @@ namespace TimeTracker
         void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             totalSeconds++;
-            textBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
+            TextBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
 
         }
 
@@ -197,7 +236,7 @@ namespace TimeTracker
                 {
                     currentTimestampStart = getUnixTimestamp();
                     totalSeconds = 0;
-                    textBoxTime.Text = "00:00";
+                    TextBoxTime.Text = "00:00";
                     isTimerRunning = true;
                     dispatcherTimer.Start();
                     button.Content = "stop";
@@ -214,7 +253,7 @@ namespace TimeTracker
                     isTimerRunning = false;
                     dispatcherTimer.Stop();
                     totalSeconds = currentTimestampStop - currentTimestampStart;
-                    textBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
+                    TextBoxTime.Text = "" + getMinutes(totalSeconds) + ":" + getSeconds(totalSeconds);
                     button.Content = "start";
                     createNewSessionItem(currentProjectId, currentTimestampStart, currentTimestampStop);
                     saveChangesToDatabase();
@@ -224,7 +263,7 @@ namespace TimeTracker
 
         private void newProject_Click(object sender, RoutedEventArgs e)
         {
-            createNewProjectItem(newProjectIdTextBox.Text, newProjectNameTextBox.Text);
+            createNewProjectItem(NewProjectIdTextBox.Text, NewProjectNameTextBox.Text);
         }
 
         private void queryData_Click(object sender, RoutedEventArgs e)

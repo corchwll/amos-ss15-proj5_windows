@@ -29,7 +29,7 @@
         <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 
-            <ListBox x:Name="projectItemtListBox" ItemsSource="{Binding ProjectItems}" 
+            <ListBox x:Name="ProjectItemtListBox" ItemsSource="{Binding ProjectItems}" 
                      Grid.Row="0" Margin="12, 0, 12, 0" Width="440">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -66,11 +66,11 @@
 
             
             
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="159,417,0,0" Name="textBoxTime" Text="00:00" VerticalAlignment="Top" Width="114" />
-            <Button Content="QueryData" Height="72" HorizontalAlignment="Left" Margin="93,624,0,0" Name="buttonQueryData" VerticalAlignment="Top" Width="218" Click="queryData_Click"/>
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="6,495,0,0" Name="newProjectNameTextBox" Text="" VerticalAlignment="Top" Width="293" />
-            <Button Content="Add" Height="123" HorizontalAlignment="Left" Margin="308,495,0,0" Name="button1" VerticalAlignment="Top" Width="142" Click="newProject_Click"/>
-            <TextBox Height="72" HorizontalAlignment="Right" Margin="0,556,157,0" Name="newProjectIdTextBox" Text="" VerticalAlignment="Top" Width="293"/>
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="159,417,0,0" Name="TextBoxTime" Text="00:00" VerticalAlignment="Top" Width="114" />
+            <Button Content="QueryData" Height="72" HorizontalAlignment="Left" Margin="93,624,0,0" Name="ButtonQueryData" VerticalAlignment="Top" Width="218" Click="queryData_Click"/>
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="6,495,0,0" Name="NewProjectNameTextBox" Text="" VerticalAlignment="Top" Width="293" />
+            <Button Content="Add" Height="123" HorizontalAlignment="Left" Margin="308,495,0,0" Name="Button1" VerticalAlignment="Top" Width="142" Click="newProject_Click"/>
+            <TextBox Height="72" HorizontalAlignment="Right" Margin="0,556,157,0" Name="NewProjectIdTextBox" Text="" VerticalAlignment="Top" Width="293"/>
         </Grid>
     </Grid>
  
