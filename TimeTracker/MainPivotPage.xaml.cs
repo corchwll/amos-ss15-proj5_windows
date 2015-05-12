@@ -114,52 +114,23 @@ namespace TimeTracker
         //OnNavigateTo is called when the page is showen as the app launches
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            bool defaultProjectsExist = false;
-            using (LocalDataContext db = new LocalDataContext(LocalDataContext.DBConnectionString))
-            {
-                if (db.DatabaseExists() == false)
-                {
-                    Debug.WriteLine("Database created");
-                    db.CreateDatabase();
-                }
-                else
-                {
-                    defaultProjectsExist = true;
-                }
-            }
-            var sessionItemsInDB = from SessionItem todo in localDB.SessionItems select todo;
+            var defaultProjectsExist = CreateDatabase();
+            
+            var sessionItemsInDb = from SessionItem todo in localDB.SessionItems select todo;
             var projectItemsInDB = from ProjectItem todo in localDB.ProjectItems select todo;
             var userItemsInDB = from UserItem todo in localDB.UserItems select todo;
-            SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDB);
+            SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDb);
             ProjectItems = new ObservableCollection<ProjectItem>(projectItemsInDB);
             UserItems = new ObservableCollection<UserItem>(userItemsInDB);
 
             if (!defaultProjectsExist)
-            {
                 CreateDefaultProjects();
-            }
+            
             base.OnNavigatedTo(e);
 
-
-            string start = "";
-            string end = "";
-            string id = "";
+            CollectNewSession();
 
 
-            if (NavigationContext.QueryString.TryGetValue("start", out start))
-            {
-                NavigationContext.QueryString.TryGetValue("end", out end);
-
-                int startConverted = Int32.Parse(start);
-                int endConverted = Int32.Parse(end);
-                NavigationContext.QueryString.TryGetValue("id", out id);
-                createNewSessionItem(id, startConverted, endConverted);
-                ShellToast toast = new ShellToast();
-                toast.Title = "Saved";
-                toast.Content = "Session was added";
-                toast.Show();
-
-            }
 
             string name = "";
             if (NavigationContext.QueryString.TryGetValue("name", out name))
@@ -198,6 +169,45 @@ namespace TimeTracker
         }
 
         #endregion
+
+
+        private bool CreateDatabase()
+        {
+            using (LocalDataContext db = new LocalDataContext(LocalDataContext.DBConnectionString))
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    Debug.WriteLine("Database created");
+                    db.CreateDatabase();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        private void CollectNewSession()
+        {
+            string start = "";
+            string end = "";
+            string id = "";
+
+
+            if (NavigationContext.QueryString.TryGetValue("start", out start))
+            {
+                NavigationContext.QueryString.TryGetValue("end", out end);
+
+                int startConverted = Int32.Parse(start);
+                int endConverted = Int32.Parse(end);
+                NavigationContext.QueryString.TryGetValue("id", out id);
+                createNewSessionItem(id, startConverted, endConverted);
+                ShellToast toast = new ShellToast();
+                toast.Title = "Saved";
+                toast.Content = "Session was added";
+                toast.Show();
+
+            }
+            
+        }
 
         private void CreateDefaultProjects()
         {
@@ -278,6 +288,11 @@ namespace TimeTracker
             string projectId = projectItem.ProjectId;
             string projectName = projectItem.ProjectName;
             NavigationService.Navigate(new Uri("/EditProjectPage.xaml?id="+projectId, UriKind.Relative));
+        }
+
+        private void SavePersonalData_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         #endregion

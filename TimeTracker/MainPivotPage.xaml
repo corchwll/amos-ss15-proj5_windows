@@ -31,57 +31,81 @@
                 <phone:PivotItem.Header>
                     <Image Source="iconClock.png"/>
                 </phone:PivotItem.Header>
-                <Grid>
-                    <ListBox x:Name="ProjectItemtListBox" ItemsSource="{Binding ProjectItems}" 
-                     Grid.Row="0" Margin="12, 0, 12, 0" Width="440">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid HorizontalAlignment="Stretch" Width="440">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="100" />
-                                    </Grid.ColumnDefinitions>
+                <Grid Height="571" VerticalAlignment="Top">
+                    <Grid Margin="0,0,0,195">
+                        <ListBox x:Name="ProjectItemtListBox" ItemsSource="{Binding ProjectItems}" 
+                     Grid.Row="0" Margin="12,0,4,0" Width="440" Height="366" VerticalAlignment="Top">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid HorizontalAlignment="Stretch" Width="440">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <TextBlock
+                                        <TextBlock
                                 Text="{Binding ProjectName}"
                                 FontSize="{StaticResource PhoneFontSizeLarge}"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"/>
-                                    <Button
+                                        <Button
                                 Click="editProject_Click"
                                 Grid.Column="2"
                                 Content="Edit"
                                 
                                 />
-                                    <Button
+                                        <Button
                                 Click="startRecordingProject_Click"
                                 Grid.Column="3"
                                 Name="buttonStartStopRecording"
                                 Content="Start"
                                 />
 
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                    <Grid Margin="0,376,0,0">
+                        <TextBox Height="72" HorizontalAlignment="Left" Margin="165,-13,0,0" Name="TextBoxTime" Text="00:00" VerticalAlignment="Top" Width="114" />
+                        <Button Content="Q" Height="70" HorizontalAlignment="Left" Margin="321,56,0,0" Name="ButtonQueryData" VerticalAlignment="Top" Width="78" Click="queryData_Click"/>
+                        <TextBox Height="72" HorizontalAlignment="Left" Margin="6,45,0,0" Name="NewProjectNameTextBox" Text="" VerticalAlignment="Top" Width="293" />
+                        <Button Content="+" Height="70" HorizontalAlignment="Left" Margin="321,115,0,0" Name="Button1" VerticalAlignment="Top" Width="78" Click="newProject_Click"/>
+                        <TextBox Height="72" HorizontalAlignment="Right" Margin="0,113,157,0" Name="NewProjectIdTextBox" Text="" VerticalAlignment="Top" Width="293"/>
 
-
-
-                    <TextBox Height="72" HorizontalAlignment="Left" Margin="159,380,0,0" Name="TextBoxTime" Text="00:00" VerticalAlignment="Top" Width="114" />
-                    <Button Content="Q" Height="70" HorizontalAlignment="Left" Margin="321,501,0,0" Name="ButtonQueryData" VerticalAlignment="Top" Width="78" Click="queryData_Click"/>
-                    <TextBox Height="72" HorizontalAlignment="Left" Margin="6,440,0,0" Name="NewProjectNameTextBox" Text="" VerticalAlignment="Top" Width="293" />
-                    <Button Content="+" Height="70" HorizontalAlignment="Left" Margin="321,440,0,0" Name="Button1" VerticalAlignment="Top" Width="78" Click="newProject_Click"/>
-                    <TextBox Height="72" HorizontalAlignment="Right" Margin="0,501,157,-2" Name="NewProjectIdTextBox" Text="" VerticalAlignment="Top" Width="293"/>
-
+                    </Grid>
                 </Grid>
+
+
             </phone:PivotItem>
             <phone:PivotItem>
                 <phone:PivotItem.Header>
                     <Image Source="icon_settings.png"/>
                 </phone:PivotItem.Header>
-                <Grid/>
+                
+                
+                <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="140,0,0,0" Name="TextBoxName" Text="" VerticalAlignment="Top" Width="328" />
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="141,57,0,0" Name="TextBoxSurname" Text="" VerticalAlignment="Top" Width="328" />
+                    <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,57,0,0" Name="TextBlock1" Text="Surname" VerticalAlignment="Top" Width="193" />
+                    <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,6,0,0" Name="TextBlock2" Text="Name" VerticalAlignment="Top" Width="193" />
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="141,114,0,0" Name="TextBoxPersonalId" Text="" VerticalAlignment="Top" Width="328" />
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="141,171,0,0" Name="TextBoxHoursWeek" Text="" VerticalAlignment="Top" Width="328" />
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="141,228,0,0" Name="TextBoxOvertime" Text="" VerticalAlignment="Top" Width="328" />
+                    <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,114,0,0" Name="TextBlock3" Text="Personal ID" VerticalAlignment="Top" Width="193" />
+                    <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,171,0,0" Name="TextBlock4" Text="Hours/Week" VerticalAlignment="Top" Width="193" />
+                    <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,227,0,0" Name="TextBlock5" Text="Overtime" VerticalAlignment="Top" Width="193" />
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="141,283,0,0" Name="TextBoxVacation" Text="" VerticalAlignment="Top" Width="328" />
+                    <TextBlock Height="72" HorizontalAlignment="Left" Margin="9,283,0,0" Name="TextBlock6" Text="Vacation Days" VerticalAlignment="Top" Width="193" />
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="141,344,0,0" Name="TextBoxCurrentVacation" Text="" VerticalAlignment="Top" Width="328" />
+                    <TextBlock Height="72" HorizontalAlignment="Left" Margin="6,344,0,0" Name="TextBlock7" Text="Current" VerticalAlignment="Top" Width="193" />
+                    <TextBlock Height="72" HorizontalAlignment="Left" Margin="22,375,0,0" Name="TextBlock8" Text="vacation days" VerticalAlignment="Top" Width="193" />
+                    <Button Content="Save" Height="72" HorizontalAlignment="Left" Margin="141,476,0,0" Name="ButtonRegister" VerticalAlignment="Top" Width="160" Click="SavePersonalData_Click"/>
+                </Grid>
+
+
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>
