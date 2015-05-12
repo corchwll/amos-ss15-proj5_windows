@@ -1,30 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Data.Linq;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
-
-
-
-using System.Data.Linq.Mapping;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Data.Linq;
-using System.Diagnostics;
 using Microsoft.Phone.Shell;
 
 namespace TimeTracker
 {
-
-    public partial class MainPage : PhoneApplicationPage, INotifyPropertyChanged
+    public partial class MainPivotPage : PhoneApplicationPage, INotifyPropertyChanged
     {
         private DispatcherTimer dispatcherTimer;
         private Int32 totalSeconds;
@@ -99,8 +90,17 @@ namespace TimeTracker
 
         #region Page Lifecycle Methods
 
+
+
+        private void Pivot_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+
         // Konstruktor
-        public MainPage()
+        public MainPivotPage()
         {
             InitializeComponent();
             InitTimer();
@@ -202,7 +202,7 @@ namespace TimeTracker
         private void CreateDefaultProjects()
         {
             createNewProjectItem(ProjectHolidayId, ProjectHolidayName);
-            createNewProjectItem(ProjectTrainingId, ProjectTrainingId);
+            createNewProjectItem(ProjectTrainingId, ProjectTrainingName);
             createNewProjectItem(ProjectIllnessId, ProjectIllnessName);
             localDB.SubmitChanges();
         }
@@ -425,7 +425,6 @@ namespace TimeTracker
         public Table<UserItem> UserItems;
     }
 
-
-
+       
     
 }
