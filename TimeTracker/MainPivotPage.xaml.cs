@@ -125,7 +125,9 @@ namespace TimeTracker
 
             if (!defaultProjectsExist)
                 CreateDefaultProjects();
-            
+
+            FillPersonalData();
+
             base.OnNavigatedTo(e);
 
             CollectNewSession();
@@ -292,7 +294,54 @@ namespace TimeTracker
 
         private void SavePersonalData_Click(object sender, RoutedEventArgs e)
         {
+            UserItem user = UserItems[0];
             
+             UserItem newUser = new UserItem {
+                Name = TextBoxName.Text,
+                Surname = TextBoxSurname.Text,
+                PersonalId = TextBoxPersonalId.Text,
+                WorkingTime = Int32.Parse(TextBoxHoursWeek.Text),
+                OverTime = Int32.Parse(TextBoxOvertime.Text),
+                VacationDays = Int32.Parse(TextBoxVacation.Text),
+                CurrentVacationDays = Int32.Parse(TextBoxCurrentVacation.Text)
+            
+            };
+
+            
+            
+
+            localDB.UserItems.DeleteOnSubmit(user);
+            saveChangesToDatabase();
+            UserItems.Clear();
+            UserItems.Add(user);
+            localDB.UserItems.InsertOnSubmit(newUser);
+            
+            saveChangesToDatabase();
+            FillPersonalData(newUser);
+
+        }
+
+        private void FillPersonalData()
+        {
+            if (UserItems.Count == 0)
+            {
+                return;
+            }
+            UserItem user = UserItems[0];
+
+            FillPersonalData(user);
+        }
+
+        private void FillPersonalData(UserItem user)
+        {
+
+            TextBoxName.Text = user.Name;
+            TextBoxSurname.Text = user.Surname;
+            TextBoxPersonalId.Text = user.PersonalId;
+            TextBoxHoursWeek.Text = user.WorkingTime.ToString();
+            TextBoxOvertime.Text = user.OverTime.ToString();
+            TextBoxVacation.Text = user.VacationDays.ToString();
+            TextBoxCurrentVacation.Text = user.CurrentVacationDays.ToString();
         }
 
         #endregion
@@ -381,6 +430,7 @@ namespace TimeTracker
             UserItems.Add(newUser);
             localDB.UserItems.InsertOnSubmit(newUser);
             saveChangesToDatabase();
+            FillPersonalData();
         }
 
 
