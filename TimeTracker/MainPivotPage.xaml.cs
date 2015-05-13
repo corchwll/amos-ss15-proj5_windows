@@ -124,7 +124,10 @@ namespace TimeTracker
             UserItems = new ObservableCollection<UserItem>(userItemsInDB);
 
             if (!defaultProjectsExist)
+            {
                 CreateDefaultProjects();
+            }
+                
 
             FillPersonalData();
 
@@ -181,9 +184,9 @@ namespace TimeTracker
                 {
                     Debug.WriteLine("Database created");
                     db.CreateDatabase();
-                    return true;
+                    return false;
                 }
-                return false;
+                return true;
             }
         }
 

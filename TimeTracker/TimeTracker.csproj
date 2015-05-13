@@ -104,6 +104,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseManager.cs" />
     <Compile Include="EditProjectPage.xaml.cs">
       <DependentUpon>EditProjectPage.xaml</DependentUpon>
     </Compile>
