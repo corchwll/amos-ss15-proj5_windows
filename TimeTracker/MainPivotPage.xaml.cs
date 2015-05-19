@@ -237,6 +237,12 @@ namespace TimeTracker
             FillPersonalData(newUser);
         }
 
+        private void deleteProject_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            _dataBaseManager.DeleteProject(button);
+        }
+
         #endregion
 
         private void FillPersonalData()

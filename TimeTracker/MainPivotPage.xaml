@@ -43,6 +43,7 @@
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100" />
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock
@@ -53,7 +54,7 @@
                                         <Button
                                 Click="editProject_Click"
                                 Grid.Column="2"
-                                Content="Edit"
+                                Content="E"
                                 
                                 />
                                         <Button
@@ -62,6 +63,13 @@
                                 Name="buttonStartStopRecording"
                                 Content="Start"
                                 />
+                                        <Button
+                                Click="deleteProject_Click"
+                                Grid.Column="4"
+                                Name="buttonDeleteProject"
+                                Content="D"
+                                />
+                                        
 
                                     </Grid>
                                 </DataTemplate>

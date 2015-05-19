@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Data.Linq;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Controls;
 
 
 namespace TimeTracker
@@ -206,6 +207,20 @@ namespace TimeTracker
             }
 
             return true;
+        }
+
+        public void DeleteProject(Button button)
+        {
+            ProjectItem toDoForDelete = button.DataContext as ProjectItem;
+
+            // Remove the to-do item from the observable collection.
+            ProjectItems.Remove(toDoForDelete);
+
+            // Remove the to-do item from the local database.
+            _localDb.ProjectItems.DeleteOnSubmit(toDoForDelete);
+
+            // Save changes to the database.
+            _localDb.SubmitChanges();
         }
 
                    //following methods provide functionalities to bind the UI elements to the data 

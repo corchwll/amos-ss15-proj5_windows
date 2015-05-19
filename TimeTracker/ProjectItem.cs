@@ -79,6 +79,26 @@ namespace TimeTracker
             }
         }
 
+        private bool _archived;
+
+        [Column]
+        public bool Archived
+        {
+            get
+            {
+                return _archived;
+            }
+            set
+            {
+                if (_archived != value)
+                {
+                    NotifyPropertyChanging("Archived");
+                    _archived = value;
+                    NotifyPropertyChanged("Archived");
+                }
+            }
+        }
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
