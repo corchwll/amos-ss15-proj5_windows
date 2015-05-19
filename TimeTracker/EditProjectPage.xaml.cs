@@ -51,8 +51,8 @@ namespace TimeTracker
             int timestampEnd = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + endingTime.TotalSeconds);
             if (timestampEnd - timestampStart <= 0)
             {
-                MessageBoxResult result = MessageBox.Show("The starting time is ahead of the ending time",
-                    "Range not possible!", MessageBoxButton.OKCancel);
+                MessageBoxResult result = MessageBox.Show("Negative times are not allowed",
+                    "Error", MessageBoxButton.OKCancel);
 
                 return;
             }

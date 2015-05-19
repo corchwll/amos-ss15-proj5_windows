@@ -74,7 +74,6 @@ namespace TimeTracker
             string end = "";
             string id = "";
 
-
             if (NavigationContext.QueryString.TryGetValue("start", out start))
             {
                 NavigationContext.QueryString.TryGetValue("end", out end);
@@ -246,7 +245,6 @@ namespace TimeTracker
 
         private void FillPersonalData(UserItem user)
         {
-
             TextBoxName.Text = user.Name;
             TextBoxSurname.Text = user.Surname;
             TextBoxPersonalId.Text = user.PersonalId;

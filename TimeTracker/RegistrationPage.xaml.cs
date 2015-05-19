@@ -35,6 +35,27 @@ namespace TimeTracker
             String vacationDays = TextBoxVacation.Text;
             String currentVacation = TextBoxCurrentVacation.Text;
 
+            if (name.Length == 0 || surname.Length == 0 || personalId.Length == 0 ||
+                workingTime.Length == 0 || overtime.Length == 0 || vacationDays.Length == 0
+                || currentVacation.Length == 0)
+            {
+                MessageBoxResult result = MessageBox.Show("Please fill out every field",
+                       "Form not completed", MessageBoxButton.OKCancel);
+                return;
+            }
+
+
+
+            if (!CheckWorkingTime(workingTime) || !CheckVacationDays(vacationDays)
+                || !CheckOvertime(overtime) || !CheckCurrentVacationDays(currentVacation))
+            {
+                MessageBoxResult result = MessageBox.Show("Please check your inputs",
+                       "Error", MessageBoxButton.OKCancel);
+                return;
+                
+            }
+
+
             NavigationService.Navigate(new Uri("/MainPivotPage.xaml?"
                 + "name=" + name
                 + "&" + "surname=" + surname
@@ -46,6 +67,60 @@ namespace TimeTracker
                 , UriKind.Relative));
 
         }
+        private bool CheckWorkingTime(string workingTime)
+        {
+            int workTime;
+            if (int.TryParse(workingTime, out workTime))
+            {
+                if (workTime < 10 || workTime > 50)
+                {
+                    return false;
+                }
+                return true;
+            }
+                return false;
+        }
+
+        private bool CheckVacationDays(string vacationDays)
+        {
+            int vacDays;
+            if (int.TryParse(vacationDays, out vacDays))
+            {
+                if (vacDays < 10 || vacDays > 40)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private bool CheckOvertime(string overtime)
+        {
+            int ovtime;
+            if (int.TryParse(overtime, out ovtime))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool CheckCurrentVacationDays(string currentVacation)
+        {
+            int vacDays;
+            if (int.TryParse(currentVacation, out vacDays))
+            {
+                if (vacDays <= 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+            
+        }
         
     }
+
+
 }
