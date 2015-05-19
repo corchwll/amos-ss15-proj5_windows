@@ -56,6 +56,15 @@ namespace TimeTracker
             }
 
 
+            if (!CheckPersonalId(personalId))
+            {
+                MessageBoxResult result = MessageBox.Show("Your personal ID must consist of 5 numbers",
+                       "Error", MessageBoxButton.OKCancel);
+                return;
+            }
+
+
+
             NavigationService.Navigate(new Uri("/MainPivotPage.xaml?"
                 + "name=" + name
                 + "&" + "surname=" + surname
@@ -133,6 +142,7 @@ namespace TimeTracker
             }
             return false;
         }
+
         
     }
 
