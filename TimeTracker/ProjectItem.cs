@@ -106,5 +106,19 @@ namespace TimeTracker
         }
 
         #endregion
+
+        public static bool CheckProjectId(string projectId)
+        {
+            int idNumber;
+            if (int.TryParse(projectId, out idNumber))
+            {
+                if (projectId.Length != 5)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -196,6 +196,13 @@ namespace TimeTracker
 
         private void newProject_Click(object sender, RoutedEventArgs e)
         {
+            string ProjectId = NewProjectIdTextBox.Text;
+            if (!ProjectItem.CheckProjectId(ProjectId))
+            {
+                MessageBoxResult result = MessageBox.Show("Your project ID must consist of 5 numbers",
+                      "Error", MessageBoxButton.OKCancel);
+                return;
+            }
             _dataBaseManager.createNewProjectItem(NewProjectIdTextBox.Text, NewProjectNameTextBox.Text);
         }
 
