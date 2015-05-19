@@ -240,6 +240,14 @@ namespace TimeTracker
         private void deleteProject_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
+            MessageBoxResult result = MessageBox.Show("Are you sure?",
+                      "Deleting project", MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            
+            
             _dataBaseManager.DeleteProject(button);
         }
 
