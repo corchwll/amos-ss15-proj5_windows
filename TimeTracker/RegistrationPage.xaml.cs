@@ -119,6 +119,20 @@ namespace TimeTracker
             return false;
             
         }
+
+        private bool CheckPersonalId(string id)
+        {
+            int idNumber;
+            if (int.TryParse(id, out idNumber))
+            {
+                if (id.Length != 5)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
         
     }
 
