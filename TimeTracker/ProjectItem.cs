@@ -16,6 +16,7 @@ using System.Data.Linq;
 
 namespace TimeTracker
 {
+    //Following class defines the table structure for project items
     [Table]
     public class ProjectItem : INotifyPropertyChanged, INotifyPropertyChanging
     {
@@ -126,7 +127,7 @@ namespace TimeTracker
         }
 
         #endregion
-
+        //Check if the project ID is valid. (5 digits, only numbers)
         public static bool CheckProjectId(string projectId)
         {
             int idNumber;
