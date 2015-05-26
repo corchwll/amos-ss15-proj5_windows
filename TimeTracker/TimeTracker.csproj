@@ -168,6 +168,7 @@
     <Content Include="iconClock.png" />
     <Content Include="icon_dashboard.png" />
     <Content Include="icon_settings.png" />
+    <Content Include="icon_projects.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

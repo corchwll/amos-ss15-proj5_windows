@@ -31,6 +31,15 @@
                 <phone:PivotItem.Header>
                     <Image Source="iconClock.png"/>
                 </phone:PivotItem.Header>
+                <Grid>
+
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem>
+                <phone:PivotItem.Header>
+                    <Image Source="icon_projects.png"/>
+                </phone:PivotItem.Header>
                 <Grid Height="571" VerticalAlignment="Top">
                     <Grid Margin="0,0,0,195">
                         <ListBox x:Name="ProjectItemtListBox" ItemsSource="{Binding ProjectItems}" 
