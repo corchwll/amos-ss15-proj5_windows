@@ -10,13 +10,22 @@ using Microsoft.Phone.Shell;
 
 namespace TimeTracker
 {
-    public partial class Page1 : PhoneApplicationPage
+    public partial class CreateProjectPage : PhoneApplicationPage
     {
-        public Page1()
+        public CreateProjectPage()
         {
             InitializeComponent();
         }
 
-        
+
+        private void Click_CreateProject(object sender, RoutedEventArgs e)
+        {
+
+            string projectName = TextBoxName.Text;
+            string projectId = TextBoxId.Text;
+            int date = (int) FinalDate.Value.Value.Ticks;
+            NavigationService.Navigate(new Uri("/MainPivotPage.xaml?projectName=" + projectName + "&" + "projectId=" + projectId + "&" + "finalDate=" + FinalDate, UriKind.Relative));
+
+        }
     }
 }

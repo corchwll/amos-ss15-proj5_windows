@@ -62,11 +62,26 @@ namespace TimeTracker
             base.OnNavigatedTo(e);
 
             FillPersonalData();
+            CollectNewProject();
             CollectNewSession();
             CollectRegistrationData();
         }
 
         #endregion
+
+        private void CollectNewProject()
+        {
+            string id = "";
+            string name = "";
+            DateTime finalDate = new DateTime();
+
+            if (NavigationContext.QueryString.TryGetValue("projectId", out id))
+            {
+
+            }
+
+
+        }
 
         private void CollectNewSession()
         {

@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="TimeTracker.Page1"
+    x:Class="TimeTracker.CreateProjectPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -30,10 +30,10 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 
         </Grid>
-        <TextBox HorizontalAlignment="Left" Height="72" Margin="14,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="456" />
-        <TextBox HorizontalAlignment="Left" Height="72" Margin="14,87,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="456"/>
-        <toolkit:DatePicker Header="Final Date" Name="WorkingDate" HorizontalAlignment="Left" Margin="14,159,0,0"  VerticalAlignment="Top" Grid.Row="1" Width="454" />
-        <Button Content="Create project" HorizontalAlignment="Left" Margin="0,271,0,0" Grid.Row="1" VerticalAlignment="Top" Width="468"/>
+        <TextBox Name="TextBoxName" HorizontalAlignment="Left" Height="72" Margin="14,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="456" />
+        <TextBox Name="TextBoxId" HorizontalAlignment="Left" Height="72" Margin="14,87,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="456"/>
+        <toolkit:DatePicker Header="Final Date" Name="FinalDate" HorizontalAlignment="Left" Margin="14,159,0,0"  VerticalAlignment="Top" Grid.Row="1" Width="454" />
+        <Button Content="Create project" HorizontalAlignment="Left" Margin="0,271,0,0" Grid.Row="1" VerticalAlignment="Top" Width="468" Click="Click_CreateProject"/>
     </Grid>
 
 </phone:PhoneApplicationPage>
