@@ -21,6 +21,9 @@ namespace TimeTracker
         private const string ProjectIllnessName = "Illness";
         private const string ProjectIllnessId = "id_illness";
 
+        private const string ProjectOfficeName = "Office";
+        private const string ProjectOfficeId = "id_office";
+
         private readonly LocalDataContext _localDb;
 
 
@@ -121,6 +124,7 @@ namespace TimeTracker
         {
             createNewProjectItem(ProjectHolidayId, ProjectHolidayName);
             createNewProjectItem(ProjectTrainingId, ProjectTrainingName);
+            createNewProjectItem(ProjectOfficeId, ProjectOfficeName);
             createNewProjectItem(ProjectIllnessId, ProjectIllnessName);
             _localDb.SubmitChanges();
         }
