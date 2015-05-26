@@ -196,6 +196,11 @@ namespace TimeTracker
 
         private void newProject_Click(object sender, RoutedEventArgs e)
         {
+
+            NavigationService.Navigate(new Uri("/CreateProjectPage.xaml", UriKind.Relative));
+
+
+            /*
             string ProjectId = NewProjectIdTextBox.Text;
             if (!ProjectItem.CheckProjectId(ProjectId))
             {
@@ -204,6 +209,7 @@ namespace TimeTracker
                 return;
             }
             _dataBaseManager.createNewProjectItem(NewProjectIdTextBox.Text, NewProjectNameTextBox.Text);
+            */
         }
 
         private void queryData_Click(object sender, RoutedEventArgs e)
