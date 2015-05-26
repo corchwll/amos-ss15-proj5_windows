@@ -27,13 +27,22 @@
                 </Grid>
             </phone:PivotItem>
 
-            <phone:PivotItem>
+            <phone:PivotItem Margin="12,28,12,433">
                 <phone:PivotItem.Header>
                     <Image Source="iconClock.png"/>
                 </phone:PivotItem.Header>
-                <Grid>
+                <Grid Margin="0,0,0,-430">
+                    <Grid>
+                        <TextBlock FontSize="40" HorizontalAlignment="Left" Margin="10,0,-4,0" TextWrapping="Wrap" Text="CurrentProject" VerticalAlignment="Top" Width="450" Height="77"/>
+                        <TextBlock FontSize="40" HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Height="97" Width="151"/>
+                        <Button Content="Start Recording" HorizontalAlignment="Left" Margin="-4,59,0,0" VerticalAlignment="Top" Width="288" RenderTransformOrigin="0.28,0.5"/>
+                    </Grid>
+                    <Grid Margin="0,140,0,0">
 
+                    </Grid>
                 </Grid>
+                
+                
             </phone:PivotItem>
 
             <phone:PivotItem>
@@ -59,7 +68,8 @@
                                 Text="{Binding ProjectName}"
                                 FontSize="{StaticResource PhoneFontSizeLarge}"
                                 Grid.Column="1"
-                                VerticalAlignment="Center"/>
+                                VerticalAlignment="Center"
+                                            />
                                         <Button
                                 Click="editProject_Click"
                                 Grid.Column="2"
@@ -122,6 +132,6 @@
 
             </phone:PivotItem>
         </phone:Pivot>
-    </Grid>
+ </Grid>
 
 </phone:PhoneApplicationPage>

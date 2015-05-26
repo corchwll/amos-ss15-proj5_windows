@@ -27,7 +27,7 @@ namespace TimeTracker
 
             if (!ProjectItem.CheckProjectId(projectId))
             {
-                MessageBoxResult result = MessageBox.Show("Your project ID must consist of 5 numbers",
+                MessageBoxResult result = MessageBox.Show("Your project ID must consist of 5 digits",
                       "Error", MessageBoxButton.OKCancel);
                 return;
             }

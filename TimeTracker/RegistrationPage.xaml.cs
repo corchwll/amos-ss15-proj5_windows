@@ -58,7 +58,7 @@ namespace TimeTracker
 
             if (!CheckPersonalId(personalId))
             {
-                MessageBoxResult result = MessageBox.Show("Your personal ID must consist of 5 numbers",
+                MessageBoxResult result = MessageBox.Show("Your personal ID must consist of 5 digits",
                        "Error", MessageBoxButton.OKCancel);
                 return;
             }
