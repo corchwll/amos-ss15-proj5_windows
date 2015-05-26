@@ -16,7 +16,7 @@
     <!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivotsteuerelement-->
-        <phone:Pivot Title="MEINE ANWENDUNG" Loaded="Pivot_Loaded">
+        <phone:Pivot Title="MEINE ANWENDUNG" Loaded="Pivot_Loaded" Name="PivotMain">
             <!--Pivotelement eins-->
             <phone:PivotItem>
                 <phone:PivotItem.Header>
@@ -33,8 +33,8 @@
                 </phone:PivotItem.Header>
                 <Grid Margin="0,0,0,-430">
                     <Grid>
-                        <TextBlock FontSize="40" HorizontalAlignment="Left" Margin="10,0,-4,0" TextWrapping="Wrap" Text="CurrentProject" VerticalAlignment="Top" Width="450" Height="77"/>
-                        <TextBlock FontSize="40" HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Height="97" Width="151"/>
+                        <TextBlock Name="TextBlockCurrentProject" FontSize="40" HorizontalAlignment="Left" Margin="10,0,-4,0" TextWrapping="Wrap" Text="CurrentProject" VerticalAlignment="Top" Width="450" Height="77"/>
+                        <TextBlock Name="TextBlockCurrentTimer" FontSize="40" HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Height="97" Width="151"/>
                         <Button Content="Start Recording" HorizontalAlignment="Left" Margin="-4,59,0,0" VerticalAlignment="Top" Width="288" RenderTransformOrigin="0.28,0.5"/>
                     </Grid>
                     <Grid Margin="0,140,0,0">
@@ -69,7 +69,7 @@
                                 FontSize="{StaticResource PhoneFontSizeLarge}"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
-                                            />
+                                            Tap="Tap_ProjectItem"/>
                                         <Button
                                 Click="editProject_Click"
                                 Grid.Column="2"

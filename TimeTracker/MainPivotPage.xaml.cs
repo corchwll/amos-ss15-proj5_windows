@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace TimeTracker
 {
@@ -293,5 +294,12 @@ namespace TimeTracker
             TextBoxCurrentVacation.Text = user.CurrentVacationDays.ToString();
         }
 
+        private void Tap_ProjectItem(object sender, GestureEventArgs e)
+        {
+            var button = sender as TextBlock;
+            ProjectItem clickedProjectItem = button.DataContext as ProjectItem;
+            TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
+            PivotMain.SelectedIndex = 1;
+        }
     }
 }
