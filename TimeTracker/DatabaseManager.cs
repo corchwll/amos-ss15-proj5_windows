@@ -78,6 +78,23 @@ namespace TimeTracker
             }
         }
 
+        private ObservableCollection<SessionItem> _currentSessionItems;
+        public ObservableCollection<SessionItem> CurrentSessionItems
+        {
+            get
+            {
+                return _currentSessionItems;
+            }
+            set
+            {
+                if (_currentSessionItems != value)
+                {
+                    _currentSessionItems = value;
+                    NotifyPropertyChanged("CurrentSessionItems");
+                }
+            }
+        }
+
         public DatabaseManager()
         {
             _localDb = new LocalDataContext(LocalDataContext.DBConnectionString);
@@ -118,6 +135,11 @@ namespace TimeTracker
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDb);
             ProjectItems = new ObservableCollection<ProjectItem>(projectItemsInDb);
             UserItems = new ObservableCollection<UserItem>(userItemsInDb);
+        }
+
+        public void LoadCurrentSessions(string id)
+        {
+            var currentSessionItemsInDb = from item in _localDb.SessionItems where item.ProjectId.Equals(id) select item;
         }
 
         public void CreateDefaultProjects()

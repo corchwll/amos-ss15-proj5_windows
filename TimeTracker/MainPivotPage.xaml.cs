@@ -39,6 +39,23 @@ namespace TimeTracker
             }
         }
 
+        private ObservableCollection<SessionItem> _currentSessionItems;
+        public ObservableCollection<SessionItem> CurrentSessionItems
+        {
+            get
+            {
+                return _currentSessionItems;
+            }
+            set
+            {
+                if (_currentSessionItems != value)
+                {
+                    _currentSessionItems = value;
+                    _dataBaseManager.NotifyPropertyChanged("CurrentSessionItems");
+                }
+            }
+        }
+
         #region Page Lifecycle Methods
 
         private void Pivot_Loaded(object sender, RoutedEventArgs e)
