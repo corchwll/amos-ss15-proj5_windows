@@ -24,6 +24,14 @@ namespace TimeTracker
             string projectName = TextBoxName.Text;
             string projectId = TextBoxId.Text;
             int date = (int) FinalDate.Value.Value.Ticks;
+
+            if (!ProjectItem.CheckProjectId(projectId))
+            {
+                MessageBoxResult result = MessageBox.Show("Your project ID must consist of 5 numbers",
+                      "Error", MessageBoxButton.OKCancel);
+                return;
+            }
+
             NavigationService.Navigate(new Uri("/MainPivotPage.xaml?projectName=" + projectName + "&" + "projectId=" + projectId + "&" + "finalDate=" + FinalDate, UriKind.Relative));
 
         }

@@ -73,10 +73,16 @@ namespace TimeTracker
         {
             string id = "";
             string name = "";
-            DateTime finalDate = new DateTime();
+            string finalDate = "";
 
             if (NavigationContext.QueryString.TryGetValue("projectId", out id))
             {
+                NavigationContext.QueryString.TryGetValue("projectName", out name);
+                NavigationContext.QueryString.TryGetValue("finalDate", out finalDate);
+                
+
+                _dataBaseManager.createNewProjectItem(id, name);
+
 
             }
 
@@ -215,16 +221,7 @@ namespace TimeTracker
             NavigationService.Navigate(new Uri("/CreateProjectPage.xaml", UriKind.Relative));
 
 
-            /*
-            string ProjectId = NewProjectIdTextBox.Text;
-            if (!ProjectItem.CheckProjectId(ProjectId))
-            {
-                MessageBoxResult result = MessageBox.Show("Your project ID must consist of 5 numbers",
-                      "Error", MessageBoxButton.OKCancel);
-                return;
-            }
-            _dataBaseManager.createNewProjectItem(NewProjectIdTextBox.Text, NewProjectNameTextBox.Text);
-            */
+
         }
 
         private void queryData_Click(object sender, RoutedEventArgs e)

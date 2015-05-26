@@ -34,7 +34,7 @@
                 <Grid Height="571" VerticalAlignment="Top">
                     <Grid Margin="0,0,0,195">
                         <ListBox x:Name="ProjectItemtListBox" ItemsSource="{Binding ProjectItems}" 
-                     Grid.Row="0" Margin="12,0,4,0" Width="440" Height="366" VerticalAlignment="Top">
+                     Grid.Row="0" Margin="12,0,4,-113" Width="440" Height="489" VerticalAlignment="Top">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid HorizontalAlignment="Stretch" Width="440">
@@ -69,7 +69,7 @@
                                 Name="buttonDeleteProject"
                                 Content="D"
                                 />
-                                        
+
 
                                     </Grid>
                                 </DataTemplate>
@@ -77,11 +77,8 @@
                         </ListBox>
                     </Grid>
                     <Grid Margin="0,376,0,0">
-                        <TextBox Height="72" HorizontalAlignment="Left" Margin="165,-13,0,0" Name="TextBoxTime" Text="00:00" VerticalAlignment="Top" Width="114" />
-                        <Button Content="Q" Height="70" HorizontalAlignment="Left" Margin="321,56,0,0" Name="ButtonQueryData" VerticalAlignment="Top" Width="78" Click="queryData_Click"/>
-                        <TextBox Height="72" HorizontalAlignment="Left" Margin="6,45,0,0" Name="NewProjectNameTextBox" Text="" VerticalAlignment="Top" Width="293" />
-                        <Button Content="+" Height="70" HorizontalAlignment="Left" Margin="321,115,0,0" Name="Button1" VerticalAlignment="Top" Width="78" Click="newProject_Click"/>
-                        <TextBox Height="72" HorizontalAlignment="Right" Margin="0,113,157,0" Name="NewProjectIdTextBox" Text="" VerticalAlignment="Top" Width="293"/>
+                        <TextBox Height="72" HorizontalAlignment="Left" Margin="162,113,0,0" Name="TextBoxTime" Text="00:00" VerticalAlignment="Top" Width="114" />
+                        <Button Content="+" Height="70" HorizontalAlignment="Left" Margin="368,115,0,0" Name="Button1" VerticalAlignment="Top" Width="78" Click="newProject_Click"/>
 
                     </Grid>
                 </Grid>
@@ -92,8 +89,8 @@
                 <phone:PivotItem.Header>
                     <Image Source="icon_settings.png"/>
                 </phone:PivotItem.Header>
-                
-                
+
+
                 <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" >
                     <TextBox Height="72" HorizontalAlignment="Left" Margin="140,0,0,0" Name="TextBoxName" Text="" VerticalAlignment="Top" Width="328" />
                     <TextBox Height="72" HorizontalAlignment="Left" Margin="141,57,0,0" Name="TextBoxSurname" Text="" VerticalAlignment="Top" Width="328" />
