@@ -7,13 +7,13 @@ namespace TimeTracker
 {
     public partial class RegistrationPage : PhoneApplicationPage
     {
-        String _name = "";
-        String _surname = "";
-        String _personalId = "";
-        String _workingTime = "";
-        String _overtime = "";
-        String _vacationDays = "";
-        String _currentVacation = "";
+        string _name = "";
+        string _surname = "";
+        string _personalId = "";
+        string _workingTime = "";
+        string _overtime = "";
+        string _vacationDays = "";
+        string _currentVacation = "";
 
         public RegistrationPage()
         {
@@ -30,16 +30,10 @@ namespace TimeTracker
         //If they don't match appropriate message are displayed in the UI
         private void registrated_Click(object sender, RoutedEventArgs e)
         {
-            _name = TextBoxName.Text;
-            _surname = TextBoxSurname.Text;
-            _personalId = TextBoxPersonalId.Text;
-            _workingTime = TextBoxHoursWeek.Text;
-            _overtime = TextBoxOvertime.Text;
-            _vacationDays = TextBoxVacation.Text;
-            _currentVacation = TextBoxCurrentVacation.Text;
 
-            if (IsFormFilledCompletely(_name, _surname, _personalId, _workingTime,
-                _overtime, _vacationDays, _currentVacation))
+            ReadFormFields();
+
+            if (IsFormFilledCompletely())
             {
                 ShowErrorMessage("Form not completed", "Please fill out every form field");
                 return;
@@ -63,6 +57,17 @@ namespace TimeTracker
 
         }
 
+        private void ReadFormFields()
+        {
+            _name = TextBoxName.Text;
+            _surname = TextBoxSurname.Text;
+            _personalId = TextBoxPersonalId.Text;
+            _workingTime = TextBoxHoursWeek.Text;
+            _overtime = TextBoxOvertime.Text;
+            _vacationDays = TextBoxVacation.Text;
+            _currentVacation = TextBoxCurrentVacation.Text;
+        }
+
         private void NavigateToMainPivotPage(string name,
             string surname, string personalId, string workingTime,
             string overtime, string vacationDays, string currentVacation)
@@ -84,13 +89,11 @@ namespace TimeTracker
                       titel, MessageBoxButton.OK);
         }
 
-        private bool IsFormFilledCompletely(string name,
-            string surname, string personalId, string workingTime,
-            string overtime, string vacationDays, string currentVacation)
+        private bool IsFormFilledCompletely()
         {
-            if (name.Length == 0 || surname.Length == 0 || personalId.Length == 0 ||
-               workingTime.Length == 0 || overtime.Length == 0 || vacationDays.Length == 0
-               || currentVacation.Length == 0)
+            if (_name.Length == 0 || _surname.Length == 0 || _personalId.Length == 0 ||
+               _workingTime.Length == 0 || _overtime.Length == 0 || _vacationDays.Length == 0
+               || _currentVacation.Length == 0)
             {
                return false;
             }
