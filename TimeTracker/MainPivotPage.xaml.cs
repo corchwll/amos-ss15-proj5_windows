@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -331,8 +332,19 @@ namespace TimeTracker
             _dataBaseManager.LoadCurrentSessions(clickedProjectItem.ProjectId);
             TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
             CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
+            CurrentSessionItems = ReverseCurrentSessionItems(CurrentSessionItems);
             CurrentSessionList.ItemsSource = CurrentSessionItems;
             PivotMain.SelectedIndex = 1;
         }
+
+        private ObservableCollection<SessionItem> ReverseCurrentSessionItems(ObservableCollection<SessionItem> list )
+        {
+            ObservableCollection<SessionItem> newList = new ObservableCollection<SessionItem>();
+            foreach (var data in list.Reverse())
+            {
+                newList.Add(data);
+            }
+            return newList;
+        } 
     }
 }

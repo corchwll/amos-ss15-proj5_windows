@@ -101,6 +101,25 @@ namespace TimeTracker
             }
         }
 
+        private int _totalTime;
+        [Column]
+        public int TotalTime
+        {
+            get
+            {
+                return _totalTime;
+            }
+            set
+            {
+                if (_totalTime != value)
+                {
+                    NotifyPropertyChanging("TotalTime");
+                    _totalTime = value;
+                    NotifyPropertyChanged("TotalTime");
+                }
+            }
+        }
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;

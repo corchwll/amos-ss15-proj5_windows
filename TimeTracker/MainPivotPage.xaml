@@ -54,16 +54,12 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock
-                                Text="{Binding ProjectId}"
+                                Text="{Binding TotalTime}"
                                 FontSize="{StaticResource PhoneFontSizeLarge}"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
                                 />
-                                        <Button
-                                Grid.Column="2"
-                                Content="E"
-                                
-                                />
+
                                 
 
                                     </Grid>
