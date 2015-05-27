@@ -13,17 +13,26 @@ namespace TimeTracker
 {
     public partial class MainPivotPage : PhoneApplicationPage
     {
+        //Timer instance for recording sessions and update UI
         private DispatcherTimer _dispatcherTimer;
+        //Total amount of seconds of the current recorded session
         private Int32 _totalSeconds;
+        //Changed to True/False when timer is started/stopped
         private Boolean _isTimerRunning = false;
 
+        //Unix timestamp when timer was started
         private int _currentTimestampStart;
+        //Unix timestamp when timer was stopped
         private int _currentTimestampStop;
+        //Current recorded project name
         private string _currentProjectName;
+        //current recorded project id
         private string _currentProjectId;
 
+        //Database instance - Create, Delete, Update or Remove elements
         private readonly DatabaseManager _dataBaseManager;
 
+        //Collection of all (default & custome) Projects
         private ObservableCollection<ProjectItem> _projectItems;
         public ObservableCollection<ProjectItem> ProjectItems
         {
@@ -41,6 +50,7 @@ namespace TimeTracker
             }
         }
 
+        //Collection of all sessions from current selected project
         private ObservableCollection<SessionItem> _currentSessionItems;
         public ObservableCollection<SessionItem> CurrentSessionItems
         {
@@ -58,6 +68,7 @@ namespace TimeTracker
             }
         }
 
+        //Collection of all session items recorded on this device
         private ObservableCollection<SessionItem> _sessionItems;
         public ObservableCollection<SessionItem> SessionItems
         {
