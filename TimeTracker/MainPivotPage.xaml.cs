@@ -88,6 +88,7 @@ namespace TimeTracker
 
         #region Page Lifecycle Methods
 
+        //Lifecycle method when a certain pivot item is loaded
         private void Pivot_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -110,7 +111,6 @@ namespace TimeTracker
         {
 
             base.OnNavigatedTo(e);
-
             FillPersonalData();
             CollectNewProject();
             CollectNewSession();
@@ -119,6 +119,8 @@ namespace TimeTracker
 
         #endregion
 
+        //Catches necessary data and creates new project items in database
+        //when create project interactions was executed
         private void CollectNewProject()
         {
             string id = "";
@@ -134,6 +136,8 @@ namespace TimeTracker
             }
         }
 
+        //Catches necessary data and creates new session items in database
+        //when edit project was executed
         private void CollectNewSession()
         {
             string start = "";
@@ -155,6 +159,8 @@ namespace TimeTracker
             }
         }
 
+        //Catches necessary data and creates new user item in database
+        //when registration was executed
         private void CollectRegistrationData()
         {
             string name = "";
