@@ -34,11 +34,13 @@ namespace TimeTracker
             return "" + result;
         }
 
+        //Returns the unix timestamp in seconds
         public static Int32 GetUnixTimestamp()
         {
             return (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
         }
 
+        //Returns a reverse instance of a collection with types of SessionItems
         public static ObservableCollection<SessionItem> ReverseCurrentSessionItems(ObservableCollection<SessionItem> list)
         {
             ObservableCollection<SessionItem> newList = new ObservableCollection<SessionItem>();
