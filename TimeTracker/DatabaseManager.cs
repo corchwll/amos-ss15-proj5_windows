@@ -13,16 +13,16 @@ namespace TimeTracker
     class DatabaseManager
     {
         private const string ProjectHolidayName = "Holiday";
-        private const string ProjectHolidayId = "id_holiday";
+        private const string ProjectHolidayId = "00001";
 
         private const string ProjectTrainingName = "Training";
-        private const string ProjectTrainingId = "id_training";
+        private const string ProjectTrainingId = "00002";
 
         private const string ProjectIllnessName = "Illness";
-        private const string ProjectIllnessId = "id_illness";
+        private const string ProjectIllnessId = "00003";
 
         private const string ProjectOfficeName = "Office";
-        private const string ProjectOfficeId = "id_office";
+        private const string ProjectOfficeId = "00004";
 
         private readonly LocalDataContext _localDb;
 
@@ -135,6 +135,8 @@ namespace TimeTracker
             SessionItems = new ObservableCollection<SessionItem>(sessionItemsInDb);
             ProjectItems = new ObservableCollection<ProjectItem>(projectItemsInDb);
             UserItems = new ObservableCollection<UserItem>(userItemsInDb);
+            var currentSessionItemsInDb = from item in _localDb.SessionItems where item.ProjectId == "00000" select item;
+            CurrentSessionItems = new ObservableCollection<SessionItem>(currentSessionItemsInDb);
         }
 
         public void LoadCurrentSessions(string id)
@@ -150,7 +152,6 @@ namespace TimeTracker
             createNewProjectItem(ProjectTrainingId, ProjectTrainingName);
             createNewProjectItem(ProjectOfficeId, ProjectOfficeName);
             createNewProjectItem(ProjectIllnessId, ProjectIllnessName);
-            _localDb.SubmitChanges();
         }
 
         public void UpdateUser(UserItem newUser)

@@ -165,13 +165,5 @@ namespace TimeTracker
                 }
             }
         }
-
-
-
-
-
-
-
-       
     }
 }

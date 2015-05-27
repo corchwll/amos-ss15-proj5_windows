@@ -39,8 +39,8 @@
                     </Grid>
                     <Grid Margin="0,140,0,0">
                         <ListBox
-                            Name="SessionList"
-                            ItemsSource="{Binding SessionItems}"
+                            Name="CurrentSessionList"
+                            ItemsSource="{Binding CurrentSessionItems}"
                             Grid.Row="0" Margin="12,0,4,0" Width="440" Height="418" VerticalAlignment="Top"
                             >
                             <ListBox.ItemTemplate >

@@ -52,7 +52,7 @@ namespace TimeTracker
                 if (_currentSessionItems != value)
                 {
                     _currentSessionItems = value;
-                    _dataBaseManager.NotifyPropertyChanged("CurrentSessionItems");
+                    _dataBaseManager.NotifyPropertyChanged("SessionItems");
                 }
             }
         }
@@ -326,11 +326,12 @@ namespace TimeTracker
         {
             var button = sender as TextBlock;
             ProjectItem clickedProjectItem = button.DataContext as ProjectItem;
-            Debug.WriteLine("CLICKED: " + clickedProjectItem.ProjectId);
+            Debug.WriteLine("CLICKED NAME: " + clickedProjectItem.ProjectName);
+            Debug.WriteLine("CLICKED ID: " + clickedProjectItem.ProjectId);
             _dataBaseManager.LoadCurrentSessions(clickedProjectItem.ProjectId);
-            CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
-            Debug.WriteLine("Session item displayed: " + CurrentSessionItems.Count);
             TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
+            CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
+            CurrentSessionList.ItemsSource = CurrentSessionItems;
             PivotMain.SelectedIndex = 1;
         }
     }

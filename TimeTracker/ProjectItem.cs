@@ -41,7 +41,7 @@ namespace TimeTracker
         }
 
         private string _projectId;
-
+        [Column]
         public string ProjectId
         {
             get
