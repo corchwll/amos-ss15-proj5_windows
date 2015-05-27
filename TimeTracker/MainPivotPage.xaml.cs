@@ -233,6 +233,9 @@ namespace TimeTracker
 
         #region Clicklisteners
 
+        //Click listener when user wants to start recording a new session for a project.
+        //Saves the unix timestamp from the start and ending point and creates a new
+        //session in the database.
         private void startRecordingProject_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -264,16 +267,15 @@ namespace TimeTracker
             }
         }
 
+        //Click listener when user wants to create a new project
+        //App navigates to the create project page
         private void newProject_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/CreateProjectPage.xaml", UriKind.Relative));
         }
 
-        private void queryData_Click(object sender, RoutedEventArgs e)
-        {
-            _dataBaseManager.testQueryDatabase();
-        }
-
+        //Click listener when user wants to edit a project (add new sessions)
+        //App navigates to the edit project page
         private void editProject_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -283,6 +285,8 @@ namespace TimeTracker
             NavigationService.Navigate(new Uri("/EditProjectPage.xaml?id=" + projectId, UriKind.Relative));
         }
 
+        //Click listener when change settings is executed.
+        //User item is updated in database
         private void SavePersonalData_Click(object sender, RoutedEventArgs e)
         {
             UserItem newUser = new UserItem
@@ -300,6 +304,7 @@ namespace TimeTracker
             FillPersonalData(newUser);
         }
 
+        //Deletes a project after the user has acknowledged the task
         private void deleteProject_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -316,6 +321,7 @@ namespace TimeTracker
 
         #endregion
 
+        //Loads the user data from the database and passes it to a fill method
         private void FillPersonalData()
         {
             if (_dataBaseManager.UserItems.Count == 0)
@@ -327,6 +333,7 @@ namespace TimeTracker
             FillPersonalData(user);
         }
 
+        //Fills the single Ui elements with the appropriate user data
         private void FillPersonalData(UserItem user)
         {
             TextBoxName.Text = user.Name;
@@ -338,6 +345,8 @@ namespace TimeTracker
             TextBoxCurrentVacation.Text = user.CurrentVacationDays.ToString();
         }
 
+        //Click listener when project item is clicked in project list
+        //App navigates to recording pivot item and displayes previous sessions
         private void Tap_ProjectItem(object sender, GestureEventArgs e)
         {
             var button = sender as TextBlock;
@@ -347,19 +356,9 @@ namespace TimeTracker
             _dataBaseManager.LoadCurrentSessions(clickedProjectItem.ProjectId);
             TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
             CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
-            CurrentSessionItems = ReverseCurrentSessionItems(CurrentSessionItems);
+            CurrentSessionItems = Utils.ReverseCurrentSessionItems(CurrentSessionItems);
             CurrentSessionList.ItemsSource = CurrentSessionItems;
             PivotMain.SelectedIndex = 1;
         }
-
-        private ObservableCollection<SessionItem> ReverseCurrentSessionItems(ObservableCollection<SessionItem> list )
-        {
-            ObservableCollection<SessionItem> newList = new ObservableCollection<SessionItem>();
-            foreach (var data in list.Reverse())
-            {
-                newList.Add(data);
-            }
-            return newList;
-        } 
     }
 }
