@@ -35,7 +35,7 @@
                     <Grid>
                         <TextBlock Name="TextBlockCurrentProject" FontSize="40" HorizontalAlignment="Left" Margin="10,0,-4,0" TextWrapping="Wrap" Text="CurrentProject" VerticalAlignment="Top" Width="450" Height="77"/>
                         <TextBlock Name="TextBlockCurrentTimer" FontSize="40" HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Height="97" Width="151"/>
-                        <Button Content="Start Recording" HorizontalAlignment="Left" Margin="-4,59,0,0" VerticalAlignment="Top" Width="288" RenderTransformOrigin="0.28,0.5"/>
+                        <Button Name="ButtonStartStopRecording" Content="Start Recording" HorizontalAlignment="Left" Margin="-4,59,0,0" VerticalAlignment="Top" Width="288" RenderTransformOrigin="0.28,0.5" Click="startRecordingProject_Click"/>
                     </Grid>
                     <Grid Margin="0,140,0,0">
                         <ListBox
@@ -105,12 +105,7 @@
                                 Content="E"
                                 
                                 />
-                                        <Button
-                                Click="startRecordingProject_Click"
-                                Grid.Column="3"
-                                Name="buttonStartStopRecording"
-                                Content="Start"
-                                />
+
                                         <Button
                                 Click="deleteProject_Click"
                                 Grid.Column="4"
@@ -124,8 +119,7 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
-                    <Grid Margin="0,376,0,0">
-                        <TextBox Height="72" HorizontalAlignment="Left" Margin="162,113,0,0" Name="TextBoxTime" Text="00:00" VerticalAlignment="Top" Width="114" />
+                    <Grid Margin="0,381,0,0">
                         <Button Content="+" Height="70" HorizontalAlignment="Left" Margin="368,115,0,0" Name="Button1" VerticalAlignment="Top" Width="78" Click="newProject_Click"/>
 
                     </Grid>

@@ -205,8 +205,9 @@ namespace TimeTracker
         //EventHandler for each timer tick. Updates the textBox with the current time passed
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            _totalSeconds++;
-            TextBoxTime.Text = "" + Utils.GetMinutes(_totalSeconds) + ":" + Utils.GetSeconds(_totalSeconds);
+            int TmpEndingTime = Utils.GetUnixTimestamp();
+            _totalSeconds = TmpEndingTime - _currentTimestampStart;
+            TextBlockCurrentTimer.Text = "00:" + Utils.GetMinutes(_totalSeconds) + ":" + Utils.GetSeconds(_totalSeconds);
 
         }
 
@@ -224,14 +225,11 @@ namespace TimeTracker
                 {
                     _currentTimestampStart = Utils.GetUnixTimestamp();
                     _totalSeconds = 0;
-                    TextBoxTime.Text = "00:00";
+                    TextBlockCurrentTimer.Text = "00:00:00";
                     _isTimerRunning = true;
                     _dispatcherTimer.Start();
-                    button.Content = "stop";
-                    ProjectItem projectItem = button.DataContext as ProjectItem;
-                    _currentProjectId = projectItem.ProjectId;
+                    ButtonStartStopRecording.Content = "Stop Recording";
 
-                    _currentProjectName = projectItem.ProjectName;
                 }
                 //if the timer is already running, it will get stopoped, the button content will get changed and
                 //the output is showen in the UI
@@ -241,8 +239,8 @@ namespace TimeTracker
                     _isTimerRunning = false;
                     _dispatcherTimer.Stop();
                     _totalSeconds = _currentTimestampStop - _currentTimestampStart;
-                    TextBoxTime.Text = "" + Utils.GetMinutes(_totalSeconds) + ":" + Utils.GetSeconds(_totalSeconds);
-                    button.Content = "start";
+                    TextBlockCurrentTimer.Text = "00:" + Utils.GetMinutes(_totalSeconds) + ":" + Utils.GetSeconds(_totalSeconds);
+                    ButtonStartStopRecording.Content = "Start Recording";
                     _dataBaseManager.CreateNewSessionItem(_currentProjectId, _currentTimestampStart, _currentTimestampStop);
                     _dataBaseManager.saveChangesToDatabase();
                 }
@@ -327,8 +325,8 @@ namespace TimeTracker
         {
             var button = sender as TextBlock;
             ProjectItem clickedProjectItem = button.DataContext as ProjectItem;
-            Debug.WriteLine("CLICKED NAME: " + clickedProjectItem.ProjectName);
-            Debug.WriteLine("CLICKED ID: " + clickedProjectItem.ProjectId);
+            _currentProjectId = clickedProjectItem.ProjectId;
+            _currentProjectName = clickedProjectItem.ProjectName;
             _dataBaseManager.LoadCurrentSessions(clickedProjectItem.ProjectId);
             TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
             CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
