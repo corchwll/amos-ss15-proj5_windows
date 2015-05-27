@@ -87,10 +87,10 @@
                                     <Grid HorizontalAlignment="Stretch" Width="440">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="50" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="200" />
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition Width="100" />
-                                            <ColumnDefinition Width="100" />
+
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock
@@ -108,7 +108,7 @@
 
                                         <Button
                                 Click="deleteProject_Click"
-                                Grid.Column="4"
+                                Grid.Column="3"
                                 Name="buttonDeleteProject"
                                 Content="D"
                                 />
