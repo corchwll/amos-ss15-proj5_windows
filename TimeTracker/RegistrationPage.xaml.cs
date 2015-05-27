@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
 namespace TimeTracker
@@ -25,6 +17,9 @@ namespace TimeTracker
 
         }
 
+        //Click listener when registration button is clicked
+        //All entered contents are checked if they match the requirements
+        //If they don't match appropriate message are displayed in the UI
         private void registrated_Click(object sender, RoutedEventArgs e)
         {
             String name = TextBoxName.Text;
@@ -35,9 +30,8 @@ namespace TimeTracker
             String vacationDays = TextBoxVacation.Text;
             String currentVacation = TextBoxCurrentVacation.Text;
 
-            if (name.Length == 0 || surname.Length == 0 || personalId.Length == 0 ||
-                workingTime.Length == 0 || overtime.Length == 0 || vacationDays.Length == 0
-                || currentVacation.Length == 0)
+            if (IsFormFilledCompletely(name, surname, personalId, workingTime,
+                overtime, vacationDays, currentVacation))
             {
                 MessageBoxResult result = MessageBox.Show("Please fill out every field",
                        "Form not completed", MessageBoxButton.OKCancel);
@@ -76,6 +70,20 @@ namespace TimeTracker
                 , UriKind.Relative));
 
         }
+
+        private bool IsFormFilledCompletely(string name,
+            string surname, string personalId, string workingTime,
+            string overtime, string vacationDays, string currentVacation)
+        {
+            if (name.Length == 0 || surname.Length == 0 || personalId.Length == 0 ||
+               workingTime.Length == 0 || overtime.Length == 0 || vacationDays.Length == 0
+               || currentVacation.Length == 0)
+            {
+               return false;
+            }
+            return true;
+        }
+
         private bool CheckWorkingTime(string workingTime)
         {
             int workTime;
