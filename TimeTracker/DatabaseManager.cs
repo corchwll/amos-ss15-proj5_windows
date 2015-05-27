@@ -90,7 +90,7 @@ namespace TimeTracker
                 if (_currentSessionItems != value)
                 {
                     _currentSessionItems = value;
-                    NotifyPropertyChanged("CurrentSessionItems");
+                    NotifyPropertyChanged("SessionItems");
                 }
             }
         }
@@ -139,7 +139,9 @@ namespace TimeTracker
 
         public void LoadCurrentSessions(string id)
         {
-            var currentSessionItemsInDb = from item in _localDb.SessionItems where item.ProjectId.Equals(id) select item;
+            var currentSessionItemsInDb = from item in _localDb.SessionItems where item.ProjectId == id select item;
+            CurrentSessionItems = new ObservableCollection<SessionItem>(currentSessionItemsInDb);
+            Debug.WriteLine("SessionItems found: " + CurrentSessionItems.Count);
         }
 
         public void CreateDefaultProjects()

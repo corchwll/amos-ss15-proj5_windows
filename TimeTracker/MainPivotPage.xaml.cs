@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -56,6 +57,23 @@ namespace TimeTracker
             }
         }
 
+        private ObservableCollection<SessionItem> _sessionItems;
+        public ObservableCollection<SessionItem> SessionItems
+        {
+            get
+            {
+                return _sessionItems;
+            }
+            set
+            {
+                if (_sessionItems != value)
+                {
+                    _sessionItems = value;
+                    _dataBaseManager.NotifyPropertyChanged("SessionItems");
+                }
+            }
+        }
+
         #region Page Lifecycle Methods
 
         private void Pivot_Loaded(object sender, RoutedEventArgs e)
@@ -71,6 +89,8 @@ namespace TimeTracker
             this.DataContext = this;
             _dataBaseManager = new DatabaseManager();
             ProjectItems = _dataBaseManager.ProjectItems;
+            CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
+            SessionItems = _dataBaseManager.SessionItems;
         }
 
         //OnNavigateTo is called when the page is showen as the app launches
@@ -98,13 +118,8 @@ namespace TimeTracker
                 NavigationContext.QueryString.TryGetValue("projectName", out name);
                 NavigationContext.QueryString.TryGetValue("finalDate", out finalDate);
                 
-
                 _dataBaseManager.createNewProjectItem(id, name);
-
-
             }
-
-
         }
 
         private void CollectNewSession()
@@ -235,11 +250,7 @@ namespace TimeTracker
 
         private void newProject_Click(object sender, RoutedEventArgs e)
         {
-
             NavigationService.Navigate(new Uri("/CreateProjectPage.xaml", UriKind.Relative));
-
-
-
         }
 
         private void queryData_Click(object sender, RoutedEventArgs e)
@@ -315,6 +326,10 @@ namespace TimeTracker
         {
             var button = sender as TextBlock;
             ProjectItem clickedProjectItem = button.DataContext as ProjectItem;
+            Debug.WriteLine("CLICKED: " + clickedProjectItem.ProjectId);
+            _dataBaseManager.LoadCurrentSessions(clickedProjectItem.ProjectId);
+            CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
+            Debug.WriteLine("Session item displayed: " + CurrentSessionItems.Count);
             TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
             PivotMain.SelectedIndex = 1;
         }
