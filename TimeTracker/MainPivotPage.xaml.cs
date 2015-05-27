@@ -133,7 +133,10 @@ namespace TimeTracker
                 NavigationContext.QueryString.TryGetValue("finalDate", out finalDate);
                 
                 _dataBaseManager.createNewProjectItem(id, name);
+                PivotMain.SelectedIndex = 2;
+
             }
+
         }
 
         //Catches necessary data and creates new session items in database
