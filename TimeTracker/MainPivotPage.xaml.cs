@@ -177,17 +177,16 @@ namespace TimeTracker
                 NavigationContext.QueryString.TryGetValue("workingTime", out workingTimeString);
                 int workingTime = Int32.Parse(workingTimeString);
 
-
                 string overtimeString = "";
-                NavigationContext.QueryString.TryGetValue("workingTime", out overtimeString);
+                NavigationContext.QueryString.TryGetValue("overtime", out overtimeString);
                 int overtime = Int32.Parse(overtimeString);
 
                 string vacationDaysString = "";
-                NavigationContext.QueryString.TryGetValue("workingTime", out vacationDaysString);
+                NavigationContext.QueryString.TryGetValue("vacationDays", out vacationDaysString);
                 int vacationDays = Int32.Parse(vacationDaysString);
 
                 string currentVacationString = "";
-                NavigationContext.QueryString.TryGetValue("workingTime", out currentVacationString);
+                NavigationContext.QueryString.TryGetValue("currentVacation", out currentVacationString);
                 int currentVacation = Int32.Parse(currentVacationString);
                 _dataBaseManager.createNewUserItem(name, surname, personalId, workingTime, overtime, vacationDays, currentVacation);
                 UserItem newUser = new UserItem
