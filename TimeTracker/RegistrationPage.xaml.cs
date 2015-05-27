@@ -7,6 +7,14 @@ namespace TimeTracker
 {
     public partial class RegistrationPage : PhoneApplicationPage
     {
+        String _name = "";
+        String _surname = "";
+        String _personalId = "";
+        String _workingTime = "";
+        String _overtime = "";
+        String _vacationDays = "";
+        String _currentVacation = "";
+
         public RegistrationPage()
         {
             InitializeComponent();
@@ -22,53 +30,58 @@ namespace TimeTracker
         //If they don't match appropriate message are displayed in the UI
         private void registrated_Click(object sender, RoutedEventArgs e)
         {
-            String name = TextBoxName.Text;
-            String surname = TextBoxSurname.Text;
-            String personalId = TextBoxPersonalId.Text;
-            String workingTime = TextBoxHoursWeek.Text;
-            String overtime = TextBoxOvertime.Text;
-            String vacationDays = TextBoxVacation.Text;
-            String currentVacation = TextBoxCurrentVacation.Text;
+            _name = TextBoxName.Text;
+            _surname = TextBoxSurname.Text;
+            _personalId = TextBoxPersonalId.Text;
+            _workingTime = TextBoxHoursWeek.Text;
+            _overtime = TextBoxOvertime.Text;
+            _vacationDays = TextBoxVacation.Text;
+            _currentVacation = TextBoxCurrentVacation.Text;
 
-            if (IsFormFilledCompletely(name, surname, personalId, workingTime,
-                overtime, vacationDays, currentVacation))
+            if (IsFormFilledCompletely(_name, _surname, _personalId, _workingTime,
+                _overtime, _vacationDays, _currentVacation))
             {
-                MessageBoxResult result = MessageBox.Show("Please fill out every field",
-                       "Form not completed", MessageBoxButton.OKCancel);
+                ShowErrorMessage("Form not completed", "Please fill out every form field");
                 return;
             }
 
-
-
-            if (!CheckWorkingTime(workingTime) || !CheckVacationDays(vacationDays)
-                || !CheckOvertime(overtime) || !CheckCurrentVacationDays(currentVacation))
+            if (!CheckWorkingTime(_workingTime) || !CheckVacationDays(_vacationDays)
+                || !CheckOvertime(_overtime) || !CheckCurrentVacationDays(_currentVacation))
             {
-                MessageBoxResult result = MessageBox.Show("Please check your inputs",
-                       "Error", MessageBoxButton.OKCancel);
-                return;
-                
-            }
-
-
-            if (!CheckPersonalId(personalId))
-            {
-                MessageBoxResult result = MessageBox.Show("Your personal ID must consist of 5 digits",
-                       "Error", MessageBoxButton.OKCancel);
+                ShowErrorMessage("Error", "Please check your inputs");
                 return;
             }
 
+            if (!CheckPersonalId(_personalId))
+            {
+                ShowErrorMessage("Error", "Your personal ID must consist of 5 digits");
+                return;
+            }
 
+           NavigateToMainPivotPage(_name, _surname, _personalId, _workingTime,
+                _overtime, _vacationDays, _currentVacation);
 
+        }
+
+        private void NavigateToMainPivotPage(string name,
+            string surname, string personalId, string workingTime,
+            string overtime, string vacationDays, string currentVacation)
+        {
             NavigationService.Navigate(new Uri("/MainPivotPage.xaml?"
-                + "name=" + name
-                + "&" + "surname=" + surname
-                + "&" + "personalId=" + personalId
-                + "&" + "workingTime=" + workingTime
-                + "&" + "overtime=" + overtime
-                + "&" + "vacationDays=" + vacationDays
-                + "&" + "currentVacation=" + currentVacation
-                , UriKind.Relative));
+               + "_name=" + name
+               + "&" + "_surname=" + surname
+               + "&" + "_personalId=" + personalId
+               + "&" + "_workingTime=" + workingTime
+               + "&" + "_overtime=" + overtime
+               + "&" + "_vacationDays=" + vacationDays
+               + "&" + "_currentVacation=" + currentVacation
+               , UriKind.Relative));
+        }
 
+        private void ShowErrorMessage(string titel, string message)
+        {
+            MessageBoxResult result = MessageBox.Show(message,
+                      titel, MessageBoxButton.OK);
         }
 
         private bool IsFormFilledCompletely(string name,
