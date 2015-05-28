@@ -33,7 +33,7 @@ namespace TimeTracker
 
             ReadFormFields();
 
-            if (IsFormFilledCompletely())
+            if (!IsFormFilledCompletely())
             {
                 ShowErrorMessage("Form not completed", "Please fill out every form field");
                 return;
@@ -73,13 +73,13 @@ namespace TimeTracker
             string overtime, string vacationDays, string currentVacation)
         {
             NavigationService.Navigate(new Uri("/MainPivotPage.xaml?"
-               + "_name=" + name
-               + "&" + "_surname=" + surname
-               + "&" + "_personalId=" + personalId
-               + "&" + "_workingTime=" + workingTime
-               + "&" + "_overtime=" + overtime
-               + "&" + "_vacationDays=" + vacationDays
-               + "&" + "_currentVacation=" + currentVacation
+               + "name=" + _name
+               + "&" + "surname=" + _surname
+               + "&" + "personalId=" + _personalId
+               + "&" + "workingTime=" + _workingTime
+               + "&" + "overtime=" + _overtime
+               + "&" + "vacationDays=" + _vacationDays
+               + "&" + "currentVacation=" + _currentVacation
                , UriKind.Relative));
         }
 

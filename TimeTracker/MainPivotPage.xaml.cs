@@ -271,7 +271,7 @@ namespace TimeTracker
 
         //Click listener when user wants to create a new project
         //App navigates to the create project page
-        private void newProject_Click(object sender, RoutedEventArgs e)
+        private void newProject_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/CreateProjectPage.xaml", UriKind.Relative));
         }
@@ -361,11 +361,6 @@ namespace TimeTracker
             CurrentSessionItems = Utils.ReverseCurrentSessionItems(CurrentSessionItems);
             CurrentSessionList.ItemsSource = CurrentSessionItems;
             PivotMain.SelectedIndex = 1;
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }
