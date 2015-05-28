@@ -158,13 +158,13 @@ namespace TimeTracker
 
         public class QueryDictionary
         {
-            const string UserNameKey = "name";
-            const string UserSurnameKey = "surname";
-            const string UserPersonalIdKey = "personalId";
-            const string UserWorkingTimeKey = "workingTime";
-            const string UserOverTimeKey = "overtime";
-            const string UserVacationDaysKey = "vacationDays";
-            const string UserCurrentVacationDaysKey = "currentVacation";
+            public const string UserNameKey = "name";
+            public const string UserSurnameKey = "surname";
+            public const string UserPersonalIdKey = "personalId";
+            public const string UserWorkingTimeKey = "workingTime";
+            public const string UserOverTimeKey = "overtime";
+            public const string UserVacationDaysKey = "vacationDays";
+            public const string UserCurrentVacationDaysKey = "currentVacation";
         }
 
         //Catches necessary data and creates new user item in database
@@ -174,40 +174,18 @@ namespace TimeTracker
             string name = "";
             if (NavigationContext.QueryString.TryGetValue("name", out name))
             {
-
-                string surname = "";
-                NavigationContext.QueryString.TryGetValue("surname", out surname);
-
-                string personalId = "";
-                NavigationContext.QueryString.TryGetValue("personalId", out personalId);
-
-                string workingTimeString = "";
-                NavigationContext.QueryString.TryGetValue("workingTime", out workingTimeString);
-                int workingTime = Int32.Parse(workingTimeString);
-
-                string overtimeString = "";
-                NavigationContext.QueryString.TryGetValue("overtime", out overtimeString);
-                int overtime = Int32.Parse(overtimeString);
-
-                string vacationDaysString = "";
-                NavigationContext.QueryString.TryGetValue("vacationDays", out vacationDaysString);
-                int vacationDays = Int32.Parse(vacationDaysString);
-
-                string currentVacationString = "";
-                NavigationContext.QueryString.TryGetValue("currentVacation", out currentVacationString);
-                int currentVacation = Int32.Parse(currentVacationString);
-                _dataBaseManager.createNewUserItem(name, surname, personalId, workingTime, overtime, vacationDays, currentVacation);
                 UserItem newUser = new UserItem
                 {
-                    Name = name,
-                    Surname = surname,
-                    PersonalId = personalId,
-                    WorkingTime = workingTime,
-                    OverTime = overtime,
-                    VacationDays = vacationDays,
-                    CurrentVacationDays = currentVacation
+                    Name = CollectStringOnNavigation(QueryDictionary.UserNameKey),
+                    Surname = CollectStringOnNavigation(QueryDictionary.UserSurnameKey),
+                    PersonalId = CollectStringOnNavigation(QueryDictionary.UserPersonalIdKey),
+                    WorkingTime = CollectIntOnNavgation(QueryDictionary.UserWorkingTimeKey),
+                    OverTime = CollectIntOnNavgation(QueryDictionary.UserOverTimeKey),
+                    VacationDays = CollectIntOnNavgation(QueryDictionary.UserVacationDaysKey),
+                    CurrentVacationDays = CollectIntOnNavgation(QueryDictionary.UserCurrentVacationDaysKey)
 
                 };
+                _dataBaseManager.createNewUserItem(newUser);
                 FillPersonalData(newUser);
 
             }
@@ -223,6 +201,14 @@ namespace TimeTracker
             string result = "";
             NavigationContext.QueryString.TryGetValue(key, out result);
             return result;
+        }
+
+        private int CollectIntOnNavgation(string key)
+        {
+            string result = "";
+            NavigationContext.QueryString.TryGetValue(key, out result);
+            return Int32.Parse(result);
+
         }
 
         //initialize the timer, set 1000ms as a tick interval and link the eventHandler

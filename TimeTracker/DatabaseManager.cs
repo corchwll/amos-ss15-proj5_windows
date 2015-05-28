@@ -208,6 +208,13 @@ namespace TimeTracker
             saveChangesToDatabase();
         }
 
+        public void createNewUserItem(UserItem newUser)
+        {
+            UserItems.Add(newUser);
+            _localDb.UserItems.InsertOnSubmit(newUser);
+            saveChangesToDatabase();
+        }
+
 
         public void saveChangesToDatabase()
         {
