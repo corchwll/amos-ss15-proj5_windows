@@ -22,10 +22,14 @@ using Microsoft.Phone.Controls;
 
 namespace TimeTracker
 {
+    /**
+     * This Page shows the user a form which has to be filled with project
+     * information. As soon as the information is confirmed it gets send
+     * back to the MainPivotPage.xaml
+     */
     public partial class CreateProjectPage : PhoneApplicationPage
     {
-        private const string NavigationBody = "/Pages/MainPivotPage.xaml?";
-        private const string LinkElement = "&";
+
 
         public CreateProjectPage()
         {
@@ -47,36 +51,12 @@ namespace TimeTracker
                 return;
             }
 
-            NavigationService.Navigate(new Uri(CreateDataUri(projectName, projectId,
+            UriFactory factory = new UriFactory();
+            NavigationService.Navigate(new Uri(factory.CreateDataUri(projectName, projectId,
                                         FinalDate.ToString()), UriKind.Relative));
 
         }
 
-        private string CreateDataUri(string projectName, string projectId, string date)
-        {
-            return NavigationBody
-                   + ProjectNameUri(projectName)
-                   + LinkElement
-                   + ProjectIdUri(projectId)
-                   + LinkElement
-                   + ProjectDateUri(date);
-        }
 
-        private string ProjectNameUri(string projectName)
-        {
-            return QueryDictionary.ProjectName + "=" + projectName;
-        }
-
-        private string ProjectIdUri(string projectId)
-        {
-            return QueryDictionary.ProjectId + "=" + projectId;
-
-        }
-
-        private string ProjectDateUri(string date)
-        {
-            return QueryDictionary.ProjectFinalDate + "=" + date;
-
-        }
     }
 }

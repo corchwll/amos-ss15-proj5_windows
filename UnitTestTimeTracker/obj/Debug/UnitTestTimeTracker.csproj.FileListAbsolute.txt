@@ -6,8 +6,6 @@ C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\Microsoft.Phone.Controls.Toolkit.dll
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\TimeTracker.pdb
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\TimeTracker.xml
-C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\Microsoft.Phone.Controls.Toolkit.pdb
-C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\Microsoft.Phone.Controls.Toolkit.xml
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\obj\Debug\UnitTestTimeTracker.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\obj\Debug\UnitTestTimeTracker.dll
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\obj\Debug\UnitTestTimeTracker.pdb
