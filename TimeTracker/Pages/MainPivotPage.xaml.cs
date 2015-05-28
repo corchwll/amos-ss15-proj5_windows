@@ -17,11 +17,6 @@ namespace TimeTracker
 
         //Timer instance for recording sessions and update UI
         private DispatcherTimer _dispatcherTimer;
-        
-        //Changed to True/False when timer is started/stopped
-        private Boolean _isTimerRunning = false;
-
-
 
         //Database instance - Create, Delete, Update or Remove elements
         private readonly DatabaseManager _dataBaseManager;
@@ -93,8 +88,14 @@ namespace TimeTracker
         {
             InitializeComponent();
             InitTimer();
-            this.DataContext = this;
+            DataContext = this;
             _dataBaseManager = new DatabaseManager();
+            LoadData();
+        }
+
+
+        public void LoadData()
+        {
             ProjectItems = _dataBaseManager.ProjectItems;
             CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
             SessionItems = _dataBaseManager.SessionItems;
@@ -103,7 +104,6 @@ namespace TimeTracker
         //OnNavigateTo is called when the page is showen as the app launches
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-
             base.OnNavigatedTo(e);
             FillPersonalData();
             CollectNewProject();
@@ -117,55 +117,32 @@ namespace TimeTracker
         //when create project interactions was executed
         private void CollectNewProject()
         {
-            string id = "";
-            string name = "";
-            string finalDate = "";
-
-            if (NavigationContext.QueryString.TryGetValue("projectId", out id))
+            string tmp = "";
+            if (NavigationContext.QueryString.TryGetValue("projectId", out tmp))
             {
-                NavigationContext.QueryString.TryGetValue("projectName", out name);
-                NavigationContext.QueryString.TryGetValue("finalDate", out finalDate);
-                
+                string id = CollectStringOnNavigation(QueryDictionary.ProjectId);
+                string name = CollectStringOnNavigation(QueryDictionary.ProjectName);
+                string finalDate = CollectStringOnNavigation(QueryDictionary.ProjectFinalDate);
                 _dataBaseManager.createNewProjectItem(id, name);
                 PivotMain.SelectedIndex = 2;
-
             }
-
         }
 
         //Catches necessary data and creates new session items in database
         //when edit project was executed
         private void CollectNewSession()
         {
-            string start = "";
-            string end = "";
-            string id = "";
-
-            if (NavigationContext.QueryString.TryGetValue("start", out start))
+            string tmp = "";
+            if (NavigationContext.QueryString.TryGetValue("start", out tmp))
             {
-                NavigationContext.QueryString.TryGetValue("end", out end);
-
-                int startConverted = Int32.Parse(start);
-                int endConverted = Int32.Parse(end);
-                NavigationContext.QueryString.TryGetValue("id", out id);
+                int startConverted = CollectIntOnNavgation(QueryDictionary.SessionStart);
+                int endConverted = CollectIntOnNavgation(QueryDictionary.SessionStop);
+                string id = CollectStringOnNavigation(QueryDictionary.SessionProjectId);
                 _dataBaseManager.CreateNewSessionItem(id, startConverted, endConverted);
-                ShellToast toast = new ShellToast();
-                toast.Title = "Saved";
-                toast.Content = "Session was added";
-                toast.Show();
             }
         }
 
-        public class QueryDictionary
-        {
-            public const string UserNameKey = "name";
-            public const string UserSurnameKey = "surname";
-            public const string UserPersonalIdKey = "personalId";
-            public const string UserWorkingTimeKey = "workingTime";
-            public const string UserOverTimeKey = "overtime";
-            public const string UserVacationDaysKey = "vacationDays";
-            public const string UserCurrentVacationDaysKey = "currentVacation";
-        }
+        
 
         //Catches necessary data and creates new user item in database
         //when registration was executed
@@ -309,8 +286,6 @@ namespace TimeTracker
             {
                 return;
             }
-            
-            
             _dataBaseManager.DeleteProject(button);
         }
 
