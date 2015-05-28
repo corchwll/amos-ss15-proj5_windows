@@ -72,7 +72,7 @@ namespace TimeTracker
             string surname, string personalId, string workingTime,
             string overtime, string vacationDays, string currentVacation)
         {
-            NavigationService.Navigate(new Uri("/MainPivotPage.xaml?"
+            NavigationService.Navigate(new Uri("/Pages/MainPivotPage.xaml?"
                + "name=" + _name
                + "&" + "surname=" + _surname
                + "&" + "personalId=" + _personalId

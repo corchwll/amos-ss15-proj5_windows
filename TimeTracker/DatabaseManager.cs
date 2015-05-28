@@ -175,6 +175,13 @@ namespace TimeTracker
             saveChangesToDatabase();
         }
 
+        public void CreateNewSessionItem(SessionItem newSession)
+        {
+            SessionItems.Add(newSession);
+            _localDb.SessionItems.InsertOnSubmit(newSession);
+            saveChangesToDatabase();
+        }
+
         public void createNewProjectItem(string projectId, string projectName)
         {
             ProjectItem newProject = new ProjectItem { ProjectId = projectId, ProjectName = projectName };

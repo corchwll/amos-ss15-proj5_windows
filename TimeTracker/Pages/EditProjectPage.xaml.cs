@@ -56,7 +56,7 @@ namespace TimeTracker
 
                 return;
             }
-            NavigationService.Navigate(new Uri("/MainPivotPage.xaml?start=" + timestampStart + "&" + "end=" + timestampEnd + "&" + "id=" + _projectId, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Pages/MainPivotPage.xaml?start=" + timestampStart + "&" + "end=" + timestampEnd + "&" + "id=" + _projectId, UriKind.Relative));
 
             
         }

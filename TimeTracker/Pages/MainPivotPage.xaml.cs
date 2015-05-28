@@ -13,21 +13,15 @@ namespace TimeTracker
 {
     public partial class MainPivotPage : PhoneApplicationPage
     {
+        private SessionItem _currentSessionItem;
+
         //Timer instance for recording sessions and update UI
         private DispatcherTimer _dispatcherTimer;
-        //Total amount of seconds of the current recorded session
-        private Int32 _totalSeconds;
+        
         //Changed to True/False when timer is started/stopped
         private Boolean _isTimerRunning = false;
 
-        //Unix timestamp when timer was started
-        private int _currentTimestampStart;
-        //Unix timestamp when timer was stopped
-        private int _currentTimestampStop;
-        //Current recorded project name
-        private string _currentProjectName;
-        //current recorded project id
-        private string _currentProjectId;
+
 
         //Database instance - Create, Delete, Update or Remove elements
         private readonly DatabaseManager _dataBaseManager;
@@ -162,6 +156,17 @@ namespace TimeTracker
             }
         }
 
+        public class QueryDictionary
+        {
+            const string UserNameKey = "name";
+            const string UserSurnameKey = "surname";
+            const string UserPersonalIdKey = "personalId";
+            const string UserWorkingTimeKey = "workingTime";
+            const string UserOverTimeKey = "overtime";
+            const string UserVacationDaysKey = "vacationDays";
+            const string UserCurrentVacationDaysKey = "currentVacation";
+        }
+
         //Catches necessary data and creates new user item in database
         //when registration was executed
         private void CollectRegistrationData()
@@ -208,9 +213,16 @@ namespace TimeTracker
             }
             else if (!_dataBaseManager.userExists())
             {
-                NavigationService.Navigate(new Uri("/RegistrationPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/Pages/RegistrationPage.xaml", UriKind.Relative));
             }
             
+        }
+
+        private string CollectStringOnNavigation(string key)
+        {
+            string result = "";
+            NavigationContext.QueryString.TryGetValue(key, out result);
+            return result;
         }
 
         //initialize the timer, set 1000ms as a tick interval and link the eventHandler
@@ -225,8 +237,8 @@ namespace TimeTracker
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             int TmpEndingTime = Utils.GetUnixTimestamp();
-            _totalSeconds = TmpEndingTime - _currentTimestampStart;
-            TextBlockCurrentTimer.Text = "00:" + Utils.GetMinutes(_totalSeconds) + ":" + Utils.GetSeconds(_totalSeconds);
+            int TotalSeconds = TmpEndingTime - _currentSessionItem.TimestampStart;
+            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(TotalSeconds);
 
         }
 
@@ -245,8 +257,7 @@ namespace TimeTracker
             {
                 if (!_isTimerRunning)
                 {
-                    _currentTimestampStart = Utils.GetUnixTimestamp();
-                    _totalSeconds = 0;
+                    _currentSessionItem.TimestampStart = Utils.GetUnixTimestamp();
                     TextBlockCurrentTimer.Text = "00:00:00";
                     _isTimerRunning = true;
                     _dispatcherTimer.Start();
@@ -257,13 +268,13 @@ namespace TimeTracker
                 //the output is showen in the UI
                 else
                 {
-                    _currentTimestampStop = Utils.GetUnixTimestamp();
+                    _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
                     _isTimerRunning = false;
                     _dispatcherTimer.Stop();
-                    _totalSeconds = _currentTimestampStop - _currentTimestampStart;
-                    TextBlockCurrentTimer.Text = "00:" + Utils.GetMinutes(_totalSeconds) + ":" + Utils.GetSeconds(_totalSeconds);
+                    int TotalSeconds = _currentSessionItem.TimestampStop - _currentSessionItem.TimestampStart;
+                    TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(TotalSeconds);
                     ButtonStartStopRecording.Content = "Start Recording";
-                    _dataBaseManager.CreateNewSessionItem(_currentProjectId, _currentTimestampStart, _currentTimestampStop);
+                    _dataBaseManager.CreateNewSessionItem(_currentSessionItem);
                     _dataBaseManager.saveChangesToDatabase();
                 }
             }
@@ -273,7 +284,7 @@ namespace TimeTracker
         //App navigates to the create project page
         private void newProject_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/CreateProjectPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Pages/CreateProjectPage.xaml", UriKind.Relative));
         }
 
         //Click listener when user wants to edit a project (add new sessions)
@@ -284,7 +295,7 @@ namespace TimeTracker
             ProjectItem projectItem = button.DataContext as ProjectItem;
             string projectId = projectItem.ProjectId;
             string projectName = projectItem.ProjectName;
-            NavigationService.Navigate(new Uri("/EditProjectPage.xaml?id=" + projectId, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Pages/EditProjectPage.xaml?id=" + projectId, UriKind.Relative));
         }
 
         //Click listener when change settings is executed.
@@ -349,12 +360,14 @@ namespace TimeTracker
 
         //Click listener when project item is clicked in project list
         //App navigates to recording pivot item and displayes previous sessions
+        /**
+         * 
+         */
         private void Tap_ProjectItem(object sender, GestureEventArgs e)
         {
             var button = sender as TextBlock;
             ProjectItem clickedProjectItem = button.DataContext as ProjectItem;
-            _currentProjectId = clickedProjectItem.ProjectId;
-            _currentProjectName = clickedProjectItem.ProjectName;
+            _currentSessionItem = new SessionItem(clickedProjectItem.ProjectId);
             _dataBaseManager.LoadCurrentSessions(clickedProjectItem.ProjectId);
             TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
             CurrentSessionItems = _dataBaseManager.CurrentSessionItems;

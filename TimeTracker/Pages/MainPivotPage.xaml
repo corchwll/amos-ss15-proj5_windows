@@ -21,7 +21,7 @@
             <!--Pivotelement eins-->
             <phone:PivotItem>
                 <phone:PivotItem.Header>
-                    <Image Source="icon_dashboard.png"/>
+                    <Image Source="/Icons/icon_dashboard.png"/>
                 </phone:PivotItem.Header>
                 <Grid>
 
@@ -30,7 +30,7 @@
 
             <phone:PivotItem Margin="12,28,12,433">
                 <phone:PivotItem.Header>
-                    <Image Source="iconClock.png"/>
+                    <Image Source="/Icons/iconClock.png"/>
                 </phone:PivotItem.Header>
                 <Grid Margin="0,0,0,-430">
                     <Grid>
@@ -75,7 +75,7 @@
 
             <phone:PivotItem>
                 <phone:PivotItem.Header>
-                    <Image Source="icon_projects.png"/>
+                    <Image Source="/Icons/icon_projects.png"/>
                 </phone:PivotItem.Header>
                 <Grid Height="571" VerticalAlignment="Top">
                     <Grid Margin="0,0,0,195">
@@ -121,7 +121,7 @@
             </phone:PivotItem>
             <phone:PivotItem >
                 <phone:PivotItem.Header>
-                    <Image Source="icon_settings.png"/>
+                    <Image Source="/Icons/icon_settings.png"/>
                 </phone:PivotItem.Header>
 
 
@@ -150,8 +150,8 @@
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="icon_add.png" Text="Add Project" Click="newProject_Click"/>
-            <shell:ApplicationBarIconButton IconUri="icon_settings.png" Text="Settings"/>
+            <shell:ApplicationBarIconButton IconUri="/Icons/icon_add.png" Text="Add Project" Click="newProject_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Icons/icon_settings.png" Text="Settings"/>
             
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

@@ -10,6 +10,11 @@ namespace TimeTracker
     class Utils
     {
 
+        public static string FormatSecondsToChronometerString(int seconds)
+        {
+            return "00:" + Utils.GetMinutes(seconds) + ":" + Utils.GetSeconds(seconds);
+            
+        }
         //following methods provide functionalities to make small calculations
         #region Utils
         //returns the amount of minutes of a total amount of seconds as a 2 digits String

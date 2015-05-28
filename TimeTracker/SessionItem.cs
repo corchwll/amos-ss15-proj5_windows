@@ -22,6 +22,12 @@ namespace TimeTracker
     {
         private int _sessionItemId;
 
+        public SessionItem(string id)
+        {
+            ProjectId = id;
+        }
+
+
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public int SessionItemId
         {
