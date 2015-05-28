@@ -362,5 +362,10 @@ namespace TimeTracker
             CurrentSessionList.ItemsSource = CurrentSessionItems;
             PivotMain.SelectedIndex = 1;
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

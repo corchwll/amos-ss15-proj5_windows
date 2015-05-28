@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -84,34 +85,27 @@
                      Grid.Row="0" Margin="12,0,4,-113" Width="440" Height="489" VerticalAlignment="Top">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
+                                    
                                     <Grid HorizontalAlignment="Stretch" Width="440">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="50" />
-                                            <ColumnDefinition Width="200" />
-                                            <ColumnDefinition Width="100" />
-                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="400" />
+                                            
 
                                         </Grid.ColumnDefinitions>
-
+                                        <toolkit:ContextMenuService.ContextMenu>
+                                            <toolkit:ContextMenu>
+                                                <toolkit:MenuItem Header="Edit Project" Click="editProject_Click"/>
+                                                <toolkit:MenuItem Header="Archive Project" Click="deleteProject_Click"/>
+                                            </toolkit:ContextMenu>
+                                        </toolkit:ContextMenuService.ContextMenu>
                                         <TextBlock
                                 Text="{Binding ProjectName}"
-                                FontSize="{StaticResource PhoneFontSizeLarge}"
+                                FontSize="{StaticResource PhoneFontSizeExtraLarge}"
                                 Grid.Column="1"
+                                FontFamily="{StaticResource PhoneFontFamilyLight}"
                                 VerticalAlignment="Center"
                                             Tap="Tap_ProjectItem"/>
-                                        <Button
-                                Click="editProject_Click"
-                                Grid.Column="2"
-                                Content="E"
-                                
-                                />
-
-                                        <Button
-                                Click="deleteProject_Click"
-                                Grid.Column="3"
-                                Name="buttonDeleteProject"
-                                Content="D"
-                                />
 
 
                                     </Grid>
