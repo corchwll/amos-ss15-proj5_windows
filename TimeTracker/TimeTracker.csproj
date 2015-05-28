@@ -159,6 +159,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icon_add.png" />
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

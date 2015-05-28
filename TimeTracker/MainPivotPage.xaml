@@ -117,6 +117,7 @@
                         <Button Content="+" Height="70" HorizontalAlignment="Left" Margin="368,115,0,0" Name="Button1" VerticalAlignment="Top" Width="78" Click="newProject_Click"/>
 
                     </Grid>
+                    
                 </Grid>
 
 
@@ -150,5 +151,12 @@
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="icon_add.png" Text="Add Project"/>
+            <shell:ApplicationBarIconButton IconUri="icon_settings.png" Text="Settings"/>
+            
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
