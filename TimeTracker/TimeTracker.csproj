@@ -120,6 +120,7 @@
     <Compile Include="Pages\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="QueryDictionary.cs" />
     <Compile Include="SessionItem.cs" />
     <Compile Include="UserItem.cs" />
     <Compile Include="Utils.cs" />

@@ -27,9 +27,9 @@ namespace TimeTracker
             ProjectId = id;
         }
 
-        public int GetTotalSeconds()
+        public SessionItem()
         {
-            return TimestampStop - TimestampStart;
+            
         }
 
 
@@ -87,6 +87,7 @@ namespace TimeTracker
                     NotifyPropertyChanging("TimestampStop");
                     _timestampStop = value;
                     NotifyPropertyChanged("TimestampStop");
+                    TotalTime = TimestampStop - TimestampStart;
                 }
             }
         }

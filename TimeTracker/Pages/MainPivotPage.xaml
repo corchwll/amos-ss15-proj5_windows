@@ -36,7 +36,7 @@
                     <Grid>
                         <TextBlock Name="TextBlockCurrentProject" FontSize="40" HorizontalAlignment="Left" Margin="10,0,-4,0" TextWrapping="Wrap" Text="CurrentProject" VerticalAlignment="Top" Width="450" Height="77"/>
                         <TextBlock Name="TextBlockCurrentTimer" FontSize="40" HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Height="97" Width="151"/>
-                        <Button Name="ButtonStartStopRecording" Content="Start Recording" HorizontalAlignment="Left" Margin="-4,59,0,0" VerticalAlignment="Top" Width="288" RenderTransformOrigin="0.28,0.5" Click="startRecordingProject_Click"/>
+                        <Button Name="ButtonStartStopRecording" Content="Start Recording" HorizontalAlignment="Left" Margin="-4,59,0,0" VerticalAlignment="Top" Width="288" RenderTransformOrigin="0.28,0.5" Click="RecordingProject_Click"/>
                     </Grid>
                     <Grid Margin="0,140,0,0">
                         <ListBox

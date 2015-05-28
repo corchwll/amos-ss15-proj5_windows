@@ -169,14 +169,15 @@ namespace TimeTracker
         }
         public void CreateNewSessionItem(string projectId, int timestampStart, int timestampStop)
         {
-            SessionItem newSession = new SessionItem { ProjectId = projectId, TimestampStart = timestampStart, TimestampStop = timestampStop, TotalTime = timestampStop - timestampStart};
+            SessionItem newSession = new SessionItem { ProjectId =projectId, TimestampStart = timestampStart, TimestampStop = timestampStop, TotalTime = timestampStop - timestampStart};
             SessionItems.Add(newSession);
             _localDb.SessionItems.InsertOnSubmit(newSession);
             saveChangesToDatabase();
         }
 
-        public void CreateNewSessionItem(SessionItem newSession)
+        public void CreateNewSessionItem(SessionItem item)
         {
+            SessionItem newSession = item;
             SessionItems.Add(newSession);
             _localDb.SessionItems.InsertOnSubmit(newSession);
             saveChangesToDatabase();

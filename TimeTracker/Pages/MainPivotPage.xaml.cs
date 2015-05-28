@@ -1,18 +1,38 @@
-﻿using System;
+﻿/*
+ *     Mobile Time Accounting
+ *     Copyright (C) 2015
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU Affero General Public License as
+ *     published by the Free Software Foundation, either version 3 of the
+ *     License, or (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU Affero General Public License for more details.
+ *
+ *     You should have received a copy of the GNU Affero General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace TimeTracker
 {
     public partial class MainPivotPage : PhoneApplicationPage
     {
+
+        #region Global Variables
+        /**
+         * 
+         */
         private SessionItem _currentSessionItem;
 
         //Timer instance for recording sessions and update UI
@@ -75,6 +95,8 @@ namespace TimeTracker
             }
         }
 
+        #endregion
+
         #region Page Lifecycle Methods
 
         //Lifecycle method when a certain pivot item is loaded
@@ -93,14 +115,6 @@ namespace TimeTracker
             LoadData();
         }
 
-
-        public void LoadData()
-        {
-            ProjectItems = _dataBaseManager.ProjectItems;
-            CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
-            SessionItems = _dataBaseManager.SessionItems;
-        }
-
         //OnNavigateTo is called when the page is showen as the app launches
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
@@ -113,6 +127,20 @@ namespace TimeTracker
 
         #endregion
 
+        public void LoadData()
+        {
+            ProjectItems = _dataBaseManager.ProjectItems;
+            CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
+            SessionItems = _dataBaseManager.SessionItems;
+        }
+
+        /**
+         * The following region checks if certain data was passed while
+         * navigating to this page. If this is the case the data is collected
+         * and appropriate methods are executed to create new items in the
+         * database (User, Projects or Sessions)
+         */
+        #region Collecting Data
         //Catches necessary data and creates new project items in database
         //when create project interactions was executed
         private void CollectNewProject()
@@ -141,8 +169,6 @@ namespace TimeTracker
                 _dataBaseManager.CreateNewSessionItem(id, startConverted, endConverted);
             }
         }
-
-        
 
         //Catches necessary data and creates new user item in database
         //when registration was executed
@@ -188,6 +214,8 @@ namespace TimeTracker
 
         }
 
+        #endregion
+
         //initialize the timer, set 1000ms as a tick interval and link the eventHandler
         private void InitTimer()
         {
@@ -200,11 +228,11 @@ namespace TimeTracker
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
-            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.GetTotalSeconds());
+            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.TotalTime);
 
         }
 
-        //following methods build the callback functionalities of the buttons
+        //following methods build the event callback functionalitiesof the buttons
         //implemented in the UI
 
         #region Clicklisteners
@@ -212,7 +240,7 @@ namespace TimeTracker
         //Click listener when user wants to start recording a new session for a project.
         //Saves the unix timestamp from the start and ending point and creates a new
         //session in the database.
-        private void startRecordingProject_Click(object sender, RoutedEventArgs e)
+        private void RecordingProject_Click(object sender, RoutedEventArgs e)
         {
             if (!_dispatcherTimer.IsEnabled)
             {
@@ -234,7 +262,7 @@ namespace TimeTracker
         {
             _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
             _dispatcherTimer.Stop();
-            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.GetTotalSeconds());
+            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.TotalTime);
             ButtonStartStopRecording.Content = "Start Recording";
             _dataBaseManager.CreateNewSessionItem(_currentSessionItem);
         }
