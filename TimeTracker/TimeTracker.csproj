@@ -114,15 +114,15 @@
     <Compile Include="Pages\CreateProjectPage.xaml.cs">
       <DependentUpon>CreateProjectPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectItem.cs" />
+    <Compile Include="Models\ProjectItem.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pages\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryDictionary.cs" />
-    <Compile Include="SessionItem.cs" />
-    <Compile Include="UserItem.cs" />
+    <Compile Include="Models\SessionItem.cs" />
+    <Compile Include="Models\UserItem.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
