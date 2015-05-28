@@ -27,6 +27,11 @@ namespace TimeTracker
             ProjectId = id;
         }
 
+        public int GetTotalSeconds()
+        {
+            return TimestampStop - TimestampStart;
+        }
+
 
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public int SessionItemId

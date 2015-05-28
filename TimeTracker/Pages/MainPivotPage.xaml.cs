@@ -222,9 +222,8 @@ namespace TimeTracker
         //EventHandler for each timer tick. Updates the textBox with the current time passed
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            int TmpEndingTime = Utils.GetUnixTimestamp();
-            int TotalSeconds = TmpEndingTime - _currentSessionItem.TimestampStart;
-            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(TotalSeconds);
+            _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
+            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.GetTotalSeconds());
 
         }
 
@@ -238,32 +237,29 @@ namespace TimeTracker
         //session in the database.
         private void startRecordingProject_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            if (button != null)
+            if (!_dispatcherTimer.IsEnabled)
             {
-                if (!_isTimerRunning)
-                {
-                    _currentSessionItem.TimestampStart = Utils.GetUnixTimestamp();
-                    TextBlockCurrentTimer.Text = "00:00:00";
-                    _isTimerRunning = true;
-                    _dispatcherTimer.Start();
-                    ButtonStartStopRecording.Content = "Stop Recording";
-
-                }
-                //if the timer is already running, it will get stopoped, the button content will get changed and
-                //the output is showen in the UI
-                else
-                {
-                    _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
-                    _isTimerRunning = false;
-                    _dispatcherTimer.Stop();
-                    int TotalSeconds = _currentSessionItem.TimestampStop - _currentSessionItem.TimestampStart;
-                    TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(TotalSeconds);
-                    ButtonStartStopRecording.Content = "Start Recording";
-                    _dataBaseManager.CreateNewSessionItem(_currentSessionItem);
-                    _dataBaseManager.saveChangesToDatabase();
-                }
+                StartRecording();
+                return;
             }
+            StopRecording();
+        }
+
+        private void StartRecording()
+        {
+            _currentSessionItem.TimestampStart = Utils.GetUnixTimestamp();
+            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(0);
+            _dispatcherTimer.Start();
+            ButtonStartStopRecording.Content = "Stop Recording";
+        }
+
+        private void StopRecording()
+        {
+            _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
+            _dispatcherTimer.Stop();
+            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.GetTotalSeconds());
+            ButtonStartStopRecording.Content = "Start Recording";
+            _dataBaseManager.CreateNewSessionItem(_currentSessionItem);
         }
 
         //Click listener when user wants to create a new project
