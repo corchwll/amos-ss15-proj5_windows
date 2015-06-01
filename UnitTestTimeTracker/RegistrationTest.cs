@@ -16,7 +16,6 @@ namespace UnitTestTimeTracker
         [TestMethod]
         public void CreateDataUriTest()
         {
-
             string expected = "/Pages/MainPivotPage.xaml?projectName=a&projectId=b&finalDate=c";
             var factory = new UriFactory();
             string uri = factory.CreateDataUri("a", "b", "c");

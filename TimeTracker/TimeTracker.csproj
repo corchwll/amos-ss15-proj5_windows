@@ -104,6 +104,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLogic\DashboardInformation.cs" />
+    <Compile Include="BusinessLogic\Holidays.cs" />
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Pages\EditProjectPage.xaml.cs">
       <DependentUpon>EditProjectPage.xaml</DependentUpon>
