@@ -24,6 +24,10 @@
                     <Image Source="/Icons/icon_dashboard.png"/>
                 </phone:PivotItem.Header>
                 <Grid>
+                    <TextBlock FontSize="35" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Vacation Days:" VerticalAlignment="Top"/>
+                    <TextBlock FontSize="35" HorizontalAlignment="Left" Margin="253,10,-20,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+                    <TextBlock FontSize="35" HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" Text="Overtime:" VerticalAlignment="Top"/>
+                    <TextBlock FontSize="35" HorizontalAlignment="Left" Margin="253,75,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
 
                 </Grid>
             </phone:PivotItem>
