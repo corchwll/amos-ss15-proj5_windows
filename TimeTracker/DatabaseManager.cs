@@ -12,17 +12,17 @@ namespace TimeTracker
     //as creating new session or project items and save them to the database
     class DatabaseManager
     {
-        private const string ProjectHolidayName = "Holiday";
-        private const string ProjectHolidayId = "00001";
+        static string ProjectHolidayName = "Holiday";
+        public static string ProjectHolidayId = "00001";
 
-        private const string ProjectTrainingName = "Training";
-        private const string ProjectTrainingId = "00002";
+        public const string ProjectTrainingName = "Training";
+        public const string ProjectTrainingId = "00002";
 
-        private const string ProjectIllnessName = "Illness";
-        private const string ProjectIllnessId = "00003";
+        public const string ProjectIllnessName = "Illness";
+        public const string ProjectIllnessId = "00003";
 
-        private const string ProjectOfficeName = "Office";
-        private const string ProjectOfficeId = "00004";
+        public const string ProjectOfficeName = "Office";
+        public const string ProjectOfficeId = "00004";
 
         private readonly LocalDataContext _localDb;
 

@@ -17,7 +17,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -130,10 +132,29 @@ namespace TimeTracker
         public void LoadData()
         {
             ProjectItems = _dataBaseManager.ProjectItems;
+            SortProjectItemsCollection();
             CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
             SessionItems = _dataBaseManager.SessionItems;
         }
 
+        private void SortProjectItemsCollection()
+        {
+            ProjectItems = new ObservableCollection<ProjectItem>(ProjectItems.OrderBy(a => a.ProjectName));
+           
+            RearrangeDefaultProject(DatabaseManager.ProjectTrainingId);
+            RearrangeDefaultProject(DatabaseManager.ProjectOfficeId);
+            RearrangeDefaultProject(DatabaseManager.ProjectIllnessId);
+            RearrangeDefaultProject(DatabaseManager.ProjectHolidayId);
+        }
+
+        public void RearrangeDefaultProject(string id)
+        {
+            IEnumerable<ProjectItem> items = ProjectItems.Where(a =>
+                a.ProjectId == id);
+            ProjectItem item = items.First();
+            ProjectItems.Remove(item);
+            ProjectItems.Insert(0, item);
+        }
         /**
          * The following region checks if certain data was passed while
          * navigating to this page. If this is the case the data is collected
