@@ -104,7 +104,7 @@ namespace TimeTracker
         //Lifecycle method when a certain pivot item is loaded
         private void Pivot_Loaded(object sender, RoutedEventArgs e)
         {
-
+            TextBlockDashboardOvertime.Text = "100h";
         }
 
         // Konstruktor
