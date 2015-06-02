@@ -183,12 +183,13 @@ namespace TimeTracker
             saveChangesToDatabase();
         }
 
-        public void createNewProjectItem(string projectId, string projectName)
+        public ProjectItem createNewProjectItem(string projectId, string projectName)
         {
             ProjectItem newProject = new ProjectItem { ProjectId = projectId, ProjectName = projectName };
             ProjectItems.Add(newProject);
             _localDb.ProjectItems.InsertOnSubmit(newProject);
             saveChangesToDatabase();
+            return newProject;
         }
 
         public void createNewUserItem(string name, string surname, string personalId, int workingtime, int overtime, int vacationDays, int currentVacation)
@@ -253,9 +254,8 @@ namespace TimeTracker
             return true;
         }
 
-        public void DeleteProject(Button button)
+        public void DeleteProject(ProjectItem toDoForDelete)
         {
-            ProjectItem toDoForDelete = button.DataContext as ProjectItem;
 
             // Remove the to-do item from the observable collection.
             ProjectItems.Remove(toDoForDelete);

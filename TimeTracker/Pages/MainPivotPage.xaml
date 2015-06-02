@@ -59,7 +59,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock
-                                Text="{Binding TotalTime}"
+                                Text="{Binding VisualText}"
                                 FontSize="{StaticResource PhoneFontSizeLarge}"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"

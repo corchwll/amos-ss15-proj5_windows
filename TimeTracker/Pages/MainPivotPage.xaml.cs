@@ -107,6 +107,12 @@ namespace TimeTracker
         //Lifecycle method when a certain pivot item is loaded
         private void Pivot_Loaded(object sender, RoutedEventArgs e)
         {
+            UpdateDashboard();
+            
+        }
+
+        private void UpdateDashboard()
+        {
             if (_dataBaseManager.UserItems.Count > 0 && SessionItems != null)
             {
                 _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
@@ -186,7 +192,8 @@ namespace TimeTracker
                 string id = CollectStringOnNavigation(QueryDictionary.ProjectId);
                 string name = CollectStringOnNavigation(QueryDictionary.ProjectName);
                 string finalDate = CollectStringOnNavigation(QueryDictionary.ProjectFinalDate);
-                _dataBaseManager.createNewProjectItem(id, name);
+                ProjectItem newItem =_dataBaseManager.createNewProjectItem(id, name);
+                ProjectItems.Add(newItem);
                 PivotMain.SelectedIndex = 2;
             }
         }
@@ -302,6 +309,9 @@ namespace TimeTracker
             TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.TotalTime);
             ButtonStartStopRecording.Content = "Start Recording";
             _dataBaseManager.CreateNewSessionItem(_currentSessionItem);
+            UpdateDashboard();
+
+
         }
 
         //Click listener when user wants to create a new project
@@ -348,14 +358,17 @@ namespace TimeTracker
         //Deletes a project after the user has acknowledged the task
         private void deleteProject_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
+            var menu = sender as MenuItem;
+            ProjectItem projectItem = menu.DataContext as ProjectItem;
+
             MessageBoxResult result = MessageBox.Show("Are you sure?",
                       "Deleting project", MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.Cancel)
             {
                 return;
             }
-            _dataBaseManager.DeleteProject(button);
+            ProjectItems.Remove(projectItem);
+            _dataBaseManager.DeleteProject(projectItem);
         }
 
         #endregion

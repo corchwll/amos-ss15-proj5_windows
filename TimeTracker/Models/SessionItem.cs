@@ -16,6 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Data.Linq.Mapping;
 using System.ComponentModel;
 
@@ -91,6 +92,15 @@ namespace TimeTracker
                     _timestampStop = value;
                     NotifyPropertyChanged("TimestampStop");
                     TotalTime = TimestampStop - TimestampStart;
+                    int hours = TotalTime/ (60*60);
+                    DateTime dateStart = UnixTimeStampToDateTime(TimestampStart);
+                    VisualText = dateStart.Day.ToString() + "." +
+                                 dateStart.Month.ToString() + "." +
+                                 dateStart.Year.ToString() + "  - " +
+                                 hours + "h";
+
+
+
                 }
             }
         }
@@ -133,6 +143,17 @@ namespace TimeTracker
                     NotifyPropertyChanged("TotalTime");
                 }
             }
+        }
+
+        private string _visualText;
+        public string VisualText { get; set; }
+
+        public static DateTime UnixTimeStampToDateTime(int unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
 
         #region INotifyPropertyChanged Members

@@ -59,7 +59,7 @@ namespace TimeTracker.BusinessLogic
                 long amountOfWorkdays = CalculateWorkdays(startDate, stopDate);
                 long recordedTimeInSeconds = SumUpSessions(sessions);
 
-                double hoursPerDay = _user.WorkingTime / 5.0;
+                double hoursPerDay = user.WorkingTime / 5.0;
                 long debtInSeconds = (long)((amountOfWorkdays - amountOfHolidays) * hoursPerDay * 60 * 60);
 
                 long overTimeInSeconds = recordedTimeInSeconds - debtInSeconds;
