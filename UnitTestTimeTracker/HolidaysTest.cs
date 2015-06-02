@@ -19,8 +19,7 @@ namespace UnitTestTimeTracker
 
             DateTime date1 = new DateTime(year1, 1, 1);
             DateTime date2 = new DateTime(year1, 1, 6);
-            DateTime date3 = new DateTime(year1, 5, 1);
-            
+            DateTime date3 = new DateTime(year1, 5, 1);   
             DateTime date7 = new DateTime(year1, 12, 25);
 
             DateTime date4 = new DateTime(year1, 8, 15);
@@ -53,6 +52,36 @@ namespace UnitTestTimeTracker
             
             Assert.AreEqual(realEaster.Month, easter.Month);
             Assert.AreEqual(realEaster.Day, easter.Day);
+        }
+
+        [TestMethod]
+        public void AmountOfHolidaysInBetweenTest()
+        {
+
+            int year = 2015;
+            DateTime startDate = new DateTime(year, 2, 5);
+            DateTime endDate = new DateTime(year, 10, 3);
+            int count = 1;
+            List<DateTime> holidays = Holidays.FixedHolidays(year);
+            int resultCount = Holidays.AmountOfHolidaysBetween(holidays, startDate, endDate);
+
+            Assert.AreEqual(count, resultCount);
+
+        }
+
+        [TestMethod]
+        public void AmountOfHolidaysSinceTest()
+        {
+            DateTime date1 = new DateTime(year1, 1, 1);
+            DateTime date2 = new DateTime(year1, 1, 6);
+            DateTime date3 = new DateTime(year1, 5, 1);
+            DateTime date7 = new DateTime(year1, 12, 25);
+
+            int year = 2015;
+            List<DateTime> holidays = Holidays.FixedHolidays(year);
+            DateTime date = new DateTime(year, 7,1);
+            int count = 2;
+
 
 
         }

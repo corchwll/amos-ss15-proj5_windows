@@ -87,5 +87,36 @@ namespace TimeTracker.BusinessLogic
             DateTime cal = new DateTime(year, month, day);
             return cal;
         }
+
+        /**
+	 * This method checks how many of the holidays will be after the start date and before the stop date.
+	 *
+	 * @param holidays the holidays that should be checked
+	 * @param startCal the date after which the holidays have to be
+	 * @param stopCal the date before which the holidays have to be
+	 * @return the amount of holidays inbetween the given dates
+	 * methodtype helper method
+	 * pre startCal != null && stopCal != null
+	 * post correct amount will be returned
+	 */
+        public static int AmountOfHolidaysBetween(List<DateTime> holidays, DateTime startCal, DateTime stopCal)
+        {
+            return holidays.Count(cal => startCal.Ticks < cal.Ticks && stopCal.Ticks > cal.Ticks);
+        }
+
+        /**
+	 * This method checks how many of the holidays will be after the given date.
+	 *
+	 * @param holidays the holidays that should be checked
+	 * @param startCal the date after which the holidays have to be
+	 * @return the amount of holidays after the given date
+	 * methodtype helper method
+	 * pre startCal != null
+	 * post correct amount will be returned
+	 */
+        public static int AmountOfHolidaysSince(List<DateTime> holidays, DateTime startCal)
+        {
+            return holidays.Count(cal => startCal.Ticks < cal.Ticks);
+        }
     }
 }
