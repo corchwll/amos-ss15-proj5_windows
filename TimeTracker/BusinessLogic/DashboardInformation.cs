@@ -18,7 +18,7 @@ namespace TimeTracker.BusinessLogic
 
         public DashboardInformation()
         {
-            
+
         }
 
         public DashboardInformation(ObservableCollection<SessionItem> sessionItems, UserItem user)
@@ -29,34 +29,46 @@ namespace TimeTracker.BusinessLogic
 
 
         public int CalculateOvertime(List<SessionItem> sessions, UserItem user)
-	    {
+        {
 
-		int overTimeInHours = 0;
+            int overTimeInHours = 0;
 
-		if(sessions.Count() != 0)
-		{
-			int startTime = sessions.First().TimestampStart;
-									 
-			int stopTime = sessions.Last().TimestampStop;
-									
+            if (sessions.Count() != 0)
+            {
+                int startTime = sessions.First().TimestampStart;
 
-			//int amountOfHolidays = Holidays.getHolidaysInbetween(startTime, stopTime);
-			//long amountOfWorkdays = calculateWorkdays(startTime, stopTime);
-			//long recordedTimeInMillis = sumUpSessions(sessions);
+                int stopTime = sessions.Last().TimestampStop;
 
-			//double hoursPerDay = currentUser.getWeeklyWorkingTime()/5.0;
-			//long debtInMillis = (long)((amountOfWorkdays - amountOfHolidays)*hoursPerDay*60*60*1000);
 
-			//long overTimeInMillis = recordedTimeInMillis - debtInMillis;
-			//overTimeInHours = (int)(overTimeInMillis/(1000*60*60));
-		} else
-		{
-			overTimeInHours = 0;
-		}
+                DateTime startDate = UnixTimeStampToDateTime(startTime);
+                DateTime stopDate = UnixTimeStampToDateTime(stopTime);
 
-		return user.OverTime + overTimeInHours;
-	    
-     }
+                int amountOfHolidays = Holidays.HolidaysInbetween(startDate, stopDate);
+                long amountOfWorkdays = CalculateWorkdays(startDate, stopDate);
+                long recordedTimeInSeconds = SumUpSessions(sessions);
+
+                double hoursPerDay = _user.WorkingTime / 5.0;
+                long debtInSeconds = (long)((amountOfWorkdays - amountOfHolidays) * hoursPerDay * 60 * 60);
+
+                long overTimeInSeconds = recordedTimeInSeconds - debtInSeconds;
+                overTimeInHours = (int)(overTimeInSeconds / (60 * 60));
+            }
+            else
+            {
+                overTimeInHours = 0;
+            }
+
+            return user.OverTime + overTimeInHours;
+
+        }
+
+        public static DateTime UnixTimeStampToDateTime(int unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
+        }
         /**
 	 * This method calculates the amount of workdays that exist inbetween the given interval.
 	 *
@@ -69,21 +81,21 @@ namespace TimeTracker.BusinessLogic
 	 */
         public int CalculateWorkdays(DateTime start, DateTime stop)
         {
-            
+
             //backup on which weekday the intervall started
             DayOfWeek startWeekday = start.DayOfWeek;
-            
+
             //start interval on mondays
             start = start.AddDays(-DiffToMonday(startWeekday));
-            
+
             //backup on which weekday the intervall stopped
             DayOfWeek stopWeekday = stop.DayOfWeek;
             //end interval on mondays
             stop = stop.AddDays(-DiffToMonday(stopWeekday));
 
-            
+
             //calc
-            int days = (( TotalDays(stop) - TotalDays(start)));
+            int days = ((TotalDays(stop) - TotalDays(start)));
             int workDays = (int)(days * (5.0 / 7.0));
             Debug.WriteLine("Monday to mondays " + workDays);
 
@@ -107,7 +119,7 @@ namespace TimeTracker.BusinessLogic
         {
             return (Int32)(date.Subtract(new DateTime(1970, 1, 1))).TotalDays;
 
-            
+
         }
         public int DiffToMonday(DayOfWeek day)
         {
@@ -141,7 +153,7 @@ namespace TimeTracker.BusinessLogic
 	 */
         protected int SumUpSessions(List<SessionItem> sessions)
         {
-            return sessions.Aggregate(0,(current, session) => current + session.TotalTime);
+            return sessions.Aggregate(0, (current, session) => current + session.TotalTime);
         }
 
         /**
@@ -152,18 +164,18 @@ namespace TimeTracker.BusinessLogic
 	 * @throws SQLException
 	 * methodtype get method
 	 */
-	public int LeftVacationDays()
-	{
-        IEnumerable<SessionItem> items = SessionItems.Where(a =>
-                a.ProjectId == DatabaseManager.ProjectHolidayId);
+        public int LeftVacationDays()
+        {
+            IEnumerable<SessionItem> items = SessionItems.Where(a =>
+                    a.ProjectId == DatabaseManager.ProjectHolidayId);
 
 
-		long vacationInSeconds = SumUpSessions(items.ToList());
+            long vacationInSeconds = SumUpSessions(items.ToList());
 
-		double hoursPerDay = _user.WorkingTime/5.0;
-		int vacationInDays = (int)(vacationInSeconds/(60*60*hoursPerDay));
+            double hoursPerDay = _user.WorkingTime / 5.0;
+            int vacationInDays = (int)(vacationInSeconds / (60 * 60 * hoursPerDay));
 
-		return _user.VacationDays - vacationInDays - _user.CurrentVacationDays;
-	}
+            return _user.VacationDays - vacationInDays - _user.CurrentVacationDays;
+        }
     }
 }
