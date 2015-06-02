@@ -72,15 +72,23 @@ namespace UnitTestTimeTracker
         [TestMethod]
         public void AmountOfHolidaysSinceTest()
         {
-            DateTime date1 = new DateTime(year1, 1, 1);
-            DateTime date2 = new DateTime(year1, 1, 6);
-            DateTime date3 = new DateTime(year1, 5, 1);
-            DateTime date7 = new DateTime(year1, 12, 25);
+
 
             int year = 2015;
             List<DateTime> holidays = Holidays.FixedHolidays(year);
-            DateTime date = new DateTime(year, 7,1);
+            DateTime date = new DateTime(year, 1,7);
             int count = 2;
+            int result = Holidays.AmountOfHolidaysSince(holidays, date);
+            Assert.AreEqual(count, result);
+
+
+
+            year = 2015;
+            holidays = Holidays.FixedHolidays(year);
+            date = new DateTime(year, 1, 1);
+            count = 3;
+            result = Holidays.AmountOfHolidaysSince(holidays, date);
+            Assert.AreEqual(count, result);
 
 
 

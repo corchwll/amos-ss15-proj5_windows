@@ -101,7 +101,7 @@ namespace TimeTracker.BusinessLogic
 	 */
         public static int AmountOfHolidaysBetween(List<DateTime> holidays, DateTime startCal, DateTime stopCal)
         {
-            return holidays.Count(cal => startCal.Ticks < cal.Ticks && stopCal.Ticks > cal.Ticks);
+            return holidays.Count(cal => startCal.Ticks <= cal.Ticks && stopCal.Ticks >=     cal.Ticks);
         }
 
         /**
@@ -118,5 +118,7 @@ namespace TimeTracker.BusinessLogic
         {
             return holidays.Count(cal => startCal.Ticks < cal.Ticks);
         }
+
+
     }
 }
