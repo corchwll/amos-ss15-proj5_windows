@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -10,6 +11,22 @@ namespace TimeTracker.BusinessLogic
 {
     public class DashboardInformation
     {
+        private ObservableCollection<SessionItem> _sessionItems;
+        public ObservableCollection<SessionItem> SessionItems { get; set; }
+
+        private readonly UserItem _user;
+
+        public DashboardInformation()
+        {
+            
+        }
+
+        public DashboardInformation(ObservableCollection<SessionItem> sessionItems, UserItem user)
+        {
+            _sessionItems = sessionItems;
+            _user = user;
+        }
+
 
         public int CalculateOvertime(List<SessionItem> sessions, UserItem user)
 	    {
@@ -119,12 +136,34 @@ namespace TimeTracker.BusinessLogic
 	 * This method sums up the recorded time of the sessions in the list and returns the time in millis.
 	 *
 	 * @param sessions the list of sessions that should be summed up
-	 * @return the recorded time from the sessions in millis
+	 * @return the recorded time from the sessions in seconds
 	 * methodtype helper method
 	 */
         protected int SumUpSessions(List<SessionItem> sessions)
         {
             return sessions.Aggregate(0,(current, session) => current + session.TotalTime);
         }
+
+        /**
+	 * This method calculates the amount of vacation days left for the user based on the recorded sessions for the
+	 * default project vacation in the database.
+	 *
+	 * @return the amount of left vacation days
+	 * @throws SQLException
+	 * methodtype get method
+	 */
+	public int LeftVacationDays()
+	{
+        IEnumerable<SessionItem> items = SessionItems.Where(a =>
+                a.ProjectId == DatabaseManager.ProjectHolidayId);
+
+
+		long vacationInSeconds = SumUpSessions(items.ToList());
+
+		double hoursPerDay = _user.WorkingTime/5.0;
+		int vacationInDays = (int)(vacationInSeconds/(60*60*hoursPerDay));
+
+		return _user.VacationDays - vacationInDays - _user.CurrentVacationDays;
+	}
     }
 }
