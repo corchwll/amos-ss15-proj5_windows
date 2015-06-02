@@ -57,31 +57,33 @@ namespace TimeTracker.BusinessLogic
             DayOfWeek startWeekday = start.DayOfWeek;
             
             //start interval on mondays
-            start.AddDays(-DiffToMonday(startWeekday));
+            start = start.AddDays(-DiffToMonday(startWeekday));
             
             //backup on which weekday the intervall stopped
             DayOfWeek stopWeekday = stop.DayOfWeek;
             //end interval on mondays
-            stop.AddDays(-DiffToMonday(stopWeekday));
+            stop = stop.AddDays(-DiffToMonday(stopWeekday));
 
             
             //calc
             int days = (( TotalDays(stop) - TotalDays(start)));
             int workDays = (int)(days * (5.0 / 7.0));
+            Debug.WriteLine("Monday to mondays " + workDays);
 
-            if (startWeekday == DayOfWeek.Sunday)
+            if (startWeekday == DayOfWeek.Sunday || startWeekday == DayOfWeek.Saturday)
             {
-                startWeekday = DayOfWeek.Monday;
+                startWeekday = DayOfWeek.Saturday;
             }
 
-            if (stopWeekday == DayOfWeek.Sunday)
+            if (stopWeekday == DayOfWeek.Sunday || stopWeekday == DayOfWeek.Saturday)
             {
-                stopWeekday = DayOfWeek.Monday;
+                stopWeekday = DayOfWeek.Friday;
             }
+            Debug.WriteLine("Start week delta " + DiffToMonday(startWeekday));
+            Debug.WriteLine("Stop week delta " + DiffToMonday(stopWeekday));
 
-            //return days;
-            //return workDays;
-            return workDays - DiffToMonday(startWeekday) + DiffToMonday(stopWeekday);
+
+            return workDays - DiffToMonday(startWeekday) + DiffToMonday(stopWeekday) + 1;
         }
 
         public int TotalDays(DateTime date)
