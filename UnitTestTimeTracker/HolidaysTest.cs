@@ -135,15 +135,25 @@ namespace UnitTestTimeTracker
             DateTime date6 = new DateTime(year, 11, 1);
             DateTime date8 = new DateTime(year, 12, 26);
 
-            Assert.IsTrue(holidays.Contains(date1));
-            Assert.IsTrue(holidays.Contains(date2));
-            Assert.IsTrue(holidays.Contains(date3));
-            Assert.IsTrue(holidays.Contains(date7));
+            Assert.IsTrue(holidays.Contains(date1), "New Year");
+            Assert.IsTrue(holidays.Contains(date2), "Heilige 3 Koenige");
+            Assert.IsTrue(holidays.Contains(date3), "Tag der Arbeit");
+            Assert.IsTrue(holidays.Contains(date7), "1. Weihnachtsfeiertag");
 
-            Assert.IsFalse(holidays.Contains(date4));
-            Assert.IsFalse(holidays.Contains(date5));
-            Assert.IsFalse(holidays.Contains(date6));
-            Assert.IsFalse(holidays.Contains(date8));
+            Assert.IsFalse(holidays.Contains(date4), "Maria Himmelfahrt");
+            Assert.IsFalse(holidays.Contains(date5), "Tag der deutschen Einheit");
+            Assert.IsFalse(holidays.Contains(date6), "Allerheiligen");
+            Assert.IsFalse(holidays.Contains(date8), "2. Weihnachtsfeiertag");
+        }
+
+        [TestMethod]
+        public void HolidaysInbetweenTest()
+        {
+            DateTime start = new DateTime(2015, 1,2);
+            DateTime stop = new DateTime(2015, 8, 16);
+            int count = 7;
+            int result = Holidays.HolidaysInbetween(start, stop);
+            Assert.AreEqual(count, result, "2 dates in 2015");
         }
     }
 }
