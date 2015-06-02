@@ -11,6 +11,38 @@ namespace TimeTracker.BusinessLogic
 
 
         /**
+	 * This method is used to get all holidays on weekdays for a given year.
+	 *
+	 * @param year the year for which the holidays should be calculated
+	 * @return a List containing all holidays on weekdays for the requested year
+	 * methodtype get method
+	 */
+        protected static List<DateTime> HolidaysForYear(int year)
+        {
+            List<DateTime> holidays = FixedHolidays(year);
+            DateTime easterSunday = Easter(year);
+            DateTime tmp;
+
+            //Karfreitag
+            holidays.Add(easterSunday.AddDays(-2.0));
+;
+
+            //Ostermontag
+            holidays.Add(easterSunday.AddDays(1.0));
+
+            //Christi Himmelfahrt
+            holidays.Add(easterSunday.AddDays(39.0));
+
+            //Pfingstmontag
+            holidays.Add(easterSunday.AddDays(49.0));
+
+            //Fronleichnam
+            holidays.Add(easterSunday.AddDays(60.0));
+
+            return holidays;
+        }
+
+        /**
 	 * This method returns all holidays that are not depending on easter and are on a weekday for the requested year.
 	 *
 	 * @param year the year for which the fixed holidays should be calculated
