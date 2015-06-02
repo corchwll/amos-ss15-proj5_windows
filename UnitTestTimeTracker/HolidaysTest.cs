@@ -154,6 +154,12 @@ namespace UnitTestTimeTracker
             int count = 7;
             int result = Holidays.HolidaysInbetween(start, stop);
             Assert.AreEqual(count, result, "2 dates in 2015");
+
+            start = new DateTime(2014, 8, 20);
+            stop = new DateTime(2015, 8,16);
+            count = 11;
+            result = Holidays.HolidaysInbetween(start, stop);
+            Assert.AreEqual(count, result, "2014 & 2015");
         }
     }
 }
