@@ -129,7 +129,7 @@ namespace TimeTracker.BusinessLogic
 	 * pre stopCal != null
 	 * post correct amount will be returned
 	 */
-        protected static int amountOfHolidaysUntil(List<DateTime> holidays, DateTime stopCal)
+        public static int AmountOfHolidaysUntil(List<DateTime> holidays, DateTime stopCal)
         {
             return holidays.Count(cal => stopCal.Ticks > cal.Ticks);
         }
