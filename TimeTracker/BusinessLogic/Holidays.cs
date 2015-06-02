@@ -119,6 +119,19 @@ namespace TimeTracker.BusinessLogic
             return holidays.Count(cal => startCal.Ticks < cal.Ticks);
         }
 
-
+        /**
+	 * This method checks how many of the holidays will be before the given date.
+	 *
+	 * @param holidays the holidays that should be checked
+	 * @param stopCal the date before which the holidays have to be
+	 * @return the amount of holidays before the given date
+	 * methodtype helper method
+	 * pre stopCal != null
+	 * post correct amount will be returned
+	 */
+        protected static int amountOfHolidaysUntil(List<DateTime> holidays, DateTime stopCal)
+        {
+            return holidays.Count(cal => stopCal.Ticks > cal.Ticks);
+        }
     }
 }
