@@ -10,7 +10,7 @@ namespace TimeTracker
 {
     //following methods provide functionalities to manipulate the local database
     //as creating new session or project items and save them to the database
-    class DatabaseManager
+    public class DatabaseManager
     {
         static string ProjectHolidayName = "Holiday";
         public static string ProjectHolidayId = "00001";
