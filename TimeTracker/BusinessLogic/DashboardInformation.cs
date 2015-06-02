@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TimeTracker.BusinessLogic
 {
-    class DashboardInformation
+    public class DashboardInformation
     {
 
         public int CalculateOvertime(List<SessionItem> sessions, UserItem user)
@@ -49,24 +50,24 @@ namespace TimeTracker.BusinessLogic
 	 * pre start != null && stop != null
 	 * post correct amount of workdays calculated
 	 */
-        protected long CalculateWorkdays(DateTime start, DateTime stop)
+        public int CalculateWorkdays(DateTime start, DateTime stop)
         {
             
             //backup on which weekday the intervall started
             DayOfWeek startWeekday = start.DayOfWeek;
             
             //start interval on mondays
-            start.AddDays(-startWeekday.CompareTo(DayOfWeek.Monday));
-
+            start.AddDays(-DiffToMonday(startWeekday));
             
             //backup on which weekday the intervall stopped
             DayOfWeek stopWeekday = stop.DayOfWeek;
             //end interval on mondays
-            stop.AddDays(-stopWeekday.CompareTo(DayOfWeek.Monday));
+            stop.AddDays(-DiffToMonday(stopWeekday));
 
+            
             //calc
-            long days = (stop.Ticks - start.Ticks) / (1000 * 60 * 60 * 24);
-            long workDays = days * 5 / 7;
+            int days = (( TotalDays(stop) - TotalDays(start)));
+            int workDays = (int)(days * (5.0 / 7.0));
 
             if (startWeekday == DayOfWeek.Sunday)
             {
@@ -78,7 +79,38 @@ namespace TimeTracker.BusinessLogic
                 stopWeekday = DayOfWeek.Monday;
             }
 
-            return workDays - startWeekday.CompareTo(DayOfWeek.Monday) + stopWeekday.CompareTo(DayOfWeek.Monday) + 1;
+            //return days;
+            //return workDays;
+            return workDays - DiffToMonday(startWeekday) + DiffToMonday(stopWeekday);
+        }
+
+        public int TotalDays(DateTime date)
+        {
+            return (Int32)(date.Subtract(new DateTime(1970, 1, 1))).TotalDays;
+
+            
+        }
+        public int DiffToMonday(DayOfWeek day)
+        {
+            switch (day)
+            {
+                case DayOfWeek.Monday:
+                    return 0;
+                case DayOfWeek.Tuesday:
+                    return 1;
+                case DayOfWeek.Wednesday:
+                    return 2;
+                case DayOfWeek.Thursday:
+                    return 3;
+                case DayOfWeek.Friday:
+                    return 4;
+                case DayOfWeek.Saturday:
+                    return 5;
+                case DayOfWeek.Sunday:
+                    return 6;
+                default:
+                    return 0;
+            }
         }
     }
 }
