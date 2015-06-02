@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeTracker.BusinessLogic;
@@ -102,8 +103,47 @@ namespace UnitTestTimeTracker
             date = new DateTime(year, 1, 1);
             count = 0;
             result = Holidays.AmountOfHolidaysUntil(holidays, date);
-            Assert.AreEqual(count, result);
-            
+            Assert.AreEqual(count, result);   
+        }
+
+        [TestMethod]
+        public void HolidaysForYear()
+        {
+            int year = 2015;
+            List<DateTime> holidays = Holidays.HolidaysForYear(year);
+            DateTime karfreitag = new DateTime(year, 4, 3);
+            DateTime ostermontag = new DateTime(year, 4, 6);
+            DateTime christihimmelfahrt = new DateTime(year, 5, 14);
+            DateTime pfingstmontag = new DateTime(year, 5, 25);
+            DateTime fronleichnam = new DateTime(year, 6, 4);
+
+
+            Assert.IsTrue(holidays.Contains(karfreitag), "Karfreitag");
+            Assert.IsTrue(holidays.Contains(ostermontag), "ostermontag");
+            Assert.IsTrue(holidays.Contains(christihimmelfahrt), "christihimmelfahrt");
+            Assert.IsTrue(holidays.Contains(pfingstmontag), "pfingstmontag");
+            Assert.IsTrue(holidays.Contains(fronleichnam), "fronleichnam");
+
+
+            DateTime date1 = new DateTime(year, 1, 1);
+            DateTime date2 = new DateTime(year, 1, 6);
+            DateTime date3 = new DateTime(year, 5, 1);
+            DateTime date7 = new DateTime(year, 12, 25);
+
+            DateTime date4 = new DateTime(year, 8, 15);
+            DateTime date5 = new DateTime(year, 10, 3);
+            DateTime date6 = new DateTime(year, 11, 1);
+            DateTime date8 = new DateTime(year, 12, 26);
+
+            Assert.IsTrue(holidays.Contains(date1));
+            Assert.IsTrue(holidays.Contains(date2));
+            Assert.IsTrue(holidays.Contains(date3));
+            Assert.IsTrue(holidays.Contains(date7));
+
+            Assert.IsFalse(holidays.Contains(date4));
+            Assert.IsFalse(holidays.Contains(date5));
+            Assert.IsFalse(holidays.Contains(date6));
+            Assert.IsFalse(holidays.Contains(date8));
         }
     }
 }

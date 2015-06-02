@@ -1,0 +1,317 @@
+[33mcommit 159f3872d11cef7c539f80dec50c4df51e7cf51e[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue Jun 2 09:37:07 2015 +0200
+
+    HolidaysForYear (Holidays dependend on easter sunday) method added
+
+[33mcommit 7660dd812ac849ab7fa344f268c441becd057eab[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue Jun 2 09:27:13 2015 +0200
+
+    Unit test added for AmountOfHolidaysUntil a given date
+
+[33mcommit e91d18d112ced33ad3477ebec26bc3dd470db625[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue Jun 2 09:24:09 2015 +0200
+
+    AmountOfHolidaysUntil a given date added to Holidays class
+
+[33mcommit 23cfbb07a875cbbdcc40032c763de57358185beb[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue Jun 2 09:22:19 2015 +0200
+
+    AmountOfHolidaysSince added to Holidays class (including unit test)
+
+[33mcommit 7591223d1e05c1988cce0bc86f1eed6faa18846a[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue Jun 2 09:16:49 2015 +0200
+
+    AmountOfHolidaysInBetween 2 dates added to holidays class (including unit test)
+
+[33mcommit 810731cd9116b3928955d0e03b514be92c28afc3[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Mon Jun 1 18:01:49 2015 +0200
+
+    Fixed holdidays calculation & easter calculation (including unit tests)
+
+[33mcommit 9c7441c7a6abe2df0d96d21174f34b1dca922274[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Mon Jun 1 16:52:33 2015 +0200
+
+    Business logic classes added (DashboardInformation & Holidays)
+
+[33mcommit 206ea59a390071a44d2720b95962778dca6d58b4[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Mon Jun 1 16:47:42 2015 +0200
+
+    Dashboard UI layout added
+
+[33mcommit b4e58f56ea4a673e42f775d3a4fe0cea1559db4e[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Mon Jun 1 16:28:45 2015 +0200
+
+    Sorting ProjectItemList alphabeticaly and rearranging default projects
+
+[33mcommit 54065b2e85d57b682b254bc896213a72ebdbd0d7[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Fri May 29 01:19:35 2015 +0200
+
+    Refactoring - Uri creation for data passing extracted to single class
+
+[33mcommit 307503435da16c7e1fcb6611725cd2f7adc784ea[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Fri May 29 00:54:13 2015 +0200
+
+    Refactoring - CreateProjectPage simplified (data passing extracted)
+
+[33mcommit 2a020164896a1cae277f05f2171af0e86b3c1c06[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Fri May 29 00:38:13 2015 +0200
+
+    Refactoring - Data model classes simplified (redundant functionalities removed)
+
+[33mcommit e85b2f26d8924715182cd1044539187598d27e1d[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Fri May 29 00:29:12 2015 +0200
+
+    Commenting - Main Pivot View
+
+[33mcommit 6bc61ae49cca3217272c23c9b9ea19e337249160[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Fri May 29 00:06:29 2015 +0200
+
+    Refactoring - Further Query values for Dictionary added (Project & Session)
+
+[33mcommit d8b42a20d512cebebe45c276462790416dca904f[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Thu May 28 23:54:11 2015 +0200
+
+    Refactoring - startStopRecording simplified through 2 new methods start & stop
+
+[33mcommit 593f0870abf949c95cc8074b86f566c83cfde471[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Thu May 28 23:45:19 2015 +0200
+
+    Refactoring - collect registration simplified through QueryDictionary
+
+[33mcommit 6669b27e5eaac8d9095bce49027f32c4cc1634cd[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Thu May 28 23:33:33 2015 +0200
+
+    QueryDisctionary for UI data passing created
+
+[33mcommit 8fa028aafd2ce720ec5da46d7481031bf017f7af[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Thu May 28 19:53:57 2015 +0200
+
+    Bug fixed - registration data transmited wrongly to main pivot view (wrong naming at the variable decalaration)
+
+[33mcommit 82ac3d3ffe5e9f57bc04d255a8857e1c462061d8[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Thu May 28 19:40:01 2015 +0200
+
+    Applicaton bar (option settings & add project) added to main pivot view
+
+[33mcommit 29b45e39b5e68407352c2cc2b8db51cb5146bd04[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Thu May 28 19:31:53 2015 +0200
+
+    ContextMenu added to project list items (options edit & archive)
+
+[33mcommit f1acd939df60d7be30f8ec04b3c30e459593c1d5[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 14:54:16 2015 +0200
+
+    Refactoring - accessing global variables instead of passing numerous variables from the form fields
+
+[33mcommit ea48348d9f1ee2a9fca3d6a06ef70b99a79e0179[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 14:51:42 2015 +0200
+
+    Refactoring - registration field details extracted to global variables
+
+[33mcommit 14c948ae38089a5d2759475f888942d795196c34[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 14:42:18 2015 +0200
+
+    Methods created checking if registration form is filled completely
+
+[33mcommit 1843f86c89c37036ba0283599b0efffbb6133c22[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 12:11:39 2015 +0200
+
+    Refactoring - comments added to Utils.cs class
+
+[33mcommit e6135c889d19fb9b1bd26c0de57d1f97326250ed[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 12:09:15 2015 +0200
+
+    Navigation to project list after creating a new project
+
+[33mcommit 38be1093cd10bdccf05e7679e304e2d7ea46f14b[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 12:06:08 2015 +0200
+
+    Bug fixed - Registration data wrong communicated to main page
+
+[33mcommit 40f0f5f378a1b43b3a230dc8701547e991450a13[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 12:01:39 2015 +0200
+
+    Refactoring - comments added to click listener methods in main page
+
+[33mcommit d035cf74c66d60ecf726cd7905932f0635d74b1d[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 11:53:16 2015 +0200
+
+    Refactoring - comments added to collecting methods
+
+[33mcommit 267c029df9a5b558ed168986cf16adb5c4699a68[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 11:49:53 2015 +0200
+
+    Refactoring - Comments added to global variables in main page
+
+[33mcommit 5d97a1318afb29a9c0493a90934bcf2f5efbee46[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 11:43:42 2015 +0200
+
+    ProjectList UI in pivot item changed - buttons arranged
+
+[33mcommit 93c65bd1df09ff3fb946c4106af23bf3e10f1ca0[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 11:40:37 2015 +0200
+
+    TimerTicks updates added to recording pivot item view
+
+[33mcommit 78b4bd126e4e9fd16c974f6d562918552c46b5b0[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 11:20:28 2015 +0200
+
+    CurrentSessionList displayed in reverse in recording pivot item
+
+[33mcommit 92598a1e1c65112f939cb0b99f28cef03e605252[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 11:01:26 2015 +0200
+
+    CurrentSessionItems displayed in recording list
+
+[33mcommit ad66e80e6192935a0282f81efb54ef92d44c1717[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 10:39:18 2015 +0200
+
+    SessionItems Binded to main xaml view list - pivot item recording
+
+[33mcommit 2c8b5c55b668c5a87e44f77500864a925db0dc4c[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 01:02:44 2015 +0200
+
+    CurrentSessionList added to database manager
+
+[33mcommit 63e81077a99a3ecb725025330fdec48786924413[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 00:19:43 2015 +0200
+
+    dynamically changing currentProject item through clicking on list item
+
+[33mcommit 3f53619a186e7b468a1828681492b8465a0286f6[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 27 00:03:30 2015 +0200
+
+    Recording pivotal page view UI added
+
+[33mcommit 67897ac28275e210ba06d87058bd3f7bb482e5e4[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue May 26 23:51:51 2015 +0200
+
+    proejcts pivotal item added to main page
+
+[33mcommit db00300653152849e43dde262669100e925870ee[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue May 26 23:46:21 2015 +0200
+
+    unnecessary TextBoxes (ProjectId, ProjectName) removed from main view
+
+[33mcommit 2cb9e752b516b8fe354c07dc6a3d223f11eaedfd[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue May 26 23:36:54 2015 +0200
+
+    getting and navigating content from boxes in CreateProjectPage
+
+[33mcommit 1e6ef018fca679a9a629b607e75ea7caccf61c2a[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue May 26 23:24:09 2015 +0200
+
+    Navigation to create project page
+
+[33mcommit 8698faf137cee7d375213fd3b8bb1ccaf364fdaa[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue May 26 23:18:10 2015 +0200
+
+    general UI added to create project page
+
+[33mcommit df808f01b4b5fb98cad82eae9c37abe247f6ebe7[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue May 26 21:47:15 2015 +0200
+
+    create project page added to project
+
+[33mcommit 054124f63b5268f8a7820b7430f85e8b74d06312[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Tue May 26 21:44:48 2015 +0200
+
+    office hours added as a default project
+
+[33mcommit 8dce602b8026b90ab093fb635eb702567bb8a7ca[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 20 11:57:05 2015 +0200
+
+    comments added to projectitems class
+
+[33mcommit f5f474c9973fcd45191fc51d7dcb06d16de20942[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 20 01:00:42 2015 +0200
+
+    dialog added to deleting feature
+
+[33mcommit 9edf827c0399fde833f7d17fc70ec09d77acf1ac[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 20 00:55:03 2015 +0200
+
+    deleting project feature added
+
+[33mcommit b86f365a8f73f81a29e161def2f506a5f2a13cc2[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 20 00:39:30 2015 +0200
+
+    project ID validatation feature implemented
+
+[33mcommit 8c89ae8abd82e70fd6ec5c536cafe41148346669[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 20 00:33:35 2015 +0200
+
+    PersonalId checked if valid for Registration
+
+[33mcommit d84080f10653194b3fa96370d2c978a91db8ad64[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 20 00:29:37 2015 +0200
+
+    Registration form checked on vacation/overtime/workingtime valid
+
+[33mcommit e89fa4660148e526031c92c319a1364cbd0c8af7[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 20 00:24:26 2015 +0200
+
+    Registration input checked if complete
+
+[33mcommit 0e79e89fbb01e17b9dcdcd07aea1ffbb281517d6[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 13 12:02:27 2015 +0200
+
+    Refactoring - DatabaseManager class extracted
+
+[33mcommit a355828b7e3eb03f5e2de7c6d33c53236cc6e317[m
+Author: Daniel Lohse <daniel.lenerd.lohse@gmail.com>
+Date:   Wed May 13 08:16:55 2015 +0200
+
+    DatabaseManager.class added

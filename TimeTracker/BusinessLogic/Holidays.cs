@@ -17,16 +17,14 @@ namespace TimeTracker.BusinessLogic
 	 * @return a List containing all holidays on weekdays for the requested year
 	 * methodtype get method
 	 */
-        protected static List<DateTime> HolidaysForYear(int year)
+        public static List<DateTime> HolidaysForYear(int year)
         {
             List<DateTime> holidays = FixedHolidays(year);
             DateTime easterSunday = Easter(year);
-            DateTime tmp;
 
             //Karfreitag
             holidays.Add(easterSunday.AddDays(-2.0));
 ;
-
             //Ostermontag
             holidays.Add(easterSunday.AddDays(1.0));
 
@@ -34,7 +32,7 @@ namespace TimeTracker.BusinessLogic
             holidays.Add(easterSunday.AddDays(39.0));
 
             //Pfingstmontag
-            holidays.Add(easterSunday.AddDays(49.0));
+            holidays.Add(easterSunday.AddDays(50.0));
 
             //Fronleichnam
             holidays.Add(easterSunday.AddDays(60.0));
