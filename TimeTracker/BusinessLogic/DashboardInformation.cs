@@ -45,6 +45,8 @@ namespace TimeTracker.BusinessLogic
 
             int overTimeInHours = 0;
 
+            sessions = new List<SessionItem>(sessions.OrderBy(item => item.TimestampStart));
+
             if (sessions.Count() != 0)
             {
                 int startTime = sessions.First().TimestampStart;

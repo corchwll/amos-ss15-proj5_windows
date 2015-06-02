@@ -108,9 +108,9 @@ namespace UnitTestTimeTracker
         {
             List<SessionItem> sessions = new List<SessionItem>
             {
-                CreateTestHolidaySessiontItem(5,1,8), // Friday Holiday
-                CreateTestSessiontItem(5, 4, 8), //Monday 8h
                 CreateTestSessiontItem(5, 5, 4), // Tuesday 4h (-4)
+                CreateTestHolidaySessiontItem(5,1,8), // Friday week before Holiday
+                CreateTestSessiontItem(5, 4, 8), //Monday 8h
                 CreateTestHolidaySessiontItem(5,6,8), //Wednesday Holiday
                 CreateTestSessiontItem(5, 7, 5), //Thursday 5h (-3)
                 CreateTestSessiontItem(5, 8, 7), //Friday 7h (-1)
