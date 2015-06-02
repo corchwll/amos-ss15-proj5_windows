@@ -114,5 +114,17 @@ namespace TimeTracker.BusinessLogic
                     return 0;
             }
         }
+
+        /**
+	 * This method sums up the recorded time of the sessions in the list and returns the time in millis.
+	 *
+	 * @param sessions the list of sessions that should be summed up
+	 * @return the recorded time from the sessions in millis
+	 * methodtype helper method
+	 */
+        protected int SumUpSessions(List<SessionItem> sessions)
+        {
+            return sessions.Aggregate(0,(current, session) => current + session.TotalTime);
+        }
     }
 }
