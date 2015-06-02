@@ -11,6 +11,50 @@ namespace TimeTracker.BusinessLogic
 
 
         /**
+	 * This method is used to get the amound of holidays in a given time intervall. This method only counts the
+	 * holidays that are on a weekday.
+	 *
+	 * @param start the lower bound of the time intervall
+	 * @param stop the upper bound of the time intervall
+	 * @return the amount of holidays on weekdays in the given time intervall as int
+	 * methodtype get method
+	 * pre start before stop
+	 * post correct amount will be calculated
+	 */
+        public static int HolidaysInbetween(DateTime start, DateTime stop)
+        {
+
+            int amountOfHolidays = 0;
+            if (start.Year == stop.Year)
+            {
+                List<DateTime> holidays = HolidaysForYear(start.Year);
+                amountOfHolidays += AmountOfHolidaysBetween(holidays, start, stop);
+            }
+            else if (stop.Year - start.Year == 1)
+            {
+                List<DateTime> holidaysInStartYear = HolidaysForYear(start.Year);
+                List<DateTime> holidaysInStopYear = HolidaysForYear(stop.Year);
+
+                amountOfHolidays += AmountOfHolidaysSince(holidaysInStartYear, start);
+                amountOfHolidays += AmountOfHolidaysUntil(holidaysInStopYear, stop);
+            }
+            else if (stop.Year - start.Year > 1)
+            {
+                List<DateTime> holidaysInStartYear = HolidaysForYear(start.Year);
+                List<DateTime> holidaysInStopYear = HolidaysForYear(stop.Year);
+
+                amountOfHolidays += AmountOfHolidaysSince(holidaysInStartYear, start);
+                amountOfHolidays += AmountOfHolidaysUntil(holidaysInStopYear, stop);
+
+                for (int i = start.Year + 1; i < stop.Year; i++)
+                {
+                   amountOfHolidays += HolidaysForYear(i).Count();
+                }
+            }
+
+            return amountOfHolidays;
+        }
+        /**
 	 * This method is used to get all holidays on weekdays for a given year.
 	 *
 	 * @param year the year for which the holidays should be calculated
