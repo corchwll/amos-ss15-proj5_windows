@@ -24,6 +24,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
+using TimeTracker.BusinessLogic;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace TimeTracker
@@ -36,6 +37,8 @@ namespace TimeTracker
          * 
          */
         private SessionItem _currentSessionItem;
+
+        private DashboardInformation _dashboardInformation;
 
         //Timer instance for recording sessions and update UI
         private DispatcherTimer _dispatcherTimer;
@@ -104,7 +107,14 @@ namespace TimeTracker
         //Lifecycle method when a certain pivot item is loaded
         private void Pivot_Loaded(object sender, RoutedEventArgs e)
         {
-            TextBlockDashboardOvertime.Text = "100h";
+            if (_dataBaseManager.UserItems.Count > 0 && SessionItems != null)
+            {
+                _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
+                TextBlockDashboardVacation.Text = _dashboardInformation.LeftVacationDays().ToString();
+
+                TextBlockDashboardOvertime.Text = _dashboardInformation.CalculateOvertime(SessionItems.ToList(), _dataBaseManager.UserItems.First()).ToString();
+
+            }
         }
 
         // Konstruktor
@@ -115,6 +125,10 @@ namespace TimeTracker
             DataContext = this;
             _dataBaseManager = new DatabaseManager();
             LoadData();
+            if (_dataBaseManager.UserItems.Count > 0)
+            {
+                _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
+            }
         }
 
         //OnNavigateTo is called when the page is showen as the app launches
@@ -211,6 +225,8 @@ namespace TimeTracker
                 };
                 _dataBaseManager.createNewUserItem(newUser);
                 FillPersonalData(newUser);
+                _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
+
 
             }
             else if (!_dataBaseManager.userExists())
@@ -299,8 +315,12 @@ namespace TimeTracker
         //App navigates to the edit project page
         private void editProject_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            ProjectItem projectItem = button.DataContext as ProjectItem;
+
+
+            var menu = sender as MenuItem;
+        
+
+            ProjectItem projectItem = menu.DataContext as ProjectItem;
             string projectId = projectItem.ProjectId;
             string projectName = projectItem.ProjectName;
             NavigationService.Navigate(new Uri("/Pages/EditProjectPage.xaml?id=" + projectId, UriKind.Relative));

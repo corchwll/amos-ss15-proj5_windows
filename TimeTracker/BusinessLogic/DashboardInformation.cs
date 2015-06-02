@@ -23,10 +23,22 @@ namespace TimeTracker.BusinessLogic
 
         public DashboardInformation(ObservableCollection<SessionItem> sessionItems, UserItem user)
         {
-            _sessionItems = sessionItems;
+            if (sessionItems == null)
+            {
+                _sessionItems = new ObservableCollection<SessionItem>();
+            }
+            else
+            {
+                _sessionItems = sessionItems;
+            }
             _user = user;
         }
 
+        public int CalculateOvertime()
+        {
+            
+            return CalculateOvertime(SessionItems.ToList(), _user);
+        }
 
         public int CalculateOvertime(List<SessionItem> sessions, UserItem user)
         {
@@ -166,7 +178,7 @@ namespace TimeTracker.BusinessLogic
 	 */
         public int LeftVacationDays()
         {
-            IEnumerable<SessionItem> items = SessionItems.Where(a =>
+            IEnumerable<SessionItem> items = _sessionItems.Where(a =>
                     a.ProjectId == DatabaseManager.ProjectHolidayId);
 
 
