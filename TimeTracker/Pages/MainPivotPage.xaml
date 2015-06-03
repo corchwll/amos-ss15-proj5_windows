@@ -60,10 +60,12 @@
 
                                         <TextBlock
                                 Text="{Binding VisualText}"
+                                            
                                 FontSize="{StaticResource PhoneFontSizeLarge}"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
                                 />
+                                        <Button Name="ButtonSessionDelete" Content="D" Grid.Column="2" Click="ButtonSessionDelete_OnClick"></Button>
 
                                     </Grid>
                                 </DataTemplate>

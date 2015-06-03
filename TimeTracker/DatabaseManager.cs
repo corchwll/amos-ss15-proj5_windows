@@ -267,6 +267,19 @@ namespace TimeTracker
             _localDb.SubmitChanges();
         }
 
+        public void DeleteSession(SessionItem toDoForDelete)
+        {
+            // Remove the to-do item from the observable collection.
+            SessionItems.Remove(toDoForDelete);
+
+            // Remove the to-do item from the local database.
+            _localDb.SessionItems.DeleteOnSubmit(toDoForDelete);
+
+            // Save changes to the database.
+            _localDb.SubmitChanges();
+            
+        }
+
                    //following methods provide functionalities to bind the UI elements to the data 
         //stored in the database
         #region INotifyPropertyChanged Members

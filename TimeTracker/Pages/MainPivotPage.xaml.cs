@@ -431,11 +431,38 @@ namespace TimeTracker
             ProjectItems.Clear();
 
             List<ProjectItem> items = _dataBaseManager.ProjectItems.Where(item => item.ProjectName.Contains(input)).ToList();
+            List<ProjectItem> items2 = _dataBaseManager.ProjectItems.Where(item => item.ProjectId.Contains(input)).ToList();
 
             foreach (ProjectItem item in items)
             {
                 ProjectItems.Add(item);
             }
+            foreach (ProjectItem item in items2)
+            {
+                if (!ProjectItems.Contains(item))
+                {
+                    ProjectItems.Add(item);
+                }
+            }
+
+        }
+
+        private void ButtonSessionDelete_OnClick(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+
+
+            SessionItem item = button.DataContext as SessionItem;
+
+            MessageBoxResult result = MessageBox.Show("Are you sure?",
+                      "Deleting session", MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            SessionItems.Remove(item);
+            CurrentSessionItems.Remove(item);
+            _dataBaseManager.DeleteSession(item);
 
 
         }
