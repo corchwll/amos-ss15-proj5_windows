@@ -82,17 +82,18 @@
                     <Image Source="/Icons/icon_projects.png"/>
                 </phone:PivotItem.Header>
                 <Grid Height="571" VerticalAlignment="Top">
+
                     <Grid Margin="0,0,0,195">
                         <ListBox x:Name="ProjectItemtListBox" ItemsSource="{Binding ProjectItems}" 
-                     Grid.Row="0" Margin="12,0,4,-113" Width="440" Height="489" VerticalAlignment="Top">
+                     Grid.Row="0" Margin="12,59,4,-113" Width="440" Height="430" VerticalAlignment="Top">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    
+
                                     <Grid HorizontalAlignment="Stretch" Width="440">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="400" />
-                                            
+
 
                                         </Grid.ColumnDefinitions>
                                         <toolkit:ContextMenuService.ContextMenu>
@@ -118,7 +119,8 @@
                     <Grid Margin="0,381,0,0">
 
                     </Grid>
-                    
+                    <TextBox Name="TextBoxSearchProject" KeyDown="TextBoxSearchProject_OnKeyDown" HorizontalAlignment="Left" Height="72" Margin="0,-10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="456"/>
+
                 </Grid>
 
 
@@ -156,7 +158,7 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Icons/icon_add.png" Text="Add Project" Click="newProject_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Icons/icon_settings.png" Text="Settings"/>
-            
+
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

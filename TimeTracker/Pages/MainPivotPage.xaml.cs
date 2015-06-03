@@ -19,9 +19,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 using TimeTracker.BusinessLogic;
@@ -413,6 +415,29 @@ namespace TimeTracker
             CurrentSessionItems = Utils.ReverseCurrentSessionItems(CurrentSessionItems);
             CurrentSessionList.ItemsSource = CurrentSessionItems;
             PivotMain.SelectedIndex = 1;
+        }
+
+        private void TextBoxSearchProject_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textbox = sender as TextBox;
+            string input = textbox.Text;
+            
+            Debug.WriteLine(input);
+            if (input.Length == 0)
+            {
+                //ProjectItems = _dataBaseManager.ProjectItems;
+                //return;
+            }
+            ProjectItems.Clear();
+
+            List<ProjectItem> items = _dataBaseManager.ProjectItems.Where(item => item.ProjectName.Contains(input)).ToList();
+
+            foreach (ProjectItem item in items)
+            {
+                ProjectItems.Add(item);
+            }
+
+
         }
     }
 }
