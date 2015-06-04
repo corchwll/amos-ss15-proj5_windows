@@ -43,7 +43,7 @@ namespace TimeTracker
 
         public string CreateDayCell(DateTime day)
         {
-            return "";
+            return day.Day.ToString() + day.Month.ToString() + day.Year.ToString() + Separator;
         }
 
         public string CreateProjectCells(DateTime day)
