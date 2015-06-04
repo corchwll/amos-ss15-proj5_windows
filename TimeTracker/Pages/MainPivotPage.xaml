@@ -55,7 +55,7 @@
                                     <Grid HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="250" />
+                                            <ColumnDefinition Width="350" />
                                             <ColumnDefinition Width="50" />
 
                                         </Grid.ColumnDefinitions>

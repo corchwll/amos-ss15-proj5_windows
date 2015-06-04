@@ -26,6 +26,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
 using TimeTracker.BusinessLogic;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
@@ -471,6 +472,13 @@ namespace TimeTracker
         {
             CsvFactory factory = new CsvFactory(SessionItems.ToList(), ProjectItems.ToList(), _dataBaseManager.UserItems.First());
             factory.CreateCsvFile();
+            EmailComposeTask emailComposeTask = new EmailComposeTask();
+
+            emailComposeTask.Subject = "message subject";
+            emailComposeTask.Body = factory.CreateCsvAsString();
+            emailComposeTask.To = "daniel.lenerd.lohse@gmail.com";
+            
+            emailComposeTask.Show();
         }
 
         private void ReadButton_OnClick(object sender, RoutedEventArgs e)

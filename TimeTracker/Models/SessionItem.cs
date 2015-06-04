@@ -93,16 +93,35 @@ namespace TimeTracker
                     NotifyPropertyChanged("TimestampStop");
                     TotalTime = TimestampStop - TimestampStart;
                     int hours = TotalTime/ (60*60);
+                    int minutes = (TotalTime/60) - (hours*60);
                     DateTime dateStart = UnixTimeStampToDateTime(TimestampStart);
+                    DateTime dateEnd = UnixTimeStampToDateTime(TimestampStop);
                     VisualText = dateStart.Day.ToString() + "." +
-                                 dateStart.Month.ToString() + "." +
-                                 dateStart.Year.ToString() + "  - " +
-                                 hours + "h";
+                                 dateStart.Month.ToString() + "  " +
+                                 dateStart.Hour.ToString() + ":" + 
+                                 dateStart.Minute.ToString() + " - " +
+                                 dateEnd.Hour.ToString() + ":" +
+                                 dateEnd.Minute.ToString() + "  " +
+                                 ConvertDigitToString(hours) + ":" +
+                                 ConvertDigitToString(minutes);
 
 
 
                 }
             }
+        }
+
+        public string ConvertDigitToString(int digit)
+        {
+            if (digit < 10)
+            {
+                return "0" + digit.ToString();
+            }
+            else
+            {
+                return digit.ToString();
+            }
+
         }
 
         private string _projectId;
