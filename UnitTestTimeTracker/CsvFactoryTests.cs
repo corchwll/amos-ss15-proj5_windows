@@ -10,6 +10,12 @@ namespace UnitTestTimeTracker
     {
 
         [TestMethod]
+        public void CreateRowsTest()
+        {
+            
+        }
+
+        [TestMethod]
         public void CreateProjectCellsTest()
         {
             CreateProjectCellsTest_Case01();

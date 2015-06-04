@@ -42,6 +42,21 @@ namespace TimeTracker
             return (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
         }
 
+        public static DateTime GetDateTimeObject(int seconds)
+        {
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(seconds).ToLocalTime();
+            return dtDateTime;
+        }
+
+        public static int TotalDays(DateTime date)
+        {
+            return (Int32)(date.Subtract(new DateTime(1970, 1, 1))).TotalDays;
+
+
+        }
+
+
         //Returns a reverse instance of a collection with types of SessionItems
         public static ObservableCollection<SessionItem> ReverseCurrentSessionItems(ObservableCollection<SessionItem> list)
         {

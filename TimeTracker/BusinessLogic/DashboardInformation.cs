@@ -109,7 +109,7 @@ namespace TimeTracker.BusinessLogic
 
 
             //calc
-            int days = ((TotalDays(stop) - TotalDays(start)));
+            int days = ((Utils.TotalDays(stop) - Utils.TotalDays(start)));
             int workDays = (int)(days * (5.0 / 7.0));
             Debug.WriteLine("Monday to mondays " + workDays);
 
@@ -129,12 +129,7 @@ namespace TimeTracker.BusinessLogic
             return workDays - DiffToMonday(startWeekday) + DiffToMonday(stopWeekday) + 1;
         }
 
-        public int TotalDays(DateTime date)
-        {
-            return (Int32)(date.Subtract(new DateTime(1970, 1, 1))).TotalDays;
-
-
-        }
+        
         public int DiffToMonday(DayOfWeek day)
         {
             switch (day)

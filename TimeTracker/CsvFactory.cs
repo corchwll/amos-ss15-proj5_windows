@@ -33,7 +33,16 @@ namespace TimeTracker
 
         public string CreateRows()
         {
-            return "";
+            DateTime current = Utils.GetDateTimeObject(_sessions.First().TimestampStart);
+            DateTime end = Utils.GetDateTimeObject(_sessions.Last().TimestampStart);
+            string result = "";
+            while (Utils.TotalDays(current) <= Utils.TotalDays(end))
+            {
+                result += CreateRow(current);
+                current = current.AddDays(1);
+            }
+
+            return result;
         }
 
         public string CreateRow(DateTime day)
