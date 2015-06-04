@@ -466,5 +466,17 @@ namespace TimeTracker
 
 
         }
+
+        private void Export_OnClick(object sender, RoutedEventArgs e)
+        {
+            CsvFactory factory = new CsvFactory(SessionItems.ToList(), ProjectItems.ToList(), _dataBaseManager.UserItems.First());
+            factory.CreateCsvFile();
+        }
+
+        private void ReadButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            CsvFactory factory = new CsvFactory(null, null, null);
+            factory.DebugFile();
+        }
     }
 }

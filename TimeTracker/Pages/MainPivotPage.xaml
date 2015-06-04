@@ -28,6 +28,8 @@
                     <TextBlock Name="TextBlockDashboardVacation" FontSize="35" HorizontalAlignment="Left" Margin="253,10,-20,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
                     <TextBlock FontSize="35" HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" Text="Overtime:" VerticalAlignment="Top"/>
                     <TextBlock Name="TextBlockDashboardOvertime" FontSize="35" HorizontalAlignment="Left" Margin="253,75,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+                    <Button Content="Export Csv" Name="Export" HorizontalAlignment="Left" Margin="152,371,0,0" VerticalAlignment="Top" Click="Export_OnClick"/>
+                    <Button Content="Read" Name="ReadButton" HorizontalAlignment="Left" Margin="336,371,0,0" VerticalAlignment="Top" Click="ReadButton_OnClick"/>
 
                 </Grid>
             </phone:PivotItem>

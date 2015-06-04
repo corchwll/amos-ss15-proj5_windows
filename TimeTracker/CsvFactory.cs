@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Phone.PersonalInformation;
 using Windows.Storage;
+using Microsoft.Xna.Framework.Media;
 
 namespace TimeTracker
 {
@@ -35,6 +37,11 @@ namespace TimeTracker
             WriteToFile(result);
         }
 
+        public void DebugFile()
+        {
+            ReadFile();
+        }
+
         private async Task WriteToFile(string data)
         {
             // Get the text data from the textbox. 
@@ -48,7 +55,7 @@ namespace TimeTracker
                 CreationCollisionOption.OpenIfExists);
 
             // Create a new file named DataFile.txt.
-            var file = await dataFolder.CreateFileAsync("DataFile.csv",
+            var file = await dataFolder.CreateFileAsync("DataFile.txt",
             CreationCollisionOption.ReplaceExisting);
 
             // Write the data from the textbox.
@@ -56,6 +63,29 @@ namespace TimeTracker
             {
                 s.Write(fileBytes, 0, fileBytes.Length);
             }
+        }
+
+        private async Task ReadFile()
+        {
+            // Get the local folder.
+            StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            if (local != null)
+            {
+                // Get the DataFolder folder.
+                var dataFolder = await local.GetFolderAsync("DataFolder");
+
+                // Get the file.
+                var file = await dataFolder.OpenStreamForReadAsync("DataFile.txt");
+
+                // Read the data.
+                using (StreamReader streamReader = new StreamReader(file))
+                {
+                    Debug.WriteLine(streamReader.ReadToEnd());
+                }
+
+            }
+            
         }
 
         public string CreateCsvAsString()
