@@ -65,6 +65,14 @@ namespace TimeTracker
             return SumUpSessions(daySessions);
         }
 
+        public List<SessionItem> QuerySessionsByDay(DateTime day)
+        {
+            int start = TotalSeconds(new DateTime( day.Year, day.Month, day.Day, 0,0,0));
+            int end = TotalSeconds(new DateTime(day.Year, day.Month, day.Day, 23, 59, 59));
+
+            return _sessions.Where(item => item.TimestampStart > start && item.TimestampStart < end).ToList();
+        } 
+
         /**
         * This method sums up the recorded time of the sessions in the list and returns the time in millis.
         *
@@ -75,6 +83,13 @@ namespace TimeTracker
         public int SumUpSessions(List<SessionItem> sessions)
         {
             return sessions.Aggregate(0, (current, session) => current + session.TotalTime);
+        }
+
+        private int TotalSeconds(DateTime date)
+        {
+            return (Int32)(date.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+
+
         }
     }
 }
