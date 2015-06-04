@@ -15,6 +15,7 @@ namespace UnitTestTimeTracker
         public void SumUpSessionsFromDateAndProjectTest()
         {
             SumUpSessionsFromDateAndProjectTest_Case01();
+            SumUpSessionsFromDateAndProjectTest_Case02();
         }
 
         public void SumUpSessionsFromDateAndProjectTest_Case01()
@@ -38,7 +39,26 @@ namespace UnitTestTimeTracker
 
         }
 
+        public void SumUpSessionsFromDateAndProjectTest_Case02()
+        {
+            var session1 = CreateTestSession(new DateTime(2015, 6, 3, 8, 0, 0), "11111", 3);
+            var session2 = CreateTestSession(new DateTime(2015, 6, 1, 13, 0, 0), "11112", 1);
+            var session3 = CreateTestSession(new DateTime(2015, 6, 1, 14, 55, 0), "22222", 5);
+            var session4 = CreateTestSession(new DateTime(2015, 6, 3, 19, 0, 0), "11111", 1);
+            var session5 = CreateTestSession(new DateTime(2015, 6, 2, 1, 0, 0), "11111", 2);
+            var session6 = CreateTestSession(new DateTime(2015, 6, 2, 1, 0, 0), "11111", 3);
 
+            var sessions = new List<SessionItem>
+            {
+               session3, session1, session4, session6, session5, session2
+            };
+
+            var expected = 0;
+            CsvFactory factory = new CsvFactory(sessions, null);
+            var result = factory.SumUpSessionsFromDateAndProject(new DateTime(2015, 6, 1), "11111");
+            Assert.AreEqual(expected, result);
+
+        }
 
         [TestMethod]
         public void QuerySessionsByDayTest()
