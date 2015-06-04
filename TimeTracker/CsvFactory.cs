@@ -13,7 +13,7 @@ namespace TimeTracker
         private readonly List<SessionItem> _sessions;
         private readonly List<ProjectItem> _projects;
         private const string Separator = ",";
-        private const string Newline = "/n";
+        private const string Newline = "\n";
 
         public CsvFactory(List<SessionItem> sessions, List<ProjectItem> projects)
         {
@@ -52,7 +52,9 @@ namespace TimeTracker
 
         public string CreateDayCell(DateTime day)
         {
-            return day.Day.ToString() + day.Month.ToString() + day.Year.ToString() + Separator;
+            return day.Day.ToString() + "."
+                + day.Month.ToString() + "."
+                + day.Year.ToString() + Separator;
         }
 
         public string CreateProjectCells(DateTime day)
