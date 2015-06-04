@@ -28,12 +28,13 @@ namespace TimeTracker
 
         public string CreateCsvAsString()
         {
-            return "";
+            return CreateUserHeader() + CreateHeader() + CreateRows();
         }
 
         public string CreateUserHeader()
         {
-            return "";
+            DateTime today = new DateTime();
+            return _user.Name + Separator + _user.Surname + Separator + today.Month + "." + today.Year + Newline ;
         }
 
         public string CreateHeader()
