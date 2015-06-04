@@ -126,6 +126,15 @@ namespace TimeTracker
             }
         }
 
+        public bool DatabaseExists()
+        {
+            using (LocalDataContext db = new LocalDataContext(LocalDataContext.DBConnectionString))
+            {
+                return db.DatabaseExists() == false;
+                
+            }
+        }
+
 
         public void LoadLocalData()
         {
