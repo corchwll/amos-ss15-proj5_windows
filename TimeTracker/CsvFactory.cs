@@ -70,7 +70,7 @@ namespace TimeTracker
             int start = TotalSeconds(new DateTime( day.Year, day.Month, day.Day, 0,0,0));
             int end = TotalSeconds(new DateTime(day.Year, day.Month, day.Day, 23, 59, 59));
 
-            return _sessions.Where(item => item.TimestampStart > start && item.TimestampStart < end).ToList();
+            return _sessions.Where(item => item.TimestampStart >= start && item.TimestampStart < end).ToList();
         } 
 
         /**
