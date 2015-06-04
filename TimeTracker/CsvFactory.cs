@@ -72,7 +72,7 @@ namespace TimeTracker
         * @return the recorded time from the sessions in seconds
         * methodtype helper method
         */
-        protected int SumUpSessions(List<SessionItem> sessions)
+        public int SumUpSessions(List<SessionItem> sessions)
         {
             return sessions.Aggregate(0, (current, session) => current + session.TotalTime);
         }

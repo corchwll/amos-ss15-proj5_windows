@@ -16,14 +16,45 @@ namespace UnitTestTimeTracker
         [TestMethod]
         public void SumUpSessions()
         {
-            List<SessionItem> sessions = new List<SessionItem>();
-            sessions.Add(CreateTestSession(new DateTime(2015, 6, 1, 8, 0, 0), "11111", 8));
-            sessions.Add(CreateTestSession(new DateTime(2015, 6, 1, 8, 0, 0), "11111", 8));
-
-
-            CsvFactory factory = new CsvFactory();
+            SumUpSession_Case01();
+            SumUpSession_Case02();
 
         }
+
+        public void SumUpSession_Case01()
+        {
+            var sessions = new List<SessionItem>
+            {
+                CreateTestSession(new DateTime(2015, 6, 1, 8, 0, 0), "11111", 8),
+                CreateTestSession(new DateTime(2015, 6, 2, 8, 0, 0), "11111", 6),
+                CreateTestSession(new DateTime(2015, 6, 3, 8, 0, 0), "11111", 5),
+                CreateTestSession(new DateTime(2015, 6, 4, 8, 0, 0), "11111", 7)
+            };
+
+            int expected = 8 + 6 + 5 + 7;
+            CsvFactory factory = new CsvFactory(sessions, null);
+            int result = factory.SumUpSessions(sessions);
+            Assert.AreEqual(expected, result, "Case 01");
+            
+        }
+
+        public void SumUpSession_Case02()
+        {
+            var sessions = new List<SessionItem>
+            {
+                CreateTestSession(new DateTime(2015, 6, 1, 8, 0, 0), "11111", 0),
+                CreateTestSession(new DateTime(2015, 6, 2, 8, 0, 0), "11111", 6),
+                CreateTestSession(new DateTime(2015, 6, 4, 8, 0, 0), "11111", 18),
+                CreateTestSession(new DateTime(2015, 6, 8, 8, 0, 0), "11111", 2)
+            };
+
+            int expected = 0 + 6 + 18 + 2;
+            CsvFactory factory = new CsvFactory(sessions, null);
+            int result = factory.SumUpSessions(sessions);
+            Assert.AreEqual(expected, result, "Case 02");
+
+        }
+
 
         public SessionItem CreateTestSession(DateTime day, string projectId, int totalHours)
         {
