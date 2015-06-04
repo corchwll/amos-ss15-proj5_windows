@@ -17,7 +17,7 @@ namespace TimeTracker
 
         public CsvFactory(List<SessionItem> sessions, List<ProjectItem> projects)
         {
-            _sessions = sessions;
+            _sessions = sessions.OrderBy(item => item.TimestampStart).ToList(); ;
             _projects = projects;
         }
 
@@ -38,7 +38,7 @@ namespace TimeTracker
 
         public string CreateRow(DateTime day)
         {
-            return "";
+            return CreateDayCell(day) + CreateProjectCells(day);
         }
 
         public string CreateDayCell(DateTime day)
