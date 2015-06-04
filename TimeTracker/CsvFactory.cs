@@ -12,16 +12,26 @@ namespace TimeTracker
 
         private readonly List<SessionItem> _sessions;
         private readonly List<ProjectItem> _projects;
+        private readonly UserItem _user;
         private const string Separator = ",";
         private const string Newline = "\n";
 
-        public CsvFactory(List<SessionItem> sessions, List<ProjectItem> projects)
+        public CsvFactory(List<SessionItem> sessions, List<ProjectItem> projects, UserItem user)
         {
-            _sessions = sessions.OrderBy(item => item.TimestampStart).ToList(); ;
+            if (sessions != null)
+            {
+                _sessions = sessions.OrderBy(item => item.TimestampStart).ToList(); 
+            }
             _projects = projects;
+            _user = user;
         }
 
         public string CreateCsvAsString()
+        {
+            return "";
+        }
+
+        public string CreateUserHeader()
         {
             return "";
         }

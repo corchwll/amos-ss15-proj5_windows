@@ -8,7 +8,24 @@ namespace UnitTestTimeTracker
     [TestClass]
     public class CsvFactoryTests
     {
-        
+        [TestMethod]
+        public void CreateHeaderTest()
+        {
+            var project1 = CreateTestProjectItem("11111", "Project1");
+            var project2 = CreateTestProjectItem("11112", "Project2");
+            var project3 = CreateTestProjectItem("22222", "Project3");
+
+            var projects = new List<ProjectItem>
+            {
+                project1, project2, project3
+            };
+
+
+            var factory = new CsvFactory(null, projects, null);
+            string result = factory.CreateHeader();
+            string expected = "Dates,Project1,Project2,Project3\n";
+            Assert.AreEqual(expected, result);
+        }
 
         [TestMethod]
         public void CreateRowsTest()
@@ -44,7 +61,7 @@ namespace UnitTestTimeTracker
                 "1.6.2015," + "04:00,01:00,05:00\n" +
                 "2.6.2015," + "02:00,03:00,00:00\n" +
                 "3.6.2015," + "00:00,00:00,04:00\n";
-            CsvFactory factory = new CsvFactory(sessions, projects);
+            CsvFactory factory = new CsvFactory(sessions, projects, null);
             var result = factory.CreateRows();
             Assert.AreEqual(expected, result);
             
@@ -80,7 +97,7 @@ namespace UnitTestTimeTracker
             };
 
             var expected = "04:00,01:00,05:00\n";
-            CsvFactory factory = new CsvFactory(sessions, projects);
+            CsvFactory factory = new CsvFactory(sessions, projects, null);
             var result = factory.CreateProjectCells(new DateTime(2015, 6, 1));
             Assert.AreEqual(expected, result);
         }
@@ -107,7 +124,7 @@ namespace UnitTestTimeTracker
             };
 
             var expected = 4 * 60 * 60;
-            CsvFactory factory = new CsvFactory(sessions, null);
+            CsvFactory factory = new CsvFactory(sessions, null, null);
             var result = factory.SumUpSessionsFromDateAndProject(new DateTime(2015, 6, 1), "11111");
             Assert.AreEqual(expected, result);
 
@@ -128,7 +145,7 @@ namespace UnitTestTimeTracker
             };
 
             var expected = 0;
-            CsvFactory factory = new CsvFactory(sessions, null);
+            CsvFactory factory = new CsvFactory(sessions, null, null);
             var result = factory.SumUpSessionsFromDateAndProject(new DateTime(2015, 6, 1), "11111");
             Assert.AreEqual(expected, result);
 
@@ -154,7 +171,7 @@ namespace UnitTestTimeTracker
                session1, session2, session3, session4, session5
             };
 
-            CsvFactory factory = new CsvFactory(sessions, null);
+            CsvFactory factory = new CsvFactory(sessions, null, null);
             var result = factory.QuerySessionsByDay(new DateTime(2015,6,1,0,0,0));
             Assert.IsTrue(result.Contains(session1), "Session 01 should be contained");
             Assert.IsTrue(result.Contains(session2), "Session 02 should be contained");
@@ -177,7 +194,7 @@ namespace UnitTestTimeTracker
                session3, session5, session2, session4, session1
             };
 
-            CsvFactory factory = new CsvFactory(sessions, null);
+            CsvFactory factory = new CsvFactory(sessions, null, null);
             var result = factory.QuerySessionsByDay(new DateTime(2015, 6, 1, 0, 0, 0));
             Assert.IsTrue(result.Contains(session1), "Session 01 should be contained");
             Assert.IsTrue(result.Contains(session2), "Session 02 should be contained");
@@ -206,7 +223,7 @@ namespace UnitTestTimeTracker
             };
 
             int expected = (8 + 6 + 5 + 7) * 60 * 60;
-            CsvFactory factory = new CsvFactory(sessions, null);
+            CsvFactory factory = new CsvFactory(sessions, null, null);
             int result = factory.SumUpSessions(sessions);
             Assert.AreEqual(expected, result, "Case 01");
             
@@ -223,7 +240,7 @@ namespace UnitTestTimeTracker
             };
 
             int expected = (0 + 6 + 18 + 2) * 60 * 60;
-            CsvFactory factory = new CsvFactory(sessions, null);
+            CsvFactory factory = new CsvFactory(sessions, null, null);
             int result = factory.SumUpSessions(sessions);
             Assert.AreEqual(expected, result, "Case 02");
 
@@ -250,6 +267,16 @@ namespace UnitTestTimeTracker
             {
                 ProjectId = projectId,
                 ProjectName = "random"
+            };
+            return item;
+        }
+
+        public ProjectItem CreateTestProjectItem(string projectId, string projectName)
+        {
+            ProjectItem item = new ProjectItem
+            {
+                ProjectId = projectId,
+                ProjectName = projectName
             };
             return item;
         }
