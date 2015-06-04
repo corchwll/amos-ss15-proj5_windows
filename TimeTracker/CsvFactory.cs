@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Phone.PersonalInformation;
+using Windows.Storage;
 
 namespace TimeTracker
 {
@@ -24,6 +27,35 @@ namespace TimeTracker
             }
             _projects = projects;
             _user = user;
+        }
+
+        public void CreateCsvFile()
+        {
+            string result = CreateCsvAsString();
+            WriteToFile(result);
+        }
+
+        private async Task WriteToFile(string data)
+        {
+            // Get the text data from the textbox. 
+            byte[] fileBytes = System.Text.Encoding.UTF8.GetBytes(data.ToCharArray());
+
+            // Get the local folder.
+            StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            // Create a new folder name DataFolder.
+            var dataFolder = await local.CreateFolderAsync("DataFolder",
+                CreationCollisionOption.OpenIfExists);
+
+            // Create a new file named DataFile.txt.
+            var file = await dataFolder.CreateFileAsync("DataFile.csv",
+            CreationCollisionOption.ReplaceExisting);
+
+            // Write the data from the textbox.
+            using (var s = await file.OpenStreamForWriteAsync())
+            {
+                s.Write(fileBytes, 0, fileBytes.Length);
+            }
         }
 
         public string CreateCsvAsString()
