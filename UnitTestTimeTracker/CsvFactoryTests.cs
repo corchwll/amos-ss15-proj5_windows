@@ -9,7 +9,40 @@ namespace UnitTestTimeTracker
     public class CsvFactoryTests
     {
 
+        [TestMethod]
+        public void CreateProjectCellsTest()
+        {
+            CreateProjectCellsTest_Case01();
+        }
 
+        public void CreateProjectCellsTest_Case01()
+        {
+            var session1 = CreateTestSession(new DateTime(2015, 6, 1, 8, 0, 0), "11111", 3);
+            var session2 = CreateTestSession(new DateTime(2015, 6, 1, 13, 0, 0), "11112", 1);
+            var session3 = CreateTestSession(new DateTime(2015, 6, 1, 14, 55, 0), "22222", 5);
+            var session4 = CreateTestSession(new DateTime(2015, 6, 1, 19, 0, 0), "11111", 1);
+            var session5 = CreateTestSession(new DateTime(2015, 6, 2, 1, 0, 0), "11111", 2);
+            var session6 = CreateTestSession(new DateTime(2015, 6, 2, 1, 0, 0), "11111", 3);
+
+            var sessions = new List<SessionItem>
+            {
+               session3, session1, session4, session6, session5, session2
+            };
+
+            var project1 = CreateTestProjectItem("11111");
+            var project2 = CreateTestProjectItem("11112");
+            var project3 = CreateTestProjectItem("22222");
+
+            var projects = new List<ProjectItem>
+            {
+                project1, project2, project3
+            };
+
+            var expected = "04:00,01:00,05:00/n";
+            CsvFactory factory = new CsvFactory(sessions, projects);
+            var result = factory.CreateProjectCells(new DateTime(2015, 6, 1));
+            Assert.AreEqual(expected, result);
+        }
 
         [TestMethod]
         public void SumUpSessionsFromDateAndProjectTest()
@@ -167,6 +200,16 @@ namespace UnitTestTimeTracker
 
             };
 
+            return item;
+        }
+
+        public ProjectItem CreateTestProjectItem(string projectId)
+        {
+            ProjectItem item = new ProjectItem
+            {
+                ProjectId = projectId,
+                ProjectName = "random"
+            };
             return item;
         }
 

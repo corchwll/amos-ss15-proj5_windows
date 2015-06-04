@@ -10,10 +10,10 @@ namespace TimeTracker
     public class CsvFactory
     {
 
-        private List<SessionItem> _sessions;
-        private List<ProjectItem> _projects;
-        private string separator = "";
-        private string newline = "";
+        private readonly List<SessionItem> _sessions;
+        private readonly List<ProjectItem> _projects;
+        private const string Separator = ",";
+        private const string Newline = "/n";
 
         public CsvFactory(List<SessionItem> sessions, List<ProjectItem> projects)
         {
@@ -48,17 +48,17 @@ namespace TimeTracker
 
         public string CreateProjectCells(DateTime day)
         {
-            string result = "";
-            foreach (ProjectItem item in _projects)
+            var result = "";
+            foreach (var item in _projects)
             {
                 result += CreateProjectCell(day, item.ProjectId);
                 if (_projects.Last().Equals(item))
                 {
-                    result += newline;
+                    result += Newline;
                 }
                 else
                 {
-                    result += separator;
+                    result += Separator;
                 }
             }
 
@@ -104,12 +104,27 @@ namespace TimeTracker
 
         public string CreateTimeString(int seconds)
         {
-            string hours = (seconds / (60 * 60)).ToString();
-            string minutes = (seconds / 60).ToString();
+            int hours = (seconds / (60 * 60));
+            int remaining = seconds - (hours*60*60);
+            int minutes = (remaining / 60);
 
-            return hours + ":" + minutes;
 
 
+            return ConvertDigitToString(hours) + ":" + ConvertDigitToString(minutes);
+
+        }
+
+        public string ConvertDigitToString(int digit)
+        {
+            if (digit < 10)
+            {
+                return "0" + digit.ToString();
+            }
+            else
+            {
+                return digit.ToString();
+            }
+            
         }
     }
 }
