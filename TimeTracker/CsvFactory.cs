@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Phone.PersonalInformation;
 
 namespace TimeTracker
 {
@@ -54,15 +55,10 @@ namespace TimeTracker
         }
 
 
-        public int SumUpSessionsFromDateAndProject(DateTime date, string projectId)
+        public int SumUpSessionsFromDateAndProject(DateTime day, string projectId)
         {
-            var daySessions = new List<SessionItem>();
-
-            foreach (var item in daySessions.Where(item => item.ProjectId == projectId))
-            {
-                daySessions.Add(item);
-            }
-            return SumUpSessions(daySessions);
+            var daySessions = QuerySessionsByDay(day);
+            return SumUpSessions(daySessions.Where(item => item.ProjectId == projectId).ToList());
         }
 
         public List<SessionItem> QuerySessionsByDay(DateTime day)
