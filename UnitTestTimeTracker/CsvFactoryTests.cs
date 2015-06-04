@@ -32,7 +32,7 @@ namespace UnitTestTimeTracker
                session3, session1, session4, session6, session5, session2
             };
 
-            var expected = 4;
+            var expected = 4 * 60 * 60;
             CsvFactory factory = new CsvFactory(sessions, null);
             var result = factory.SumUpSessionsFromDateAndProject(new DateTime(2015, 6, 1), "11111");
             Assert.AreEqual(expected, result);
@@ -131,7 +131,7 @@ namespace UnitTestTimeTracker
                 CreateTestSession(new DateTime(2015, 6, 4, 8, 0, 0), "11111", 7)
             };
 
-            int expected = 8 + 6 + 5 + 7;
+            int expected = (8 + 6 + 5 + 7) * 60 * 60;
             CsvFactory factory = new CsvFactory(sessions, null);
             int result = factory.SumUpSessions(sessions);
             Assert.AreEqual(expected, result, "Case 01");
@@ -148,7 +148,7 @@ namespace UnitTestTimeTracker
                 CreateTestSession(new DateTime(2015, 6, 8, 8, 0, 0), "11111", 2)
             };
 
-            int expected = 0 + 6 + 18 + 2;
+            int expected = (0 + 6 + 18 + 2) * 60 * 60;
             CsvFactory factory = new CsvFactory(sessions, null);
             int result = factory.SumUpSessions(sessions);
             Assert.AreEqual(expected, result, "Case 02");
@@ -162,7 +162,7 @@ namespace UnitTestTimeTracker
             {
                 TimestampStart = TotalSeconds(day),
                 TimestampStop = TotalSeconds(day.AddHours(totalHours)),
-                TotalTime = totalHours,
+                TotalTime = totalHours * 60 * 60,
                 ProjectId = projectId
 
             };

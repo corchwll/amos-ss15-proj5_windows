@@ -39,19 +39,19 @@ namespace TimeTracker
             return "";
         }
 
-        public string CreateDayColumn(DateTime day)
+        public string CreateDayCell(DateTime day)
         {
             return "";
         }
 
-        public string CreateProjectColumns()
+        public string CreateProjectCells()
         {
             return "";
         }
 
-        public string CreateProjectCell()
+        public string CreateProjectCell(DateTime day, string projectId)
         {
-            return "";
+            return CreateTimeString(SumUpSessionsFromDateAndProject(day, projectId));
         }
 
 
@@ -84,6 +84,14 @@ namespace TimeTracker
         private int TotalSeconds(DateTime date)
         {
             return (Int32)(date.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+        }
+
+        public string CreateTimeString(int seconds)
+        {
+            string hours = (seconds / (60 * 60)).ToString();
+            string minutes = (seconds / 60).ToString();
+
+            return hours + ":" + minutes;
 
 
         }
