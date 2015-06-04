@@ -12,6 +12,8 @@ namespace TimeTracker
 
         private List<SessionItem> _sessions;
         private List<ProjectItem> _projects;
+        private string separator = "";
+        private string newline = "";
 
         public CsvFactory(List<SessionItem> sessions, List<ProjectItem> projects)
         {
@@ -44,9 +46,23 @@ namespace TimeTracker
             return "";
         }
 
-        public string CreateProjectCells()
+        public string CreateProjectCells(DateTime day)
         {
-            return "";
+            string result = "";
+            foreach (ProjectItem item in _projects)
+            {
+                result += CreateProjectCell(day, item.ProjectId);
+                if (_projects.Last().Equals(item))
+                {
+                    result += newline;
+                }
+                else
+                {
+                    result += separator;
+                }
+            }
+
+            return result;
         }
 
         public string CreateProjectCell(DateTime day, string projectId)
