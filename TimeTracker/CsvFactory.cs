@@ -28,7 +28,20 @@ namespace TimeTracker
 
         public string CreateHeader()
         {
-            return "";
+            string result = "Dates,";
+            foreach (var item in _projects)
+            {
+                result += item.ProjectName;
+                if (_projects.Last().Equals(item))
+                {
+                    result += Newline;
+                }
+                else
+                {
+                    result += Separator;
+                } 
+            }
+            return result;
         }
 
         public string CreateRows()

@@ -8,6 +8,7 @@ namespace UnitTestTimeTracker
     [TestClass]
     public class CsvFactoryTests
     {
+        
 
         [TestMethod]
         public void CreateRowsTest()
