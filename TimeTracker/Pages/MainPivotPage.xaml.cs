@@ -219,9 +219,12 @@ namespace TimeTracker
                 else if (!_dataBaseManager.CreateNewSessionItem(id, startConverted, endConverted))
                 {
                     MessageBoxResult result = MessageBox.Show("You have already recorded this time",
-                    "Error", MessageBoxButton.OKCancel);
+                        "Error", MessageBoxButton.OKCancel);
                 }
+                
             }
+
+
         }
 
         //Catches necessary data and creates new user item in database
@@ -290,7 +293,6 @@ namespace TimeTracker
                 MessageBoxResult result = MessageBox.Show("The total working hours can not exeed ten hours per day",
                     "Error", MessageBoxButton.OKCancel);
             }
-
         }
 
         //following methods build the event callback functionalitiesof the buttons
