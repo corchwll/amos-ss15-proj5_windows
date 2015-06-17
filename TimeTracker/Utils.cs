@@ -56,6 +56,13 @@ namespace TimeTracker
 
         }
 
+        public static int TotalSeconds(DateTime date)
+        {
+            return (Int32)(date.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+
+
+        }
+
 
         //Returns a reverse instance of a collection with types of SessionItems
         public static ObservableCollection<SessionItem> ReverseCurrentSessionItems(ObservableCollection<SessionItem> list)

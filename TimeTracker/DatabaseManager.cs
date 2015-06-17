@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Diagnostics;
@@ -235,7 +236,15 @@ namespace TimeTracker
 
         private int calculateDayHours(DateTime day)
         {
+            
+            
+            int start = Utils.TotalSeconds(new DateTime(day.Year, day.Month, day.Day, 0,0,0));
+            int end = Utils.TotalSeconds(new DateTime(day.Year, day.Month, day.Day, 23,59,59));
 
+            var currentSessionItemsInDb = from item in _localDb.SessionItems 
+                                          where item.TimestampStart > start 
+                                          && item.TimestampStop < end select item;
+            
         }
 
         public void createNewUserItem(string name, string surname, string personalId, int workingtime, int overtime, int vacationDays, int currentVacation)
