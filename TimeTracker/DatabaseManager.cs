@@ -184,12 +184,18 @@ namespace TimeTracker
             saveChangesToDatabase();
         }
 
-        public void CreateNewSessionItem(SessionItem item)
+        public bool CreateNewSessionItem(SessionItem item)
         {
             SessionItem newSession = item;
+            if (!isTimeframeFree(newSession))
+            {
+                return false;
+            }
             SessionItems.Add(newSession);
+           
             _localDb.SessionItems.InsertOnSubmit(newSession);
             saveChangesToDatabase();
+            return true;
         }
 
         public ProjectItem createNewProjectItem(string projectId, string projectName)
@@ -199,6 +205,23 @@ namespace TimeTracker
             _localDb.ProjectItems.InsertOnSubmit(newProject);
             saveChangesToDatabase();
             return newProject;
+        }
+
+        private bool isTimeframeFree(SessionItem newSession)
+        {
+            foreach (var item in _localDb.SessionItems)
+            {
+                if(newSession.TimestampStart >= item.TimestampStart && newSession.TimestampStart < item.TimestampStop){
+                    return false;
+                }
+
+                if(newSession.TimestampStop >= item.TimestampStart && newSession.TimestampStop < item.TimestampStop){
+                    return false;
+                }
+            }
+
+            return true;
+
         }
 
         public void createNewUserItem(string name, string surname, string personalId, int workingtime, int overtime, int vacationDays, int currentVacation)
