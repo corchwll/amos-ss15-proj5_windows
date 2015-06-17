@@ -226,6 +226,15 @@ namespace TimeTracker
             }
 
             return true;
+        }
+
+        private bool isMaxDayTimeReached(int timestampStart, int timestampStop)
+        {
+
+        }
+
+        private int calculateDayHours(DateTime day)
+        {
 
         }
 

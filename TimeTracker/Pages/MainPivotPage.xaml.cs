@@ -211,7 +211,11 @@ namespace TimeTracker
                 int startConverted = CollectIntOnNavgation(QueryDictionary.SessionStart);
                 int endConverted = CollectIntOnNavgation(QueryDictionary.SessionStop);
                 string id = CollectStringOnNavigation(QueryDictionary.SessionProjectId);
-                _dataBaseManager.CreateNewSessionItem(id, startConverted, endConverted);
+                if (!_dataBaseManager.CreateNewSessionItem(id, startConverted, endConverted))
+                {
+                    MessageBoxResult result = MessageBox.Show("You have already recorded this time",
+                    "Error", MessageBoxButton.OKCancel);
+                }
             }
         }
 
