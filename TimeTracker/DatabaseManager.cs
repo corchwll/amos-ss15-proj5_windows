@@ -231,6 +231,21 @@ namespace TimeTracker
 
         public bool IsMaxDayTimeReached(int timestampStart, int timestampStop)
         {
+            DateTime now = new DateTime();
+            int hoursAmount = CalculateDayHours(now);
+            int hours = 60 * 60 * (timestampStop - timestampStart);
+            if (hoursAmount + hours > 10)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool IsMaxDayTimeReached(SessionItem item)
+        {
+
+
+            int timestampStart = item.TimestampStart;
+            int timestampStop = item.TimestampStop;
 
             DateTime now = new DateTime();
             int hoursAmount = CalculateDayHours(now);

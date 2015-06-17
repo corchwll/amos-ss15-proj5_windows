@@ -211,7 +211,12 @@ namespace TimeTracker
                 int startConverted = CollectIntOnNavgation(QueryDictionary.SessionStart);
                 int endConverted = CollectIntOnNavgation(QueryDictionary.SessionStop);
                 string id = CollectStringOnNavigation(QueryDictionary.SessionProjectId);
-                if (!_dataBaseManager.CreateNewSessionItem(id, startConverted, endConverted))
+                if (_dataBaseManager.IsMaxDayTimeReached(startConverted, endConverted))
+                {
+                    MessageBoxResult result = MessageBox.Show("The total working hours can not exeed ten hours per day",
+                        "Error", MessageBoxButton.OKCancel);
+                }
+                else if (!_dataBaseManager.CreateNewSessionItem(id, startConverted, endConverted))
                 {
                     MessageBoxResult result = MessageBox.Show("You have already recorded this time",
                     "Error", MessageBoxButton.OKCancel);
@@ -280,6 +285,11 @@ namespace TimeTracker
         {
             _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
             TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.TotalTime);
+            if (_dataBaseManager.IsMaxDayTimeReached(_currentSessionItem))
+            {
+                MessageBoxResult result = MessageBox.Show("The total working hours can not exeed ten hours per day",
+                    "Error", MessageBoxButton.OKCancel);
+            }
 
         }
 
