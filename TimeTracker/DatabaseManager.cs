@@ -176,12 +176,17 @@ namespace TimeTracker
             saveChangesToDatabase();
 
         }
-        public void CreateNewSessionItem(string projectId, int timestampStart, int timestampStop)
+        public bool CreateNewSessionItem(string projectId, int timestampStart, int timestampStop)
         {
             SessionItem newSession = new SessionItem { ProjectId =projectId, TimestampStart = timestampStart, TimestampStop = timestampStop, TotalTime = timestampStop - timestampStart};
+            if (!isTimeframeFree(newSession))
+            {
+                return false;
+            }
             SessionItems.Add(newSession);
             _localDb.SessionItems.InsertOnSubmit(newSession);
             saveChangesToDatabase();
+            return true;
         }
 
         public bool CreateNewSessionItem(SessionItem item)
