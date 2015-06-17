@@ -13,7 +13,7 @@ namespace TimeTracker
     //as creating new session or project items and save them to the database
     public class DatabaseManager
     {
-        static string ProjectHolidayName = "Holiday";
+        static string ProjectHolidayName = "Vacation";
         public static string ProjectHolidayId = "00001";
 
         public const string ProjectTrainingName = "Training";
