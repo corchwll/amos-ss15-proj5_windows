@@ -229,22 +229,39 @@ namespace TimeTracker
             return true;
         }
 
-        private bool isMaxDayTimeReached(int timestampStart, int timestampStop)
+        public bool IsMaxDayTimeReached(int timestampStart, int timestampStop)
         {
 
+            DateTime now = new DateTime();
+            int hoursAmount = CalculateDayHours(now);
+            int hours = 60*60*(timestampStop - timestampStart);
+            if (hoursAmount + hours > 10)
+            {
+                return false;
+            }
+            return true;
         }
 
-        private int calculateDayHours(DateTime day)
+        private int CalculateDayHours(DateTime day)
         {
             
             
             int start = Utils.TotalSeconds(new DateTime(day.Year, day.Month, day.Day, 0,0,0));
             int end = Utils.TotalSeconds(new DateTime(day.Year, day.Month, day.Day, 23,59,59));
 
-            var currentSessionItemsInDb = from item in _localDb.SessionItems 
+            var daySessionItemsInDb = from item in _localDb.SessionItems 
                                           where item.TimestampStart > start 
                                           && item.TimestampStop < end select item;
-            
+
+
+            ObservableCollection<SessionItem> daySessionItems = new ObservableCollection<SessionItem>(daySessionItemsInDb);
+            int totalSeconds = 0;
+            foreach (var item in daySessionItems)
+            {
+                totalSeconds += item.TotalTime;
+            }
+            return (totalSeconds*60*60);
+
         }
 
         public void createNewUserItem(string name, string surname, string personalId, int workingtime, int overtime, int vacationDays, int currentVacation)
