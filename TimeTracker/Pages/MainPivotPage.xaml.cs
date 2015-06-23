@@ -296,11 +296,18 @@ namespace TimeTracker
             _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
             TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.TotalTime);
 
-            _locationManager.LoadLocation();
-            Geoposition position = _locationManager.GetCurrentGeoposition();
-            if (_currentSessionItem.TotalTime%60 == 0 && position != null)
+            if (_currentSessionItem.TotalTime%60 == 0 || _currentSessionItem.Longitude == 0.0)
             {
-                Debug.WriteLine(position.Coordinate.Latitude.ToString("0.0000"));
+                _locationManager.LoadLocation();
+                Geoposition position = _locationManager.GetCurrentGeoposition();
+                if (position != null)
+                {
+
+                    double latitude = Math.Round(position.Coordinate.Latitude, 4);
+                    double longitude = Math.Round(position.Coordinate.Longitude, 4);
+                    _currentSessionItem.AddPosition(longitude, latitude);
+                    Debug.WriteLine(_currentSessionItem.Longitude.ToString());
+                }
             }
 
             if (_dataBaseManager.IsMaxDayTimeReached(_currentSessionItem))

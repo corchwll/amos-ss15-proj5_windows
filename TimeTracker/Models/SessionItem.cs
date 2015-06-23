@@ -17,8 +17,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Data.Linq.Mapping;
 using System.ComponentModel;
+using System.Device.Location;
+using System.Linq;
 
 namespace TimeTracker
 {
@@ -164,6 +167,19 @@ namespace TimeTracker
             }
         }
 
+
+        [Column]
+        public double Longitude { get; set; }
+
+        [Column]
+        public double Latitude { get; set; }
+
+
+        public void AddPosition(double longitude, double latitude)
+        {
+            Longitude = longitude;
+            Latitude = latitude;
+        }
         private string _visualText;
         public string VisualText { get; set; }
 
