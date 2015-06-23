@@ -302,7 +302,6 @@ namespace TimeTracker
                 Geoposition position = _locationManager.GetCurrentGeoposition();
                 if (position != null)
                 {
-
                     double latitude = Math.Round(position.Coordinate.Latitude, 4);
                     double longitude = Math.Round(position.Coordinate.Longitude, 4);
                     _currentSessionItem.AddPosition(longitude, latitude);
