@@ -105,6 +105,12 @@ namespace TimeTracker
             }
         }
 
+        [Column]
+        public double Latitude { get; set; }
+
+        [Column]
+        public double Longitude { get; set; }
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;

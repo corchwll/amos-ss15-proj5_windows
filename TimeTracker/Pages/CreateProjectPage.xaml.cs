@@ -74,7 +74,7 @@ namespace TimeTracker
 
             UriFactory factory = new UriFactory();
             NavigationService.Navigate(new Uri(factory.CreateDataUri(projectName, projectId,
-                                        FinalDate.ToString()), UriKind.Relative));
+                                        FinalDate.ToString(), latitude, longitude), UriKind.Relative));
 
         }
 
