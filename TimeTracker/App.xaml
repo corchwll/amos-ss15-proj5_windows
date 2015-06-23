@@ -9,7 +9,9 @@
     <Application.Resources>
     </Application.Resources>
 
+    
     <Application.ApplicationLifetimeObjects>
+        
         <!--Erforderliches Objekt, das Lebensdauerereignisse der Anwendung behandelt-->
         <shell:PhoneApplicationService 
             Launching="Application_Launching" Closing="Application_Closing" 

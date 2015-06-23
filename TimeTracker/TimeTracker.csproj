@@ -108,6 +108,7 @@
     <Compile Include="BusinessLogic\Holidays.cs" />
     <Compile Include="CsvFactory.cs" />
     <Compile Include="DatabaseManager.cs" />
+    <Compile Include="LocationManager.cs" />
     <Compile Include="Pages\EditProjectPage.xaml.cs">
       <DependentUpon>EditProjectPage.xaml</DependentUpon>
     </Compile>

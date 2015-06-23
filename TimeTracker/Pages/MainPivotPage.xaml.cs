@@ -20,11 +20,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Windows.Devices.Geolocation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using TimeTracker.BusinessLogic;
@@ -148,6 +150,8 @@ namespace TimeTracker
             CollectNewProject();
             CollectNewSession();
             CollectRegistrationData();
+
+            
         }
 
         #endregion
@@ -315,6 +319,10 @@ namespace TimeTracker
 
         private void StartRecording()
         {
+            LocationManager lManager = new LocationManager();
+            lManager.GetCurrentLocation();
+
+
             _currentSessionItem.TimestampStart = Utils.GetUnixTimestamp();
             TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(0);
             _dispatcherTimer.Start();
