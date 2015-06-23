@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TimeTracker
 {
-    class Utils
+    public class Utils
     {
 
         public static string FormatSecondsToChronometerString(int seconds)
