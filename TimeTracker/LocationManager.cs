@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using Windows.Devices.Geolocation;
+using Windows.UI.Core;
 
 namespace TimeTracker
 {
@@ -21,9 +23,16 @@ namespace TimeTracker
         public async void GetCurrentLocation()
         {
             Geolocator geolocator = new Geolocator { DesiredAccuracyInMeters = _desireAccuracyInMetersValue };
-            //_geolocator.StatusChanged += OnStatusChanged;
+            _geolocator.StatusChanged += OnStatusChanged;
             Geoposition pos = await geolocator.GetGeopositionAsync();
 
+        }
+
+        private async void OnStatusChanged(Geolocator sender, StatusChangedEventArgs e)
+        {
+            //await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            //{
+            //});
         }
 
     }
