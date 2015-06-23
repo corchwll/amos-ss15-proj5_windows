@@ -158,10 +158,10 @@ namespace TimeTracker
 
         public void CreateDefaultProjects()
         {
-            createNewProjectItem(ProjectHolidayId, ProjectHolidayName);
-            createNewProjectItem(ProjectTrainingId, ProjectTrainingName);
-            createNewProjectItem(ProjectOfficeId, ProjectOfficeName);
-            createNewProjectItem(ProjectIllnessId, ProjectIllnessName);
+            createNewProjectItem(ProjectHolidayId, ProjectHolidayName, 0,0);
+            createNewProjectItem(ProjectTrainingId, ProjectTrainingName, 0, 0);
+            createNewProjectItem(ProjectOfficeId, ProjectOfficeName, 0, 0);
+            createNewProjectItem(ProjectIllnessId, ProjectIllnessName, 0, 0);
         }
 
         public void UpdateUser(UserItem newUser)
@@ -204,9 +204,14 @@ namespace TimeTracker
             return true;
         }
 
-        public ProjectItem createNewProjectItem(string projectId, string projectName)
+        public ProjectItem createNewProjectItem(string projectId, string projectName, double latitude, double longitude)
         {
-            ProjectItem newProject = new ProjectItem { ProjectId = projectId, ProjectName = projectName };
+            ProjectItem newProject = new ProjectItem { 
+                ProjectId = projectId,
+                ProjectName = projectName,
+                Longitude = longitude,
+                Latitude =  latitude
+            };
             ProjectItems.Add(newProject);
             _localDb.ProjectItems.InsertOnSubmit(newProject);
             saveChangesToDatabase();

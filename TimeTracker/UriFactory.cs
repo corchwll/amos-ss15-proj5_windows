@@ -20,7 +20,9 @@ namespace TimeTracker
                    + ProjectIdUri(projectId)
                    + LinkElement
                    + ProjectDateUri(date)
+                   + LinkElement
                    + ProjectLatitude(latitude)
+                   + LinkElement
                    + ProjectLongitude(longitude);
         }
 

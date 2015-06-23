@@ -202,7 +202,11 @@ namespace TimeTracker
                 string id = CollectStringOnNavigation(QueryDictionary.ProjectId);
                 string name = CollectStringOnNavigation(QueryDictionary.ProjectName);
                 string finalDate = CollectStringOnNavigation(QueryDictionary.ProjectFinalDate);
-                ProjectItem newItem =_dataBaseManager.createNewProjectItem(id, name);
+                double latitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLatitude);
+                double longitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLongitude);
+
+                
+                ProjectItem newItem =_dataBaseManager.createNewProjectItem(id, name, latitude, longitude);
                 ProjectItems.Add(newItem);
                 PivotMain.SelectedIndex = 2;
             }
@@ -277,6 +281,14 @@ namespace TimeTracker
             string result = "";
             NavigationContext.QueryString.TryGetValue(key, out result);
             return Int32.Parse(result);
+
+        }
+
+        private double CollectDoubleOnNavigation(string key)
+        {
+            string result = "";
+            NavigationContext.QueryString.TryGetValue(key, out result);
+            return Double.Parse(result);
 
         }
 
