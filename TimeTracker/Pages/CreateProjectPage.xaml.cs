@@ -55,10 +55,19 @@ namespace TimeTracker
             string projectName = TextBoxName.Text;
             string projectId = TextBoxId.Text;
             int date = (int) FinalDate.Value.Value.Ticks;
+            string latitude = TextBoxLatitude.Text;
+            string longitude = TextBoxLongitude.Text;
 
             if (!ProjectItem.CheckProjectId(projectId))
             {
                 MessageBoxResult result = MessageBox.Show("Your project ID must consist of 5 digits",
+                      "Error", MessageBoxButton.OKCancel);
+                return;
+            }
+
+            if (latitude.Length < 5 || longitude.Length < 5)
+            {
+                MessageBoxResult result = MessageBox.Show("Add the location of your project",
                       "Error", MessageBoxButton.OKCancel);
                 return;
             }

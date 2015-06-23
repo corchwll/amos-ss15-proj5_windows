@@ -20,6 +20,10 @@ namespace TimeTracker
         public const string ProjectName = "projectName";
         public const string ProjectId = "projectId";
         public const string ProjectFinalDate = "finalDate";
+        public const string ProjectLatitude = "latitude";
+        public const string ProjectLongitude = "longitude";
+
+
 
         public const string SessionStart = "start";
         public const string SessionStop = "end";

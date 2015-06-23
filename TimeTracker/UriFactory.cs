@@ -12,16 +12,28 @@ namespace TimeTracker
         private const string NavigationBody = "/Pages/MainPivotPage.xaml?";
         private const string LinkElement = "&";
 
-        public string CreateDataUri(string projectName, string projectId, string date)
+        public string CreateDataUri(string projectName, string projectId, string date, string latitude, string longitude)
         {
             return NavigationBody
                    + ProjectNameUri(projectName)
                    + LinkElement
                    + ProjectIdUri(projectId)
                    + LinkElement
-                   + ProjectDateUri(date);
+                   + ProjectDateUri(date)
+                   + ProjectLatitude(latitude)
+                   + ProjectLongitude(longitude);
         }
 
+        private string ProjectLatitude(string latitude)
+        {
+            return QueryDictionary.ProjectLatitude + "=" + latitude;
+        }
+
+        private string ProjectLongitude(string longitude)
+        {
+            return QueryDictionary.ProjectLongitude + "=" + longitude;
+
+        }
         private string ProjectNameUri(string projectName)
         {
             return QueryDictionary.ProjectName + "=" + projectName;
