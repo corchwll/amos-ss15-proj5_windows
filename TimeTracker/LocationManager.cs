@@ -15,9 +15,15 @@ namespace TimeTracker
 
     class LocationManager
     {
-        uint _desireAccuracyInMetersValue = 10;
+        uint _desireAccuracyInMetersValue = 50;
+        private Geoposition _currentGeoposition;
         private Geolocator _geolocator;
         public LocationManager()
+        {
+            CheckPermission();
+        }
+
+        private void CheckPermission()
         {
             _geolocator = new Geolocator { DesiredAccuracyInMeters = _desireAccuracyInMetersValue };
             if (IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
@@ -44,7 +50,34 @@ namespace TimeTracker
             }
         }
 
-        public async void GetCurrentLocation()
+        public bool DidLocationChanged(Geoposition newPosition)
+        {
+            if (_currentGeoposition == null)
+            {
+                _currentGeoposition = newPosition;
+                return true;
+
+            }
+
+            if (Math.Round(newPosition.Coordinate.Latitude, 5) ==
+                Math.Round(_currentGeoposition.Coordinate.Latitude, 5)
+                &&
+                Math.Round(newPosition.Coordinate.Longitude, 5) ==
+                Math.Round(_currentGeoposition.Coordinate.Longitude, 5))
+            {
+                return false;
+            }
+
+            _currentGeoposition = newPosition;
+                return true;
+        }
+
+        public Geoposition GetCurrentGeoposition()
+        {
+            return _currentGeoposition;
+        }
+
+        public async void LoadLocation()
         {
 
             Geolocator geolocator = new Geolocator();
@@ -61,18 +94,15 @@ namespace TimeTracker
                     timeout: TimeSpan.FromSeconds(10)
                     );
 
-                Debug.WriteLine(geoposition.Coordinate.Latitude.ToString("0.00"));
+                if(DidLocationChanged(geoposition))
+                {
+                    _currentGeoposition = geoposition;
+                }
             }
             catch (Exception ex)
             {
-                if ((uint)ex.HResult == 0x80004004)
-                {
-                    // the application does not have the right capability or the location master switch is off
-                }
-                //else
-                {
+
                     Debug.WriteLine("Exception while getting geolocation");
-                }
             }
 
         }

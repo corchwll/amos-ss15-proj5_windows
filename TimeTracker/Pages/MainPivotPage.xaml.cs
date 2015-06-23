@@ -51,6 +51,9 @@ namespace TimeTracker
         //Database instance - Create, Delete, Update or Remove elements
         private readonly DatabaseManager _dataBaseManager;
 
+        LocationManager _locationManager = new LocationManager();
+
+
         //Collection of all (default & custome) Projects
         private ObservableCollection<ProjectItem> _projectItems;
         public ObservableCollection<ProjectItem> ProjectItems
@@ -292,6 +295,14 @@ namespace TimeTracker
         {
             _currentSessionItem.TimestampStop = Utils.GetUnixTimestamp();
             TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(_currentSessionItem.TotalTime);
+
+            _locationManager.LoadLocation();
+            Geoposition position = _locationManager.GetCurrentGeoposition();
+            if (_currentSessionItem.TotalTime%60 == 0 && position != null)
+            {
+                Debug.WriteLine(position.Coordinate.Latitude.ToString("0.0000"));
+            }
+
             if (_dataBaseManager.IsMaxDayTimeReached(_currentSessionItem))
             {
                 MessageBoxResult result = MessageBox.Show("The total working hours can not exeed ten hours per day",
@@ -319,10 +330,6 @@ namespace TimeTracker
 
         private void StartRecording()
         {
-            LocationManager lManager = new LocationManager();
-            lManager.GetCurrentLocation();
-
-
             _currentSessionItem.TimestampStart = Utils.GetUnixTimestamp();
             TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(0);
             _dispatcherTimer.Start();
