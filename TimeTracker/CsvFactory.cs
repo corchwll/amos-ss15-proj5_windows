@@ -18,7 +18,7 @@ namespace TimeTracker
         private readonly List<SessionItem> _sessions;
         private readonly List<ProjectItem> _projects;
         private readonly UserItem _user;
-        private const string Separator = ",";
+        private const string Separator = ";";
         private const string Newline = "\n";
 
         public CsvFactory(List<SessionItem> sessions, List<ProjectItem> projects, UserItem user)
