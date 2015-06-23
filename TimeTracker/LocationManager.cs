@@ -17,9 +17,13 @@ namespace TimeTracker
     {
         uint _desireAccuracyInMetersValue = 50;
         private Geoposition _currentGeoposition;
+        private DispatcherTimer _dispatcherTimer;
+
         private Geolocator _geolocator;
         public LocationManager()
         {
+            InitTimer();
+            _dispatcherTimer.Start();
             CheckPermission();
         }
 
@@ -106,6 +110,25 @@ namespace TimeTracker
 
                     Debug.WriteLine("Exception while getting geolocation");
                 return null;
+            }
+
+        }
+
+        private void InitTimer()
+        {
+            _dispatcherTimer = new DispatcherTimer();
+            _dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000);
+            _dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+        }
+
+        //EventHandler for each timer tick. Updates the textBox with the current time passed
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            LoadLocation();
+            if (_currentGeoposition != null)
+            {
+                _dispatcherTimer.Stop();
+
             }
 
         }

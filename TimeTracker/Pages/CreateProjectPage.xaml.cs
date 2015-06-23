@@ -78,10 +78,6 @@ namespace TimeTracker
 
         }
 
-        private void TextBoxId_Copy_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
 
         private void GetLocation_Click(object sender, RoutedEventArgs e)
         {

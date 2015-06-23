@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Device.Location;
 using System.Diagnostics;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -52,6 +53,8 @@ namespace TimeTracker
         private readonly DatabaseManager _dataBaseManager;
 
         LocationManager _locationManager = new LocationManager();
+
+
 
 
         //Collection of all (default & custome) Projects
@@ -153,7 +156,7 @@ namespace TimeTracker
             CollectNewProject();
             CollectNewSession();
             CollectRegistrationData();
-
+            
             
         }
 
@@ -162,7 +165,7 @@ namespace TimeTracker
         public void LoadData()
         {
             ProjectItems = _dataBaseManager.ProjectItems;
-            SortProjectItemsCollection();
+            SortProjectItemCollectionByPosition();
             CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
             SessionItems = _dataBaseManager.SessionItems;
         }
@@ -175,6 +178,33 @@ namespace TimeTracker
             RearrangeDefaultProject(DatabaseManager.ProjectOfficeId);
             RearrangeDefaultProject(DatabaseManager.ProjectIllnessId);
             RearrangeDefaultProject(DatabaseManager.ProjectHolidayId);
+        }
+
+        private void SortProjectItemCollectionByPosition()
+        {
+            Geoposition position = _locationManager.GetCurrentGeoposition();
+
+            if (position == null)
+            {
+                SortProjectItemsCollection();
+                return;
+            }
+            foreach (var item in ProjectItems)
+            {
+                var currentCoordinate = new GeoCoordinate(position.Coordinate.Latitude, position.Coordinate.Longitude);
+                var itemCoordinate = new GeoCoordinate(item.Latitude, item.Longitude);
+
+                item.Distance = currentCoordinate.GetDistanceTo(itemCoordinate);
+                
+            }
+            ProjectItems = new ObservableCollection<ProjectItem>(ProjectItems.OrderBy(a => a.Distance));
+
+            RearrangeDefaultProject(DatabaseManager.ProjectTrainingId);
+            RearrangeDefaultProject(DatabaseManager.ProjectOfficeId);
+            RearrangeDefaultProject(DatabaseManager.ProjectIllnessId);
+            RearrangeDefaultProject(DatabaseManager.ProjectHolidayId);
+
+
         }
 
         public void RearrangeDefaultProject(string id)
