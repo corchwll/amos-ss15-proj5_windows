@@ -17,7 +17,11 @@
  */
 
 using System;
+using System.Device.Location;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
+using Windows.Devices.Geolocation;
 using Microsoft.Phone.Controls;
 
 namespace TimeTracker
@@ -31,9 +35,17 @@ namespace TimeTracker
     {
 
 
+        private DispatcherTimer _dispatcherTimer;
+        private Geoposition _position;
+        LocationManager lManager = new LocationManager();
+
         public CreateProjectPage()
         {
             InitializeComponent();
+            lManager.LoadLocation();
+            InitTimer();
+            _dispatcherTimer.Start();
+
         }
 
 
@@ -55,6 +67,47 @@ namespace TimeTracker
             NavigationService.Navigate(new Uri(factory.CreateDataUri(projectName, projectId,
                                         FinalDate.ToString()), UriKind.Relative));
 
+        }
+
+        private void TextBoxId_Copy_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
+
+        private void GetLocation_Click(object sender, RoutedEventArgs e)
+        {
+            if (_position != null)
+            {
+                 TextBoxLatitude.Text = _position.Coordinate.Latitude.ToString("0.0000");
+            TextBoxLongitude.Text = _position.Coordinate.Longitude.ToString("0.0000");
+
+            }
+
+           
+
+        }
+
+        private void InitTimer()
+        {
+            _dispatcherTimer = new DispatcherTimer();
+            _dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000);
+            _dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+        }
+
+        //EventHandler for each timer tick. Updates the textBox with the current time passed
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (_position == null)
+            {
+                var position = lManager.GetCurrentGeoposition();
+                if (position != null)
+                {
+                    _position = position;
+
+                }
+
+            }
+            
         }
 
 

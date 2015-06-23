@@ -77,7 +77,7 @@ namespace TimeTracker
             return _currentGeoposition;
         }
 
-        public async void LoadLocation()
+        public async Task<Geoposition> LoadLocation()
         {
 
             Geolocator geolocator = new Geolocator();
@@ -85,7 +85,7 @@ namespace TimeTracker
             if ((bool)IsolatedStorageSettings.ApplicationSettings["LocationConsent"] != true)
             {
                 // The user has opted out of Location.
-                return;
+                return null;
             }
             try
             {
@@ -98,11 +98,14 @@ namespace TimeTracker
                 {
                     _currentGeoposition = geoposition;
                 }
+
+                return geoposition;
             }
             catch (Exception ex)
             {
 
                     Debug.WriteLine("Exception while getting geolocation");
+                return null;
             }
 
         }
