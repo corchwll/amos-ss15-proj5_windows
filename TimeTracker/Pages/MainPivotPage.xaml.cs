@@ -54,7 +54,7 @@ namespace TimeTracker
 
         private UserItem _currentUser;
 
-        LocationManager _locationManager = new LocationManager();
+        readonly LocationManager _locationManager = new LocationManager();
 
 
 
@@ -148,6 +148,7 @@ namespace TimeTracker
             {
                 _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
             }
+            SortProjectItemCollectionByPosition();
         }
 
         //OnNavigateTo is called when the page is showen as the app launches
@@ -158,18 +159,27 @@ namespace TimeTracker
             CollectNewProject();
             CollectNewSession();
             CollectRegistrationData();
-            
-            
         }
 
         #endregion
 
         public void LoadData()
         {
+            LoadUser();
             ProjectItems = _dataBaseManager.ProjectItems;
             SortProjectItemCollectionByPosition();
             CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
             SessionItems = _dataBaseManager.SessionItems;
+            
+        }
+
+        private void LoadUser()
+        {
+            if (_dataBaseManager.UserItems.Count == 0)
+            {
+                return;
+            }
+            _currentUser = _dataBaseManager.UserItems[0];
         }
 
         private void SortProjectItemsCollection()
@@ -184,19 +194,53 @@ namespace TimeTracker
 
         private void SortProjectItemCollectionByPosition()
         {
-            Geoposition position = _locationManager.GetCurrentGeoposition();
 
-            if (position == null)
+            if (_currentUser == null || !_currentUser.SortByLocation)
+            {
+                SortProjectItemsCollection();
+                return;
+
+            }
+            
+            Geoposition position = _locationManager.GetCurrentGeoposition();
+            double latitude;
+            double longitude;
+            if (position != null)
+            {
+                _currentUser.Latitude = position.Coordinate.Latitude;
+                _currentUser.Longitude = position.Coordinate.Longitude;
+
+                UserItem newUser = new UserItem
+                {
+                    Name = _currentUser.Name,
+                    PersonalId = _currentUser.PersonalId,
+                    Surname =  _currentUser.Surname,
+                    CurrentVacationDays =  _currentUser.CurrentVacationDays,
+                    Latitude = _currentUser.Latitude,
+                    Longitude = _currentUser.Longitude,
+                    OverTime = _currentUser.OverTime,
+                    SortByLocation = _currentUser.SortByLocation,
+                    VacationDays = _currentUser.VacationDays,
+
+                };
+
+                _dataBaseManager.UpdateUser(newUser);
+            }
+            else if (_currentUser.Latitude == null)
             {
                 SortProjectItemsCollection();
                 return;
             }
+
+
+            latitude = _currentUser.Latitude;
+            longitude = _currentUser.Longitude;
             foreach (var item in ProjectItems)
             {
-                var currentCoordinate = new GeoCoordinate(position.Coordinate.Latitude, position.Coordinate.Longitude);
+                var currentCoordinate = new GeoCoordinate(latitude, longitude);
                 var itemCoordinate = new GeoCoordinate(item.Latitude, item.Longitude);
 
-                item.Distance = currentCoordinate.GetDistanceTo(itemCoordinate);
+                item.Distance = (int) currentCoordinate.GetDistanceTo(itemCoordinate);
                 
             }
             ProjectItems = new ObservableCollection<ProjectItem>(ProjectItems.OrderBy(a => a.Distance));
@@ -207,6 +251,11 @@ namespace TimeTracker
             RearrangeDefaultProject(DatabaseManager.ProjectHolidayId);
 
 
+            foreach (var item in ProjectItems)
+            {
+                Debug.WriteLine(item.ProjectName);
+
+            }
         }
 
         public void RearrangeDefaultProject(string id)
@@ -322,7 +371,9 @@ namespace TimeTracker
         {
             string result = "";
             NavigationContext.QueryString.TryGetValue(key, out result);
-            return Double.Parse(result);
+            
+            double fin = Double.Parse(result);
+            return fin;
 
         }
 
@@ -439,6 +490,10 @@ namespace TimeTracker
         //User item is updated in database
         private void SavePersonalData_Click(object sender, RoutedEventArgs e)
         {
+
+            Geoposition position = _locationManager.GetCurrentGeoposition();
+
+           
             UserItem newUser = new UserItem
             {
                 Name = TextBoxName.Text,
@@ -450,9 +505,21 @@ namespace TimeTracker
                 CurrentVacationDays = Int32.Parse(TextBoxCurrentVacation.Text),
                 SortByLocation = CheckBoxSortBy.IsChecked.Value
             };
+
+            if (position != null)
+            {
+                newUser.Latitude = position.Coordinate.Latitude;
+                newUser.Longitude = position.Coordinate.Longitude;
+            }
+            else if(_currentUser != null && _currentUser.Latitude != null)
+            {
+                newUser.Latitude = _currentUser.Latitude;
+                newUser.Longitude = _currentUser.Longitude;
+            }
             _currentUser = newUser;
             _dataBaseManager.UpdateUser(newUser);
             FillPersonalData(newUser);
+            SortProjectItemCollectionByPosition();
         }
 
         //Deletes a project after the user has acknowledged the task

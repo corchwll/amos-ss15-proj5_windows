@@ -55,5 +55,11 @@ namespace TimeTracker
 
         [Column]
         public bool SortByLocation { get; set; }
+
+        [Column]
+        public double Latitude { get; set; }
+
+        [Column]
+        public double Longitude { get; set; }
     }
 }
