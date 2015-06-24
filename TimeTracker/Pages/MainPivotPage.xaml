@@ -102,8 +102,9 @@
                                         </Grid.ColumnDefinitions>
                                         <toolkit:ContextMenuService.ContextMenu>
                                             <toolkit:ContextMenu>
-                                                <toolkit:MenuItem Header="Edit Project" Click="editProject_Click"/>
+                                                <toolkit:MenuItem Header="Add Session" Click="editProject_Click"/>
                                                 <toolkit:MenuItem Header="Archive Project" Click="deleteProject_Click"/>
+                                                <toolkit:MenuItem Header="Edit Project" Click="deleteProject_Click"/>
                                             </toolkit:ContextMenu>
                                         </toolkit:ContextMenuService.ContextMenu>
                                         <TextBlock
