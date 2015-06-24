@@ -330,7 +330,8 @@ namespace TimeTracker
         {
             string result = "";
             NavigationContext.QueryString.TryGetValue(key, out result);
-            if (result.Equals("true"))
+            Debug.WriteLine(result);
+            if (result.Equals("True"))
             {
                 return true;
             }
