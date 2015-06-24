@@ -43,6 +43,7 @@
             <TextBlock Height="72" HorizontalAlignment="Left" Margin="6,344,0,0" Name="TextBlock7" Text="Current" VerticalAlignment="Top" Width="193" />
             <TextBlock Height="72" HorizontalAlignment="Left" Margin="22,375,0,0" Name="TextBlock8" Text="vacation days" VerticalAlignment="Top" Width="193" />
             <Button Content="Register" Height="72" HorizontalAlignment="Left" Margin="171,520,0,0" Name="ButtonRegister" VerticalAlignment="Top" Width="160" Click="registrated_Click"/>
+            <CheckBox Name ="CheckBoxSort" Content="Sort by Location" HorizontalAlignment="Left" Margin="166,416,0,0" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
  

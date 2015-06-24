@@ -14,6 +14,7 @@ namespace TimeTracker
         string _overtime = "";
         string _vacationDays = "";
         string _currentVacation = "";
+        bool _sortByLocation = false;
 
         public RegistrationPage()
         {
@@ -66,6 +67,7 @@ namespace TimeTracker
             _overtime = TextBoxOvertime.Text;
             _vacationDays = TextBoxVacation.Text;
             _currentVacation = TextBoxCurrentVacation.Text;
+            _sortByLocation = CheckBoxSort.IsChecked.Value;
         }
 
         private void NavigateToMainPivotPage(string name,
@@ -80,6 +82,7 @@ namespace TimeTracker
                + "&" + "overtime=" + _overtime
                + "&" + "vacationDays=" + _vacationDays
                + "&" + "currentVacation=" + _currentVacation
+               + "&" + "sortbylocation=" + _sortByLocation
                , UriKind.Relative));
         }
 
