@@ -52,5 +52,8 @@ namespace TimeTracker
 
         [Column]
         public int CurrentVacationDays { get; set; }
+
+        [Column]
+        public bool SortByLocation { get; set; }
     }
 }

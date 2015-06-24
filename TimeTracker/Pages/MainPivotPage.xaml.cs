@@ -283,7 +283,8 @@ namespace TimeTracker
                     WorkingTime = CollectIntOnNavgation(QueryDictionary.UserWorkingTimeKey),
                     OverTime = CollectIntOnNavgation(QueryDictionary.UserOverTimeKey),
                     VacationDays = CollectIntOnNavgation(QueryDictionary.UserVacationDaysKey),
-                    CurrentVacationDays = CollectIntOnNavgation(QueryDictionary.UserCurrentVacationDaysKey)
+                    CurrentVacationDays = CollectIntOnNavgation(QueryDictionary.UserCurrentVacationDaysKey),
+                    SortByLocation =  CollectBoolOnNavigation("sortbylocation")
 
                 };
                 _dataBaseManager.createNewUserItem(newUser);
@@ -320,6 +321,18 @@ namespace TimeTracker
             NavigationContext.QueryString.TryGetValue(key, out result);
             return Double.Parse(result);
 
+        }
+
+        private bool CollectBoolOnNavigation(string key)
+        {
+            string result = "";
+            NavigationContext.QueryString.TryGetValue(key, out result);
+            if (result.Equals("true"))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         #endregion
