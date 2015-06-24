@@ -52,6 +52,8 @@ namespace TimeTracker
         //Database instance - Create, Delete, Update or Remove elements
         private readonly DatabaseManager _dataBaseManager;
 
+        private UserItem _currentUser;
+
         LocationManager _locationManager = new LocationManager();
 
 
@@ -288,6 +290,7 @@ namespace TimeTracker
 
                 };
                 _dataBaseManager.createNewUserItem(newUser);
+                _currentUser = newUser;
                 FillPersonalData(newUser);
                 _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
 
@@ -443,9 +446,10 @@ namespace TimeTracker
                 WorkingTime = Int32.Parse(TextBoxHoursWeek.Text),
                 OverTime = Int32.Parse(TextBoxOvertime.Text),
                 VacationDays = Int32.Parse(TextBoxVacation.Text),
-                CurrentVacationDays = Int32.Parse(TextBoxCurrentVacation.Text)
-
+                CurrentVacationDays = Int32.Parse(TextBoxCurrentVacation.Text),
+                SortByLocation = CheckBoxSortBy.IsChecked.Value
             };
+            _currentUser = newUser;
             _dataBaseManager.UpdateUser(newUser);
             FillPersonalData(newUser);
         }
@@ -490,6 +494,7 @@ namespace TimeTracker
             TextBoxOvertime.Text = user.OverTime.ToString();
             TextBoxVacation.Text = user.VacationDays.ToString();
             TextBoxCurrentVacation.Text = user.CurrentVacationDays.ToString();
+            CheckBoxSortBy.IsChecked = user.SortByLocation;
         }
 
         //Click listener when project item is clicked in project list
