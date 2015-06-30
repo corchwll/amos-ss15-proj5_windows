@@ -17,8 +17,6 @@
  */
 
 using System;
-using System.Device.Location;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Windows.Devices.Geolocation;
@@ -54,7 +52,7 @@ namespace TimeTracker
 
             string projectName = TextBoxName.Text;
             string projectId = TextBoxId.Text;
-            int date = (int) FinalDate.Value.Value.Ticks;
+            int date = (int) FinalDate.Value.Value.Date.Ticks;
             string latitude = TextBoxLatitude.Text;
             string longitude = TextBoxLongitude.Text;
 
@@ -80,18 +78,22 @@ namespace TimeTracker
 
         }
 
+        private int convertTicksToUnixTimestamp(int ticks)
+        {
+            int epochTicks = (int) new DateTime(1970, 1, 1).Ticks;
+            int timestamp = (int) ((ticks - epochTicks)/TimeSpan.TicksPerSecond);
+            return timestamp;
+        }
+
 
         private void GetLocation_Click(object sender, RoutedEventArgs e)
         {
             if (_position != null)
             {
-                 TextBoxLatitude.Text = _position.Coordinate.Latitude.ToString("0.0000");
-            TextBoxLongitude.Text = _position.Coordinate.Longitude.ToString("0.0000");
+                TextBoxLatitude.Text = _position.Coordinate.Latitude.ToString("0.0000");
+                TextBoxLongitude.Text = _position.Coordinate.Longitude.ToString("0.0000");
 
             }
-
-           
-
         }
 
         private void InitTimer()

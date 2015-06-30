@@ -111,6 +111,9 @@ namespace TimeTracker
         [Column]
         public double Longitude { get; set; }
 
+        [Column]
+        public int FinaleDate { get; set; }
+
         public int Distance { get; set; }
 
         #region INotifyPropertyChanged Members

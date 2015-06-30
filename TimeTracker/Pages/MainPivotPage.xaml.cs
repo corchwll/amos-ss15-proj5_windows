@@ -496,6 +496,8 @@ namespace TimeTracker
             ProjectItem projectItem = menu.DataContext as ProjectItem;
             string projectId = projectItem.ProjectId;
             string projectName = projectItem.ProjectName;
+            double longitude = projectItem.Longitude;
+            double latitude = projectItem.Latitude;
 
             NavigationService.Navigate(new Uri("/Pages/EditProjectPage.xaml?id=" + projectId, UriKind.Relative));
 
