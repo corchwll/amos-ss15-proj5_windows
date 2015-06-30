@@ -15,10 +15,10 @@ using System.Diagnostics;
 
 namespace TimeTracker
 {
-    public partial class EditProjectPage : PhoneApplicationPage
+    public partial class AddSessionPage : PhoneApplicationPage
     {
         string _projectId;
-        public EditProjectPage()
+        public AddSessionPage()
         {
             InitializeComponent();
         }

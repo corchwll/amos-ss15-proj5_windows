@@ -473,30 +473,34 @@ namespace TimeTracker
 
         //Click listener when user wants to edit a project (add new sessions)
         //App navigates to the edit project page
-        private void addsession_Click(object sender, RoutedEventArgs e)
+
+        private void addSession_Click(object sender, RoutedEventArgs e)
         {
-
-
             var menu = sender as MenuItem;
-        
+
 
             ProjectItem projectItem = menu.DataContext as ProjectItem;
             string projectId = projectItem.ProjectId;
             string projectName = projectItem.ProjectName;
             NavigationService.Navigate(new Uri("/Pages/AddSessionPage.xaml?id=" + projectId, UriKind.Relative));
+
         }
+
 
         private void editProject_Click(object sender, RoutedEventArgs e)
         {
+
             var menu = sender as MenuItem;
 
 
             ProjectItem projectItem = menu.DataContext as ProjectItem;
             string projectId = projectItem.ProjectId;
             string projectName = projectItem.ProjectName;
+
             NavigationService.Navigate(new Uri("/Pages/EditProjectPage.xaml?id=" + projectId, UriKind.Relative));
 
         }
+
         //Click listener when change settings is executed.
         //User item is updated in database
         private void SavePersonalData_Click(object sender, RoutedEventArgs e)

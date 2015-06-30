@@ -108,9 +108,12 @@
     <Compile Include="BusinessLogic\Holidays.cs" />
     <Compile Include="CsvFactory.cs" />
     <Compile Include="DatabaseManager.cs" />
-    <Compile Include="LocationManager.cs" />
     <Compile Include="Pages\EditProjectPage.xaml.cs">
       <DependentUpon>EditProjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocationManager.cs" />
+    <Compile Include="Pages\AddSessionPage.xaml.cs">
+      <DependentUpon>AddSessionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MainPivotPage.xaml.cs">
       <DependentUpon>MainPivotPage.xaml</DependentUpon>
@@ -140,6 +143,8 @@
     <Page Include="Pages\EditProjectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddSessionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
