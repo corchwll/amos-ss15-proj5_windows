@@ -101,7 +101,7 @@ namespace TimeTracker
 
         public string CreateHeader()
         {
-            string result = "Dates,";
+            string result = "Dates;";
             foreach (var item in _projects)
             {
                 result += item.ProjectName;

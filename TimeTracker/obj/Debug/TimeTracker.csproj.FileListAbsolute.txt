@@ -33,6 +33,5 @@ C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\obj\Debug\Pages\MainPivotPage.g.cs
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\obj\Debug\Pages\RegistrationPage.g.cs
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\obj\Debug\Pages\CreateProjectPage.g.cs
-C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\obj\Debug\TimeTracker.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\obj\Debug\Pages\AddSessionPage.g.cs
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\obj\Debug\Pages\EditProjectPage.g.cs

@@ -23,7 +23,7 @@ namespace UnitTestTimeTracker
 
             var factory = new CsvFactory(null, projects, null);
             string result = factory.CreateHeader();
-            string expected = "Dates,Project1,Project2,Project3\n";
+            string expected = "Dates;Project1;Project2;Project3\n";
             Assert.AreEqual(expected, result);
         }
 
@@ -58,9 +58,9 @@ namespace UnitTestTimeTracker
             };
 
             var expected = 
-                "1.6.2015," + "04:00,01:00,05:00\n" +
-                "2.6.2015," + "02:00,03:00,00:00\n" +
-                "3.6.2015," + "00:00,00:00,04:00\n";
+                "1.6.2015;" + "04:00;01:00;05:00\n" +
+                "2.6.2015;" + "02:00;03:00;00:00\n" +
+                "3.6.2015;" + "00:00;00:00;04:00\n";
             CsvFactory factory = new CsvFactory(sessions, projects, null);
             var result = factory.CreateRows();
             Assert.AreEqual(expected, result);
@@ -96,7 +96,7 @@ namespace UnitTestTimeTracker
                 project1, project2, project3
             };
 
-            var expected = "04:00,01:00,05:00\n";
+            var expected = "04:00;01:00;05:00\n";
             CsvFactory factory = new CsvFactory(sessions, projects, null);
             var result = factory.CreateProjectCells(new DateTime(2015, 6, 1));
             Assert.AreEqual(expected, result);
