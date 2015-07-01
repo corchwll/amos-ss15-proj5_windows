@@ -204,13 +204,14 @@ namespace TimeTracker
             return true;
         }
 
-        public ProjectItem createNewProjectItem(string projectId, string projectName, double latitude, double longitude)
+        public ProjectItem createNewProjectItem(string projectId, string projectName, int finalDate, double latitude, double longitude)
         {
             ProjectItem newProject = new ProjectItem { 
                 ProjectId = projectId,
                 ProjectName = projectName,
                 Longitude = longitude,
-                Latitude =  latitude
+                Latitude =  latitude,
+                FinaleDate = finalDate
             };
             ProjectItems.Add(newProject);
             _localDb.ProjectItems.InsertOnSubmit(newProject);

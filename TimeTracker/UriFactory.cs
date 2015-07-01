@@ -9,7 +9,7 @@ namespace TimeTracker
     public class UriFactory
     {
 
-        private const string NavigationBody = "/Pages/MainPivotPage.xaml?";
+        private string NavigationBody = "/Pages/MainPivotPage.xaml?";
         private const string LinkElement = "&";
 
         public string CreateDataUri(string projectName, string projectId, string date, string latitude, string longitude)
@@ -24,6 +24,11 @@ namespace TimeTracker
                    + ProjectLatitude(latitude)
                    + LinkElement
                    + ProjectLongitude(longitude);
+        }
+
+        public void SetNavigationBody(string body)
+        {
+            NavigationBody = body;
         }
 
         private string ProjectLatitude(string latitude)

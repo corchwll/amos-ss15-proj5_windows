@@ -52,7 +52,7 @@ namespace TimeTracker
 
             string projectName = TextBoxName.Text;
             string projectId = TextBoxId.Text;
-            int date = (int) FinalDate.Value.Value.Date.Ticks;
+            int date = convertTicksToUnixTimestamp((int)FinalDate.Value.Value.Date.Ticks);
             string latitude = TextBoxLatitude.Text;
             string longitude = TextBoxLongitude.Text;
 
@@ -74,7 +74,7 @@ namespace TimeTracker
 
             UriFactory factory = new UriFactory();
             NavigationService.Navigate(new Uri(factory.CreateDataUri(projectName, projectId,
-                                        FinalDate.ToString(), latitude, longitude), UriKind.Relative));
+                                        date.ToString(), latitude, longitude), UriKind.Relative));
 
         }
 
