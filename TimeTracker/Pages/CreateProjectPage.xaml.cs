@@ -52,7 +52,8 @@ namespace TimeTracker
 
             string projectName = TextBoxName.Text;
             string projectId = TextBoxId.Text;
-            int date = convertTicksToUnixTimestamp((int)FinalDate.Value.Value.Date.Ticks);
+            DateTime selectedTime = ((DateTime) FinalDate.Value);
+            int date = Utils.TotalSeconds(selectedTime);
             string latitude = TextBoxLatitude.Text;
             string longitude = TextBoxLongitude.Text;
 
