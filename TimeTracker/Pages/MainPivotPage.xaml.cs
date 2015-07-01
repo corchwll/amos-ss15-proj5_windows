@@ -288,9 +288,10 @@ namespace TimeTracker
 
 
                 ProjectItem newItem =_dataBaseManager.createNewProjectItem(id, name, finalDate, latitude, longitude);
-                if (ProjectItems.Count(x => x.ProjectId == id) >= 0)
+                if (ProjectItems.Count(x => x.ProjectId == id) > 0)
                 {
-                    if (ProjectItems.Where(x => x.ProjectId == id).ElementAt(0) == newItem)
+                    IEnumerable<ProjectItem> comparingItems = ProjectItems.Where(x => x.ProjectId == id);
+                    if (comparingItems.ElementAt(0) == newItem){}
                     {
                         return;
                     }
