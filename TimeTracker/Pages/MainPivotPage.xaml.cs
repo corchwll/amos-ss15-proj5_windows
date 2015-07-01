@@ -195,6 +195,7 @@ namespace TimeTracker
                 _currentUser.VacationDays = 20;
                 _currentUser.CurrentVacationDays = 0;
                 _currentUser.LastVacationReset = DateTime.Today.Year;
+                _dataBaseManager.UpdateUser(_currentUser);
             }
 
 
@@ -355,6 +356,15 @@ namespace TimeTracker
         private void CollectRegistrationData()
         {
             string name = "";
+            int year;
+            if (DateTime.Today.Month < 4)
+            {
+                year = DateTime.Today.Year - 1;
+            }
+            else
+            {
+                year = DateTime.Today.Year;
+            }
             if (NavigationContext.QueryString.TryGetValue("name", out name))
             {
                 UserItem newUser = new UserItem
@@ -366,7 +376,8 @@ namespace TimeTracker
                     OverTime = CollectIntOnNavgation(QueryDictionary.UserOverTimeKey),
                     VacationDays = CollectIntOnNavgation(QueryDictionary.UserVacationDaysKey),
                     CurrentVacationDays = CollectIntOnNavgation(QueryDictionary.UserCurrentVacationDaysKey),
-                    SortByLocation =  CollectBoolOnNavigation("sortbylocation")
+                    SortByLocation =  CollectBoolOnNavigation("sortbylocation"),
+                    LastVacationReset = year
 
                 };
                 _dataBaseManager.createNewUserItem(newUser);
