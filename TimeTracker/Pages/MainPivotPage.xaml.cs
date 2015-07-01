@@ -150,6 +150,7 @@ namespace TimeTracker
             }
             SortProjectItemCollectionByPosition();
             ResetVacationDays();
+            PutExpirationWarning();
         }
 
         //OnNavigateTo is called when the page is showen as the app launches
@@ -197,8 +198,18 @@ namespace TimeTracker
                 _currentUser.LastVacationReset = DateTime.Today.Year;
                 _dataBaseManager.UpdateUser(_currentUser);
             }
+        }
 
-
+        private void PutExpirationWarning()
+        {
+            if (DateTime.Today.Month < 4)
+            {
+                ExpireWarningTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ExpireWarningTextBlock.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void SortProjectItemsCollection()
