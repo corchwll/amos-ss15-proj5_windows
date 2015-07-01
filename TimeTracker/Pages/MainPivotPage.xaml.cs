@@ -458,10 +458,21 @@ namespace TimeTracker
 
         private void StartRecording()
         {
-            _currentSessionItem.TimestampStart = Utils.GetUnixTimestamp();
-            TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(0);
-            _dispatcherTimer.Start();
-            ButtonStartStopRecording.Content = "Stop Recording";
+            ProjectItem currentProjectItem =ProjectItems.Where(x => x.ProjectId == _currentSessionItem.ProjectId).ElementAt(0);
+            int now = Utils.TotalSeconds(DateTime.Now.AddDays(1.0));
+            if (now > currentProjectItem.FinaleDate)
+            {
+                MessageBoxResult result = MessageBox.Show("It is not possible to record times after the final project date",
+                    "Error", MessageBoxButton.OKCancel);
+            }
+            else
+            {
+                _currentSessionItem.TimestampStart = Utils.GetUnixTimestamp();
+                TextBlockCurrentTimer.Text = Utils.FormatSecondsToChronometerString(0);
+                _dispatcherTimer.Start();
+                ButtonStartStopRecording.Content = "Stop Recording";          
+            }
+            
         }
 
         private void StopRecording()
