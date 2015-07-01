@@ -286,10 +286,22 @@ namespace TimeTracker
                 double latitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLatitude);
                 double longitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLongitude);
 
-                
+
                 ProjectItem newItem =_dataBaseManager.createNewProjectItem(id, name, finalDate, latitude, longitude);
-                ProjectItems.Add(newItem);
-                PivotMain.SelectedIndex = 2;
+                if (ProjectItems.Count(x => x.ProjectId == id) >= 0)
+                {
+                    if (ProjectItems.Where(x => x.ProjectId == id).ElementAt(0) == newItem)
+                    {
+                        return;
+                    }
+                    //_dataBaseManager.UpdateProject(newItem);
+                    PivotMain.SelectedIndex = 2;
+                }
+                else
+                {
+                    ProjectItems.Add(newItem);
+                    PivotMain.SelectedIndex = 2; 
+                }   
             }
         }
 

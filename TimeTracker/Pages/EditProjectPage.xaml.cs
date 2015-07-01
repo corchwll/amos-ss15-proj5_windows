@@ -82,6 +82,10 @@ namespace TimeTracker
 
         private void Save_click(object sender, RoutedEventArgs e)
         {
+
+            UriFactory factory = new UriFactory();
+            NavigationService.Navigate(new Uri(factory.CreateDataUri(_name, _id,
+                                        _finalDate.ToString(), _latitude.ToString(), _longitude.ToString()), UriKind.Relative));
             
         }
     }
