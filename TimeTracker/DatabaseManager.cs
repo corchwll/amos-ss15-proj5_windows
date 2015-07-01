@@ -158,10 +158,10 @@ namespace TimeTracker
 
         public void CreateDefaultProjects()
         {
-            createNewProjectItem(ProjectHolidayId, ProjectHolidayName, 0,0);
-            createNewProjectItem(ProjectTrainingId, ProjectTrainingName, 0, 0);
-            createNewProjectItem(ProjectOfficeId, ProjectOfficeName, 0, 0);
-            createNewProjectItem(ProjectIllnessId, ProjectIllnessName, 0, 0);
+            createNewProjectItem(ProjectHolidayId, ProjectHolidayName,0, 0,0);
+            createNewProjectItem(ProjectTrainingId, ProjectTrainingName, 0, 0, 0);
+            createNewProjectItem(ProjectOfficeId, ProjectOfficeName, 0, 0, 0);
+            createNewProjectItem(ProjectIllnessId, ProjectIllnessName, 0, 0, 0);
         }
 
         public void UpdateUser(UserItem newUser)

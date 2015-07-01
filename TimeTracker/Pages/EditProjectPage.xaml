@@ -22,12 +22,21 @@
 
         <!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MEINE ANWENDUNG" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="Seitenname" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="Edit Project" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
         <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <TextBlock HorizontalAlignment="Left" FontSize="30" Margin="10,50,0,0" TextWrapping="Wrap" Text="Project Name" VerticalAlignment="Top"/>
+            <TextBox Name="ProjectNameTextBox" HorizontalAlignment="Left" Height="72" Margin="212,36,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="234"/>
+            <TextBlock HorizontalAlignment="Left" FontSize="30" Margin="10,122,0,0" TextWrapping="Wrap" Text="FinalDate" VerticalAlignment="Top"/>
+            <TextBox x:Name="FinalDateTextBox" HorizontalAlignment="Left" Height="72" Margin="212,108,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="234"/>
+            <TextBlock HorizontalAlignment="Left" FontSize="30" Margin="10,194,0,0" TextWrapping="Wrap" Text="Longitude" VerticalAlignment="Top"/>
+            <TextBox x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="72" Margin="212,180,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="234"/>
+            <TextBlock HorizontalAlignment="Left" FontSize="30" Margin="10,271,0,0" TextWrapping="Wrap" Text="Latitude" VerticalAlignment="Top"/>
+            <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="72" Margin="212,257,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="234"/>
+            <Button Content="Cancel" HorizontalAlignment="Left" Margin="41,584,0,0" VerticalAlignment="Top"/>
+            <Button Content="Save" HorizontalAlignment="Left" Margin="285,584,0,0" VerticalAlignment="Top"/>
 
         </Grid>
     </Grid>

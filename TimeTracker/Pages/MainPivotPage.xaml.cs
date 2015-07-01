@@ -502,11 +502,11 @@ namespace TimeTracker
 
             UriFactory factory = new UriFactory();
             factory.SetNavigationBody("/Pages/EditProjectPage.xaml?");
-            factory.CreateDataUri(projectName, projectId, finalDate.ToString(), latitude.ToString(),
+            string uri = factory.CreateDataUri(projectName, projectId, finalDate.ToString(), latitude.ToString(),
                 longitude.ToString());
 
 
-            NavigationService.Navigate(new Uri("/Pages/EditProjectPage.xaml?id=" + projectId, UriKind.Relative));
+            NavigationService.Navigate(new Uri(uri, UriKind.Relative));
 
         }
 

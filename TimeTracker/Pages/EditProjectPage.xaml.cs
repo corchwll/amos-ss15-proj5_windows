@@ -12,6 +12,13 @@ namespace TimeTracker
 {
     public partial class EditProjectPage : PhoneApplicationPage
     {
+
+        private string _id;
+        private string _name;
+        private int _finalDate;
+        private double _latitude;
+        private double _longitude;
+
         public EditProjectPage()
         {
             InitializeComponent();
@@ -21,7 +28,12 @@ namespace TimeTracker
         {
             base.OnNavigatedTo(e);
             CollectProjectData();
-           
+
+            ProjectNameTextBox.Text = _name;
+            FinalDateTextBox.Text = _finalDate.ToString();
+            LongitudeTextBox.Text = _longitude.ToString();
+            LatitudeTextBox.Text = _latitude.ToString();
+
         }
 
         private void CollectProjectData()
@@ -29,11 +41,11 @@ namespace TimeTracker
               string tmp = "";
             if (NavigationContext.QueryString.TryGetValue("projectId", out tmp))
             {
-                string id = CollectStringOnNavigation(QueryDictionary.ProjectId);
-                string name = CollectStringOnNavigation(QueryDictionary.ProjectName);
-                int finalDate = CollectIntOnNavgation(QueryDictionary.ProjectFinalDate);
-                double latitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLatitude);
-                double longitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLongitude);
+                _id = CollectStringOnNavigation(QueryDictionary.ProjectId);
+                _name = CollectStringOnNavigation(QueryDictionary.ProjectName);
+                _finalDate = CollectIntOnNavgation(QueryDictionary.ProjectFinalDate);
+                _latitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLatitude);
+                _longitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLongitude);
             }
         }
 
