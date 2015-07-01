@@ -202,7 +202,8 @@ namespace TimeTracker
 
         private void PutExpirationWarning()
         {
-            if (DateTime.Today.Month < 4)
+            if (DateTime.Today.Month < 4 &&  _currentUser != null && 
+                (_currentUser.VacationDays - _currentUser.CurrentVacationDays) > 0)
             {
                 ExpireWarningTextBlock.Visibility = Visibility.Visible;
             }
