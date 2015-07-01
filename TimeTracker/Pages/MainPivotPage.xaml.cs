@@ -29,6 +29,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Windows.Devices.Geolocation;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using TimeTracker.BusinessLogic;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
@@ -55,8 +56,6 @@ namespace TimeTracker
         private UserItem _currentUser;
 
         readonly LocationManager _locationManager = new LocationManager();
-
-
 
 
         //Collection of all (default & custome) Projects
@@ -183,6 +182,7 @@ namespace TimeTracker
             }
             _currentUser = _dataBaseManager.UserItems[0];
         }
+
 
         private void ResetVacationDays()
         {
