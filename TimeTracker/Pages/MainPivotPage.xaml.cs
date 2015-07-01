@@ -149,6 +149,7 @@ namespace TimeTracker
                 _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
             }
             SortProjectItemCollectionByPosition();
+            ResetVacationDays();
         }
 
         //OnNavigateTo is called when the page is showen as the app launches
@@ -180,6 +181,23 @@ namespace TimeTracker
                 return;
             }
             _currentUser = _dataBaseManager.UserItems[0];
+        }
+
+        private void ResetVacationDays()
+        {
+            if (_currentUser == null)
+            {
+                return;
+            }
+            int year = Utils.GetDateTimeObject(_currentUser.LastVacationReset).Year;
+            if (DateTime.Today.Year > year && DateTime.Today.Month >= 4)
+            {
+                _currentUser.VacationDays = 20;
+                _currentUser.CurrentVacationDays = 0;
+                _currentUser.LastVacationReset = DateTime.Today.Year;
+            }
+
+
         }
 
         private void SortProjectItemsCollection()

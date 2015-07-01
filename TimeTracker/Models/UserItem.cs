@@ -58,8 +58,11 @@ namespace TimeTracker
 
         [Column]
         public double Latitude { get; set; }
-
+        
         [Column]
         public double Longitude { get; set; }
+
+        [Column]
+        public int LastVacationReset { get; set; }
     }
 }
