@@ -74,5 +74,15 @@ namespace TimeTracker
             return fin;
 
         }
+
+        private void Cancel_click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void Save_click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
