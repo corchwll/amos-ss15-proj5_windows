@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TimeTracker.BusinessLogic
 {
+
+    /**
+     * The following class contains all necessary functionalities to calculate holidays
+     * and related metrics (e.g. number of holidays between 2 dates)
+     */
+
     public class Holidays
     {
-
-
         /**
 	 * This method is used to get the amound of holidays in a given time intervall. This method only counts the
 	 * holidays that are on a weekday.
@@ -54,6 +56,7 @@ namespace TimeTracker.BusinessLogic
 
             return amountOfHolidays;
         }
+        
         /**
 	 * This method is used to get all holidays on weekdays for a given year.
 	 *
@@ -108,6 +111,9 @@ namespace TimeTracker.BusinessLogic
 
 	    }
 
+        /**
+         * this method is used to calculate if the given day is a weekday
+         */
         private static bool IsWeekendDay(DateTime date)
         {
             if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
@@ -117,6 +123,10 @@ namespace TimeTracker.BusinessLogic
             return false;
         }
 
+        /**
+         * This method is used to add a certain date to the holidays list
+         * if it is not a weekday
+         */
         private static void AddIfNotWeekend(DateTime date, List<DateTime> holidays)
         {
             if (IsWeekendDay(date))
@@ -124,7 +134,6 @@ namespace TimeTracker.BusinessLogic
                 holidays.Add(date);
             }
         }
-
 
         /**
 	 * This method calculates the date for easter sunday based on the gaussian easterformula.
