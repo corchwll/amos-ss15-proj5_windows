@@ -331,14 +331,15 @@ namespace TimeTracker
                 {
                     var item = ProjectItems.Where(x => x.ProjectId == id).ElementAt(0);
 
-                    ProjectItems.Remove(item);
-                    ProjectItems.Add(newItem);
-                    _dataBaseManager.UpdateProject(newItem);
+                    //ProjectItems.Remove(item);
+                    //ProjectItems.Add(newItem);
+                    //_dataBaseManager.UpdateProject(newItem);
                     PivotMain.SelectedIndex = 2;
                 }
                 else
                 {
                     ProjectItems.Add(newItem);
+                    _dataBaseManager.AddProject(newItem);
                     PivotMain.SelectedIndex = 2; 
                 }   
             }

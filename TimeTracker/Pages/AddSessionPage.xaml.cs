@@ -62,12 +62,9 @@ namespace TimeTracker.Pages
         //Navigates to MainPivotPage and adds data through URL
         private void onSave_Click(object sender, RoutedEventArgs e)
         {
-            long epochTicks = new DateTime(1970, 1, 1).Ticks;
-            DateTime date = WorkingDate.Value.Value.Date;
-            TimeSpan startingTime = Startingtime.Value.Value.TimeOfDay;
-            TimeSpan endingTime = EndingTime.Value.Value.TimeOfDay;
-            int timestampStart = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + startingTime.TotalSeconds);
-            int timestampEnd = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + endingTime.TotalSeconds);
+            int timestampStart = Utils.TotalSeconds((DateTime) Startingtime.Value);
+            int timestampEnd = Utils.TotalSeconds((DateTime) EndingTime.Value);
+
             if (timestampEnd - timestampStart <= 0)
             {
                 MessageBoxResult result = MessageBox.Show("Negative times are not allowed",

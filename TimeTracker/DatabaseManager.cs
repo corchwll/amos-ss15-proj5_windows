@@ -412,9 +412,19 @@ namespace TimeTracker
         public void UpdateProject(ProjectItem newItem)
         {
             ProjectItem old = ProjectItems.Where(x => x.ProjectId == newItem.ProjectId).ElementAt(0);
+            ProjectItems.Remove(old);
+            ProjectItems.Add(newItem);
+
             _localDb.ProjectItems.DeleteOnSubmit(old);
             _localDb.ProjectItems.InsertOnSubmit(newItem);
             saveChangesToDatabase();
+        }
+
+        public void AddProject(ProjectItem newItem)
+        {
+            ProjectItems.Add(newItem);
+            _localDb.ProjectItems.InsertOnSubmit(newItem);
+
         }
     }
 

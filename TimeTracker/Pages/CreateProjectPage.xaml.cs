@@ -22,7 +22,7 @@ using System.Windows.Threading;
 using Windows.Devices.Geolocation;
 using Microsoft.Phone.Controls;
 
-namespace TimeTracker
+namespace TimeTracker.Pages
 {
     /**
      * This Page shows the user a form which has to be filled with project
