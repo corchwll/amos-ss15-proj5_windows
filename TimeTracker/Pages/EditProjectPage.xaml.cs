@@ -22,6 +22,12 @@ using Microsoft.Phone.Controls;
 
 namespace TimeTracker
 {
+    /*
+     * This Class represents the view including all interactions which is shown when
+     * a user wants to edit the project information, by selecting the appropriate
+     * menu item in the project list.
+     */
+
     public partial class EditProjectPage : PhoneApplicationPage
     {
 
@@ -36,6 +42,7 @@ namespace TimeTracker
             InitializeComponent();
         }
 
+        
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -45,9 +52,9 @@ namespace TimeTracker
             FinalDateTextBox.Text = _finalDate.ToString();
             LongitudeTextBox.Text = _longitude.ToString();
             LatitudeTextBox.Text = _latitude.ToString();
-
         }
 
+        //Collects the information send to this page as project name & final date
         private void CollectProjectData()
         {
               string tmp = "";
@@ -61,6 +68,9 @@ namespace TimeTracker
             }
         }
 
+        //Following methods are helpers to collect the data received in the 
+        //appropriate data format
+        #region Collecting Helpers
 
         private string CollectStringOnNavigation(string key)
         {
@@ -84,9 +94,13 @@ namespace TimeTracker
 
             double fin = Double.Parse(result);
             return fin;
-
         }
 
+        #endregion
+
+        //Following methods are the click events for th cancel or
+        //save interactions
+        #region Click Listener
         private void Cancel_click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -103,7 +117,8 @@ namespace TimeTracker
                 _finalDate.ToString(), _latitude.ToString(), _longitude.ToString());
 
             NavigationService.Navigate(new Uri(uri, UriKind.Relative));
-            
         }
+
+        #endregion
     }
 }
