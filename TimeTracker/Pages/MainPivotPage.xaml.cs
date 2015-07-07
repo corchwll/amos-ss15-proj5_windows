@@ -157,8 +157,8 @@ namespace TimeTracker
         {
             base.OnNavigatedTo(e);
             FillPersonalData();
-            CollectNewProject();
-            CollectNewSession();
+            CollectProjectData();
+            CollectSessionData();
             CollectRegistrationData();
         }
 
@@ -305,7 +305,7 @@ namespace TimeTracker
         #region Collecting Data
         //Catches necessary data and creates new project items in database
         //when create project interactions was executed
-        private void CollectNewProject()
+        private void CollectProjectData()
         {
             string tmp = "";
             if (NavigationContext.QueryString.TryGetValue("projectId", out tmp))
@@ -347,7 +347,7 @@ namespace TimeTracker
 
         //Catches necessary data and creates new session items in database
         //when edit project was executed
-        private void CollectNewSession()
+        private void CollectSessionData()
         {
             string tmp = "";
             if (NavigationContext.QueryString.TryGetValue("start", out tmp))

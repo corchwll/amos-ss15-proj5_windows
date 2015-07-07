@@ -35,7 +35,7 @@ namespace TimeTracker.Pages
 
         private DispatcherTimer _dispatcherTimer;
         private Geoposition _position;
-        LocationManager lManager = new LocationManager();
+        readonly LocationManager lManager = new LocationManager();
 
         public CreateProjectPage()
         {
