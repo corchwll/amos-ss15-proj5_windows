@@ -17,7 +17,6 @@ C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\B
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.xml
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\Bin\Debug\Microsoft.Phone.Controls.xml
 C:\Users\Joachim\documents\visual studio 2010\Projects\TimeTracker\TimeTracker\obj\Debug\RegistrationPage.g.i.cs
-C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\Bin\Debug\ApplicationIcon.png
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\Bin\Debug\Background.png
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\Bin\Debug\TimeTracker.dll
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\TimeTracker\Bin\Debug\TimeTracker.pdb

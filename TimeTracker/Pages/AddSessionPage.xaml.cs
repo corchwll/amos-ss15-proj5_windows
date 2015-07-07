@@ -1,28 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿/*
+ *     Mobile Time Accounting
+ *     Copyright (C) 2015
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU Affero General Public License as
+ *     published by the Free Software Foundation, either version 3 of the
+ *     License, or (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU Affero General Public License for more details.
+ *
+ *     You should have received a copy of the GNU Affero General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
-using System.Diagnostics;
-
-namespace TimeTracker
+namespace TimeTracker.Pages
 {
     public partial class AddSessionPage : PhoneApplicationPage
     {
         string _projectId;
+
+        //Page initializer (Initializes .xaml layout)
         public AddSessionPage()
         {
             InitializeComponent();
         }
 
+        //OnNavigation event handler - read project id property
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -36,19 +47,24 @@ namespace TimeTracker
             }
         }
 
+        //The following region contains the cancel and save click listeners
+        #region Click Listener
+
+        
+        //Triggers when user click cancel on navigates back to the previous screen
         private void onCancel_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
+        //Triggers when the user clicks save
+        //Checks if data enters is valid
+        //Navigates to MainPivotPage and adds data through URL
         private void onSave_Click(object sender, RoutedEventArgs e)
         {
-            long epochTicks = new DateTime(1970, 1, 1).Ticks;
-            DateTime date = WorkingDate.Value.Value.Date;
-            TimeSpan startingTime = Startingtime.Value.Value.TimeOfDay;
-            TimeSpan endingTime = EndingTime.Value.Value.TimeOfDay;
-            int timestampStart = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + startingTime.TotalSeconds);
-            int timestampEnd = (int)(((date.Ticks - epochTicks)/TimeSpan.TicksPerSecond) + endingTime.TotalSeconds);
+            int timestampStart = Utils.TotalSeconds((DateTime) Startingtime.Value);
+            int timestampEnd = Utils.TotalSeconds((DateTime) EndingTime.Value);
+
             if (timestampEnd - timestampStart <= 0)
             {
                 MessageBoxResult result = MessageBox.Show("Negative times are not allowed",
@@ -56,9 +72,11 @@ namespace TimeTracker
 
                 return;
             }
-            NavigationService.Navigate(new Uri("/Pages/MainPivotPage.xaml?start=" + timestampStart + "&" + "end=" + timestampEnd + "&" + "id=" + _projectId, UriKind.Relative));
 
-            
+            string uri = new UriFactory().CreateSessionDataUri(timestampStart.ToString(), timestampEnd.ToString(), _projectId);
+            NavigationService.Navigate(new Uri(uri, UriKind.Relative));
         }
+
+        #endregion
     }   
 }

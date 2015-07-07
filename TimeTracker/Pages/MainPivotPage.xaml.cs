@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Device.Location;
 using System.Diagnostics;
-using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -148,7 +147,7 @@ namespace TimeTracker
                 _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
             }
             SortProjectItemCollectionByPosition();
-            ResetVacationDays();
+            //ResetVacationDays();
             PutExpirationWarning();
         }
 
@@ -157,8 +156,8 @@ namespace TimeTracker
         {
             base.OnNavigatedTo(e);
             FillPersonalData();
-            CollectNewProject();
-            CollectNewSession();
+            CollectProjectData();
+            CollectSessionData();
             CollectRegistrationData();
         }
 
@@ -306,7 +305,7 @@ namespace TimeTracker
         #region Collecting Data
         //Catches necessary data and creates new project items in database
         //when create project interactions was executed
-        private void CollectNewProject()
+        private void CollectProjectData()
         {
             string tmp = "";
             if (NavigationContext.QueryString.TryGetValue("projectId", out tmp))
@@ -318,20 +317,29 @@ namespace TimeTracker
                 double longitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLongitude);
 
 
-                ProjectItem newItem =_dataBaseManager.createNewProjectItem(id, name, finalDate, latitude, longitude);
+                var newItem = new ProjectItem
+                    {
+                        ProjectId = id,
+                        ProjectName = name,
+                        FinaleDate = finalDate,
+                        Latitude = latitude,
+                        Longitude = longitude
+                    };
+
+                //Checks if project item already exists to either update it or add a new one
                 if (ProjectItems.Count(x => x.ProjectId == id) > 0)
                 {
-                    IEnumerable<ProjectItem> comparingItems = ProjectItems.Where(x => x.ProjectId == id);
-                    if (comparingItems.ElementAt(0) == newItem){}
-                    {
-                        return;
-                    }
+                    var item = ProjectItems.Where(x => x.ProjectId == id).ElementAt(0);
+
+                    //ProjectItems.Remove(item);
+                    //ProjectItems.Add(newItem);
                     //_dataBaseManager.UpdateProject(newItem);
                     PivotMain.SelectedIndex = 2;
                 }
                 else
                 {
                     ProjectItems.Add(newItem);
+                    _dataBaseManager.AddProject(newItem);
                     PivotMain.SelectedIndex = 2; 
                 }   
             }
@@ -339,7 +347,7 @@ namespace TimeTracker
 
         //Catches necessary data and creates new session items in database
         //when edit project was executed
-        private void CollectNewSession()
+        private void CollectSessionData()
         {
             string tmp = "";
             if (NavigationContext.QueryString.TryGetValue("start", out tmp))
@@ -356,11 +364,21 @@ namespace TimeTracker
                 {
                     MessageBoxResult result = MessageBox.Show("You have already recorded this time",
                         "Error", MessageBoxButton.OKCancel);
-                }
-                
+                }   
             }
+        }
 
-
+        /*
+         * Calculates if date of registration is before April
+         * to set the year of the last vacation reset
+         */
+        public int CalcLastVacationReset()
+        {
+            if (DateTime.Today.Month < 4)
+            {
+                return DateTime.Today.Year - 1;
+            }
+            return DateTime.Today.Year;
         }
 
         //Catches necessary data and creates new user item in database
@@ -368,15 +386,9 @@ namespace TimeTracker
         private void CollectRegistrationData()
         {
             string name = "";
-            int year;
-            if (DateTime.Today.Month < 4)
-            {
-                year = DateTime.Today.Year - 1;
-            }
-            else
-            {
-                year = DateTime.Today.Year;
-            }
+            //Checks if date of registration is before April, to s
+            int year = CalcLastVacationReset();
+
             if (NavigationContext.QueryString.TryGetValue("name", out name))
             {
                 UserItem newUser = new UserItem
@@ -396,8 +408,6 @@ namespace TimeTracker
                 _currentUser = newUser;
                 FillPersonalData(newUser);
                 _dashboardInformation = new DashboardInformation(SessionItems, _dataBaseManager.UserItems.First());
-
-
             }
             else if (!_dataBaseManager.userExists())
             {
@@ -440,12 +450,13 @@ namespace TimeTracker
             {
                 return true;
             }
-
             return false;
         }
 
         #endregion
 
+        //Following methods initialze the timer and build the tick event handler
+        #region Timer Methods
         //initialize the timer, set 1000ms as a tick interval and link the eventHandler
         private void InitTimer()
         {
@@ -479,10 +490,11 @@ namespace TimeTracker
                     "Error", MessageBoxButton.OKCancel);
             }
         }
+        #endregion
+
 
         //following methods build the event callback functionalitiesof the buttons
         //implemented in the UI
-
         #region Clicklisteners
 
         //Click listener when user wants to start recording a new session for a project.
@@ -567,7 +579,7 @@ namespace TimeTracker
 
             UriFactory factory = new UriFactory();
             factory.SetNavigationBody("/Pages/EditProjectPage.xaml?");
-            string uri = factory.CreateDataUri(projectName, projectId, finalDate.ToString(), latitude.ToString(),
+            string uri = factory.CreateProjectDataUri(projectName, projectId, finalDate.ToString(), latitude.ToString(),
                 longitude.ToString());
 
 
@@ -627,8 +639,66 @@ namespace TimeTracker
             _dataBaseManager.DeleteProject(projectItem);
         }
 
+
+        //Click listener when project item is clicked in project list
+        //App navigates to recording pivot item and displayes previous sessions
+        private void Tap_ProjectItem(object sender, GestureEventArgs e)
+        {
+            var button = sender as TextBlock;
+            ProjectItem clickedProjectItem = button.DataContext as ProjectItem;
+            _currentSessionItem = new SessionItem(clickedProjectItem.ProjectId);
+            _dataBaseManager.LoadCurrentSessions(clickedProjectItem.ProjectId);
+            TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
+            CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
+            CurrentSessionItems = Utils.ReverseCurrentSessionItems(CurrentSessionItems);
+            CurrentSessionList.ItemsSource = CurrentSessionItems;
+            PivotMain.SelectedIndex = 1;
+        }
+
+
+        private void ButtonSessionDelete_OnClick(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+
+
+            SessionItem item = button.DataContext as SessionItem;
+
+            MessageBoxResult result = MessageBox.Show("Are you sure?",
+                      "Deleting session", MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            SessionItems.Remove(item);
+            CurrentSessionItems.Remove(item);
+            _dataBaseManager.DeleteSession(item);
+
+
+        }
+
+        private void Export_OnClick(object sender, RoutedEventArgs e)
+        {
+            CsvFactory factory = new CsvFactory(SessionItems.ToList(), ProjectItems.ToList(), _dataBaseManager.UserItems.First());
+            factory.CreateCsvFile();
+            EmailComposeTask emailComposeTask = new EmailComposeTask();
+
+            emailComposeTask.Subject = "message subject";
+            emailComposeTask.Body = factory.CreateCsvAsString();
+            emailComposeTask.To = "daniel.lenerd.lohse@gmail.com";
+
+            emailComposeTask.Show();
+        }
+
+        private void ReadButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            CsvFactory factory = new CsvFactory(null, null, null);
+            factory.DebugFile();
+        }
+
         #endregion
 
+
+        #region Fill Settings Form
         //Loads the user data from the database and passes it to a fill method
         private void FillPersonalData()
         {
@@ -653,24 +723,9 @@ namespace TimeTracker
             TextBoxCurrentVacation.Text = user.CurrentVacationDays.ToString();
             CheckBoxSortBy.IsChecked = user.SortByLocation;
         }
+        #endregion
 
-        //Click listener when project item is clicked in project list
-        //App navigates to recording pivot item and displayes previous sessions
-        /**
-         * 
-         */
-        private void Tap_ProjectItem(object sender, GestureEventArgs e)
-        {
-            var button = sender as TextBlock;
-            ProjectItem clickedProjectItem = button.DataContext as ProjectItem;
-            _currentSessionItem = new SessionItem(clickedProjectItem.ProjectId);
-            _dataBaseManager.LoadCurrentSessions(clickedProjectItem.ProjectId);
-            TextBlockCurrentProject.Text = clickedProjectItem.ProjectName;
-            CurrentSessionItems = _dataBaseManager.CurrentSessionItems;
-            CurrentSessionItems = Utils.ReverseCurrentSessionItems(CurrentSessionItems);
-            CurrentSessionList.ItemsSource = CurrentSessionItems;
-            PivotMain.SelectedIndex = 1;
-        }
+       
 
         private void TextBoxSearchProject_OnKeyDown(object sender, KeyEventArgs e)
         {
@@ -702,43 +757,6 @@ namespace TimeTracker
 
         }
 
-        private void ButtonSessionDelete_OnClick(object sender, RoutedEventArgs e)
-        {
-            var button = sender as Button;
 
-
-            SessionItem item = button.DataContext as SessionItem;
-
-            MessageBoxResult result = MessageBox.Show("Are you sure?",
-                      "Deleting session", MessageBoxButton.OKCancel);
-            if (result == MessageBoxResult.Cancel)
-            {
-                return;
-            }
-            SessionItems.Remove(item);
-            CurrentSessionItems.Remove(item);
-            _dataBaseManager.DeleteSession(item);
-
-
-        }
-
-        private void Export_OnClick(object sender, RoutedEventArgs e)
-        {
-            CsvFactory factory = new CsvFactory(SessionItems.ToList(), ProjectItems.ToList(), _dataBaseManager.UserItems.First());
-            factory.CreateCsvFile();
-            EmailComposeTask emailComposeTask = new EmailComposeTask();
-
-            emailComposeTask.Subject = "message subject";
-            emailComposeTask.Body = factory.CreateCsvAsString();
-            emailComposeTask.To = "daniel.lenerd.lohse@gmail.com";
-            
-            emailComposeTask.Show();
-        }
-
-        private void ReadButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            CsvFactory factory = new CsvFactory(null, null, null);
-            factory.DebugFile();
-        }
     }
 }

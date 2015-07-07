@@ -22,7 +22,7 @@ using System.Windows.Threading;
 using Windows.Devices.Geolocation;
 using Microsoft.Phone.Controls;
 
-namespace TimeTracker
+namespace TimeTracker.Pages
 {
     /**
      * This Page shows the user a form which has to be filled with project
@@ -35,7 +35,7 @@ namespace TimeTracker
 
         private DispatcherTimer _dispatcherTimer;
         private Geoposition _position;
-        LocationManager lManager = new LocationManager();
+        readonly LocationManager lManager = new LocationManager();
 
         public CreateProjectPage()
         {
@@ -74,7 +74,7 @@ namespace TimeTracker
 
 
             UriFactory factory = new UriFactory();
-            NavigationService.Navigate(new Uri(factory.CreateDataUri(projectName, projectId,
+            NavigationService.Navigate(new Uri(factory.CreateProjectDataUri(projectName, projectId,
                                         date.ToString(), latitude, longitude), UriKind.Relative));
 
         }

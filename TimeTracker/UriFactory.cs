@@ -1,8 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ *     Mobile Time Accounting
+ *     Copyright (C) 2015
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU Affero General Public License as
+ *     published by the Free Software Foundation, either version 3 of the
+ *     License, or (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU Affero General Public License for more details.
+ *
+ *     You should have received a copy of the GNU Affero General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 namespace TimeTracker
 {
@@ -12,7 +24,8 @@ namespace TimeTracker
         private string NavigationBody = "/Pages/MainPivotPage.xaml?";
         private const string LinkElement = "&";
 
-        public string CreateDataUri(string projectName, string projectId, string date, string latitude, string longitude)
+        public string CreateProjectDataUri(string projectName, string projectId,
+            string date, string latitude, string longitude)
         {
             return NavigationBody
                    + ProjectNameUri(projectName)
@@ -26,10 +39,43 @@ namespace TimeTracker
                    + ProjectLongitude(longitude);
         }
 
+
+        public string CreateSessionDataUri(string timestampStart, string timestampEnd, string projectId )
+        {
+            return NavigationBody
+                   + TimestampStart(timestampStart)
+                   + LinkElement
+                   + TimestampEnd(timestampEnd)
+                   + LinkElement
+                   + ProjectIdSession(projectId);
+        }
+
+        private string TimestampStart(string start)
+        {
+            return QueryDictionary.SessionStart +"=" + start;
+        }
+
+        private string TimestampEnd(string end)
+        {
+            return QueryDictionary.SessionStop + "=" + end;
+        }
+
+        private string ProjectIdSession(string id)
+        {
+            return QueryDictionary.SessionProjectId + "=" + id;
+        }
+
+        
+
+
+    
+
         public void SetNavigationBody(string body)
         {
             NavigationBody = body;
         }
+
+        #region Project Data URI Helpers
 
         private string ProjectLatitude(string latitude)
         {
@@ -57,6 +103,11 @@ namespace TimeTracker
             return QueryDictionary.ProjectFinalDate + "=" + date;
 
         }
+
+        #endregion
+
+
+
     }
 
 
