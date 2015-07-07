@@ -570,7 +570,7 @@ namespace TimeTracker
 
             UriFactory factory = new UriFactory();
             factory.SetNavigationBody("/Pages/EditProjectPage.xaml?");
-            string uri = factory.CreateDataUri(projectName, projectId, finalDate.ToString(), latitude.ToString(),
+            string uri = factory.CreateProjectDataUri(projectName, projectId, finalDate.ToString(), latitude.ToString(),
                 longitude.ToString());
 
 

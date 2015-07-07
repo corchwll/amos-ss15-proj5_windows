@@ -24,7 +24,8 @@ namespace TimeTracker
         private string NavigationBody = "/Pages/MainPivotPage.xaml?";
         private const string LinkElement = "&";
 
-        public string CreateDataUri(string projectName, string projectId, string date, string latitude, string longitude)
+        public string CreateProjectDataUri(string projectName, string projectId,
+            string date, string latitude, string longitude)
         {
             return NavigationBody
                    + ProjectNameUri(projectName)
@@ -38,10 +39,43 @@ namespace TimeTracker
                    + ProjectLongitude(longitude);
         }
 
+
+        public string CreateSessionDataUri(string timestampStart, string timestampEnd, string projectId )
+        {
+            return NavigationBody
+                   + TimestampStart(timestampStart)
+                   + LinkElement
+                   + TimestampEnd(timestampEnd)
+                   + LinkElement
+                   + ProjectIdSession(projectId);
+        }
+
+        private string TimestampStart(string start)
+        {
+            return QueryDictionary.SessionStart +"=" + start;
+        }
+
+        private string TimestampEnd(string end)
+        {
+            return QueryDictionary.SessionStop + "=" + end;
+        }
+
+        private string ProjectIdSession(string id)
+        {
+            return QueryDictionary.SessionProjectId + "=" + id;
+        }
+
+        
+
+
+    
+
         public void SetNavigationBody(string body)
         {
             NavigationBody = body;
         }
+
+        #region Project Data URI Helpers
 
         private string ProjectLatitude(string latitude)
         {
@@ -69,6 +103,11 @@ namespace TimeTracker
             return QueryDictionary.ProjectFinalDate + "=" + date;
 
         }
+
+        #endregion
+
+
+
     }
 
 

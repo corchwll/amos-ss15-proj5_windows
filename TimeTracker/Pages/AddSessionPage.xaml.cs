@@ -21,7 +21,7 @@ using System;
 using System.Windows;
 using Microsoft.Phone.Controls;
 
-namespace TimeTracker
+namespace TimeTracker.Pages
 {
     public partial class AddSessionPage : PhoneApplicationPage
     {
@@ -47,13 +47,19 @@ namespace TimeTracker
             }
         }
 
+        //The following region contains the cancel and save click listeners
         #region Click Listener
 
+        
+        //Triggers when user click cancel on navigates back to the previous screen
         private void onCancel_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
+        //Triggers when the user clicks save
+        //Checks if data enters is valid
+        //Navigates to MainPivotPage and adds data through URL
         private void onSave_Click(object sender, RoutedEventArgs e)
         {
             long epochTicks = new DateTime(1970, 1, 1).Ticks;
@@ -69,7 +75,9 @@ namespace TimeTracker
 
                 return;
             }
-            NavigationService.Navigate(new Uri("/Pages/MainPivotPage.xaml?start=" + timestampStart + "&" + "end=" + timestampEnd + "&" + "id=" + _projectId, UriKind.Relative));
+
+            string uri = new UriFactory().CreateSessionDataUri(timestampStart.ToString(), timestampEnd.ToString(), _projectId);
+            NavigationService.Navigate(new Uri(uri, UriKind.Relative));
         }
 
         #endregion

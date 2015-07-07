@@ -18,9 +18,19 @@ namespace UnitTestTimeTracker
         {
             string expected = "/Pages/MainPivotPage.xaml?projectName=a&projectId=b&finalDate=c&latitude=d&longitude=e";
             var factory = new UriFactory();
-            string uri = factory.CreateDataUri("a", "b", "c", "d", "e");
+            string uri = factory.CreateProjectDataUri("a", "b", "c", "d", "e");
             Assert.AreEqual(expected, uri);
+        }
 
+
+
+        [TestMethod]
+        public void CreateSessionDataUriTest()
+        {
+            string expected = "/Pages/MainPivotPage.xaml?start=a&end=b&id=c";
+            var factory = new UriFactory();
+            string uri = factory.CreateSessionDataUri("a", "b", "c");
+            Assert.AreEqual(expected, uri);
         }
     }
 }
