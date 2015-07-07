@@ -94,10 +94,15 @@ namespace TimeTracker
 
         private void Save_click(object sender, RoutedEventArgs e)
         {
+            _name = ProjectNameTextBox.Text;
+            _finalDate = Int32.Parse(FinalDateTextBox.Text);
+            _longitude = Double.Parse(LongitudeTextBox.Text);
+            _latitude = Double.Parse(LatitudeTextBox.Text);
 
-            UriFactory factory = new UriFactory();
-            NavigationService.Navigate(new Uri(factory.CreateProjectDataUri(_name, _id,
-                                        _finalDate.ToString(), _latitude.ToString(), _longitude.ToString()), UriKind.Relative));
+            string uri = new UriFactory().CreateProjectDataUri(_name, _id,
+                _finalDate.ToString(), _latitude.ToString(), _longitude.ToString());
+
+            NavigationService.Navigate(new Uri(uri, UriKind.Relative));
             
         }
     }

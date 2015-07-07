@@ -1,4 +1,3 @@
-C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\ApplicationIcon.png
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\Background.png
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\UnitTestTimeTracker.dll
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\TimeTracker\amos-ss15-proj5_windows\UnitTestTimeTracker\bin\Debug\UnitTestTimeTracker.pdb

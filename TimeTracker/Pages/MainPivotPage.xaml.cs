@@ -317,15 +317,23 @@ namespace TimeTracker
                 double longitude = CollectDoubleOnNavigation(QueryDictionary.ProjectLongitude);
 
 
-                ProjectItem newItem =_dataBaseManager.createNewProjectItem(id, name, finalDate, latitude, longitude);
+                var newItem = new ProjectItem
+                    {
+                        ProjectId = id,
+                        ProjectName = name,
+                        FinaleDate = finalDate,
+                        Latitude = latitude,
+                        Longitude = longitude
+                    };
+
+                //Checks if project item already exists to either update it or add a new one
                 if (ProjectItems.Count(x => x.ProjectId == id) > 0)
                 {
-                    IEnumerable<ProjectItem> comparingItems = ProjectItems.Where(x => x.ProjectId == id);
-                    if (comparingItems.ElementAt(0) == newItem){}
-                    {
-                        return;
-                    }
-                    //_dataBaseManager.UpdateProject(newItem);
+                    var item = ProjectItems.Where(x => x.ProjectId == id).ElementAt(0);
+
+                    ProjectItems.Remove(item);
+                    ProjectItems.Add(newItem);
+                    _dataBaseManager.UpdateProject(newItem);
                     PivotMain.SelectedIndex = 2;
                 }
                 else

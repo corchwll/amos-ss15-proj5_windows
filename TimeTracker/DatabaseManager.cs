@@ -413,16 +413,10 @@ namespace TimeTracker
         {
             ProjectItem old = ProjectItems.Where(x => x.ProjectId == newItem.ProjectId).ElementAt(0);
             _localDb.ProjectItems.DeleteOnSubmit(old);
-            saveChangesToDatabase();
-            ProjectItems.Remove(old);
-            ProjectItems.Add(newItem);
             _localDb.ProjectItems.InsertOnSubmit(newItem);
             saveChangesToDatabase();
         }
     }
-
-
-
 
 
     //The instance of this class creates a connection to the local database
