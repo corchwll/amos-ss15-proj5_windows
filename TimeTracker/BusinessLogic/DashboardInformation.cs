@@ -2,25 +2,31 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TimeTracker.BusinessLogic
 {
+    /**
+    * The following class contains all methods & helpers to calculate the dashboard informations
+    * e.g. Vacation Days, Overtime
+    */
+
     public class DashboardInformation
     {
+        #region Global variables sessions and user data
         private ObservableCollection<SessionItem> _sessionItems;
         public ObservableCollection<SessionItem> SessionItems { get; set; }
-
         private readonly UserItem _user;
-
+        #endregion
+        
+        //Empty Constuctor for testing puposes
         public DashboardInformation()
         {
 
         }
 
+        //Default constructor: gets alls sessions and the user data from the registration
         public DashboardInformation(ObservableCollection<SessionItem> sessionItems, UserItem user)
         {
             if (sessionItems == null)
@@ -34,12 +40,14 @@ namespace TimeTracker.BusinessLogic
             _user = user;
         }
 
+        //Calculates overtime of the given user and sessions from the initialization
         public int CalculateOvertime()
         {
             
             return CalculateOvertime(SessionItems.ToList(), _user);
         }
 
+        //Calculates overtime from given data
         public int CalculateOvertime(List<SessionItem> sessions, UserItem user)
         {
 
@@ -76,6 +84,7 @@ namespace TimeTracker.BusinessLogic
 
         }
 
+        //This method converts an unix timestamp to a DateTime object
         public static DateTime UnixTimeStampToDateTime(int unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
@@ -83,6 +92,7 @@ namespace TimeTracker.BusinessLogic
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
         }
+        
         /**
 	 * This method calculates the amount of workdays that exist inbetween the given interval.
 	 *
@@ -129,7 +139,7 @@ namespace TimeTracker.BusinessLogic
             return workDays - DiffToMonday(startWeekday) + DiffToMonday(stopWeekday) + 1;
         }
 
-        
+        //Returns the offset in days to monday from a given weekday
         public int DiffToMonday(DayOfWeek day)
         {
             switch (day)
