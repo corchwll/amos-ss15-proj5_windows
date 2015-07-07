@@ -26,11 +26,14 @@ namespace TimeTracker
     public partial class AddSessionPage : PhoneApplicationPage
     {
         string _projectId;
+
+        //Page initializer (Initializes .xaml layout)
         public AddSessionPage()
         {
             InitializeComponent();
         }
 
+        //OnNavigation event handler - read project id property
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -43,6 +46,8 @@ namespace TimeTracker
                 _projectId = id;
             }
         }
+
+        #region Click Listener
 
         private void onCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -65,8 +70,8 @@ namespace TimeTracker
                 return;
             }
             NavigationService.Navigate(new Uri("/Pages/MainPivotPage.xaml?start=" + timestampStart + "&" + "end=" + timestampEnd + "&" + "id=" + _projectId, UriKind.Relative));
-
-            
         }
+
+        #endregion
     }   
 }
