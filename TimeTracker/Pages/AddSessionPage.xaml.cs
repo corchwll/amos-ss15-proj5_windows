@@ -20,6 +20,7 @@
 using System;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using TimeTracker.BusinessLogic;
 
 namespace TimeTracker.Pages
 {
@@ -63,8 +64,9 @@ namespace TimeTracker.Pages
         //Navigates to MainPivotPage and adds data through URL
         private void onSave_Click(object sender, RoutedEventArgs e)
         {
-            int timestampStart = Utils.TotalSeconds((DateTime) Startingtime.Value);
-            int timestampEnd = Utils.TotalSeconds((DateTime) EndingTime.Value);
+            int workingDate = Utils.TotalSeconds((DateTime) WorkingDate.Value);
+            int timestampStart = workingDate + Utils.TotalSeconds((DateTime) Startingtime.Value);
+            int timestampEnd = workingDate + Utils.TotalSeconds((DateTime) EndingTime.Value);
 
             if (timestampEnd - timestampStart <= 0)
             {
@@ -82,7 +84,15 @@ namespace TimeTracker.Pages
 
         private void WorkingDate_OnValueChanged(object sender, DateTimeValueChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (Holidays.IsGivenDateAHoliday((DateTime) WorkingDate.Value))
+            {
+                TextBlockWarning.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TextBlockWarning.Visibility = Visibility.Collapsed;
+
+            }
         }
     }   
 }

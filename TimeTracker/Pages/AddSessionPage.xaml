@@ -31,11 +31,12 @@
             
             
            
-            <toolkit:DatePicker Header="Date" Name="WorkingDate" HorizontalAlignment="Left" Margin="126,122,0,0"  VerticalAlignment="Top" />
+            <toolkit:DatePicker Header="Date" Name="WorkingDate" HorizontalAlignment="Left" Margin="126,122,0,0"  VerticalAlignment="Top" ValueChanged="WorkingDate_OnValueChanged" />
             <toolkit:TimePicker Header="Start" Name="Startingtime" HorizontalAlignment="Left" Margin="126,229,0,0" VerticalAlignment="Top" />
             <toolkit:TimePicker Header="End" Name="EndingTime" HorizontalAlignment="Left" Margin="126,330,0,0" VerticalAlignment="Top" />
             <Button Content="Cancel" Height="72" HorizontalAlignment="Left" Margin="6,541,0,0" Name="Button1" VerticalAlignment="Top" Width="160" Click="onCancel_Click" />
             <Button Content="Save" Height="72" HorizontalAlignment="Left" Margin="235,541,0,0" Name="Button2" VerticalAlignment="Top" Width="160" Click="onSave_Click"/>
+            <TextBlock HorizontalAlignment="Left" Margin="47,450,0,0" TextWrapping="Wrap" Text="Warining: Selected date is a holiday!" VerticalAlignment="Top" Visibility="Collapsed" Name="TextBlockWarning"/>
         </Grid>
     </Grid>
  

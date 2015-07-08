@@ -113,13 +113,26 @@ namespace TimeTracker.BusinessLogic
 
         public static Boolean IsGivenDateAHoliday(DateTime date)
         {
-            List<DateTime> holidaysList = HolidaysForYear(date.Year);
-            var number = holidaysList.Count(x => x.Month == date.Month && x.Day == date.Day);
-            if (number > 0)
+
+            if (date.DayOfWeek == DayOfWeek.Sunday || date.DayOfWeek == DayOfWeek.Saturday)
             {
                 return true;
             }
-            return false;
+            List<DateTime> holidaysList = HolidaysForYear(date.Year);
+            try
+            {
+                var number = holidaysList.Count(x => x.Month == date.Month && x.Day == date.Day);
+                if (number > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
 
         /**
