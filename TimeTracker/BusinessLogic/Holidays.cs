@@ -111,6 +111,17 @@ namespace TimeTracker.BusinessLogic
 
 	    }
 
+        public static Boolean IsGivenDateAHoliday(DateTime date)
+        {
+            List<DateTime> holidaysList = HolidaysForYear(date.Year);
+            var number = holidaysList.Count(x => x.Month == date.Month && x.Day == date.Day);
+            if (number > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         /**
          * this method is used to calculate if the given day is a weekday
          */

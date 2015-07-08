@@ -10,6 +10,36 @@ namespace UnitTestTimeTracker
     [TestClass]
     public class HolidaysTest
     {
+
+        [TestMethod]
+        public void IsGivenDayAHolidayTest()
+        {
+            int year1 = 2015;
+
+            DateTime date1 = new DateTime(year1, 1, 1);
+            DateTime date2 = new DateTime(year1, 1, 6);
+            DateTime date3 = new DateTime(year1, 5, 1);
+            DateTime date7 = new DateTime(year1, 12, 25);
+
+            DateTime date4 = new DateTime(year1, 8, 15);
+            DateTime date5 = new DateTime(year1, 10, 3);
+            DateTime date6 = new DateTime(year1, 11, 1);
+            DateTime date8 = new DateTime(year1, 12, 26);
+
+            Assert.IsTrue(Holidays.IsGivenDateAHoliday(date1));
+            Assert.IsTrue(Holidays.IsGivenDateAHoliday(date2));
+            Assert.IsTrue(Holidays.IsGivenDateAHoliday(date3));
+            Assert.IsTrue(Holidays.IsGivenDateAHoliday(date7));
+
+            Assert.IsTrue(Holidays.IsGivenDateAHoliday(date4));
+            Assert.IsTrue(Holidays.IsGivenDateAHoliday(date5));
+            Assert.IsTrue(Holidays.IsGivenDateAHoliday(date6));
+            Assert.IsTrue(Holidays.IsGivenDateAHoliday(date8));
+
+        }
+
+
+
         [TestMethod]
         public void FixedHolidaysTest()
         {

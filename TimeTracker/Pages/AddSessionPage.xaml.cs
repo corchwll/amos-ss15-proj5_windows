@@ -47,6 +47,7 @@ namespace TimeTracker.Pages
             }
         }
 
+
         //The following region contains the cancel and save click listeners
         #region Click Listener
 
@@ -78,5 +79,10 @@ namespace TimeTracker.Pages
         }
 
         #endregion
+
+        private void WorkingDate_OnValueChanged(object sender, DateTimeValueChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }   
 }
